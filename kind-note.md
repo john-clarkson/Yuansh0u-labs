@@ -1,11 +1,12 @@
 # KIND(kubernetes in docker) Playgroud k8s v1.18.2
 ## KIND introduction
 - kind is a tool for running local Kubernetes clusters using Docker container "nodes".
-kind was primarily designed for testing Kubernetes itself, but may be used for local development or just for fun.
+kind was primarily designed for testing Kubernetes itself, but may be used for local development or just for FUN.
 ## Env setup
 - Docker: v19.03.8
 - HostOS: Ubuntu 20.04.1 Desktop TLS!!!! (cuz It's ez to use...)
 - VM resource: Intel I7 4700HQ CPU 4 cores Memory: 7GB disk: 100GB (Sata SSD) vNIC1: vnet8 NAT mode.
+- VM provider: vmware workstation/EXSI
 - kernel-version: 5.4.0
 ## Sample output
 ```sh
@@ -94,7 +95,7 @@ go version go1.14.4 linux/amd64
 
 ## Standard CNI pack privelege setting for kind-config-file loading.
 ### Usage: Mapping hostpath to containers
-### Download cni binary link
+### Download CNI binary link
 https://github.com/containernetworking/plugins/releases
 ```sh
 cd ~/Downloads/cni-plugins-linux-amd64-v0.8.6
