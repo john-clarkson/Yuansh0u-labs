@@ -197,28 +197,27 @@ $kind create cluster --config kind-example-config.yaml
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 networking:
-# if you wanna play your onw CNI, set to false
+# if you wanna play your own CNI, set to false
   disableDefaultCNI: true
-#  
   podSubnet: "10.244.0.0/16"
   serviceSubnet: "10.96.0.0/12"
-# 1 control plane node and 2 worker
+# 1 control plane node and 2 workers
 nodes:
 # the control plane node config
 - role: control-plane
   extraMounts:
-  - hostPath: /home/hitler/Downloads/cni-plugins-linux-amd64-v0.8.6/
+  - hostPath: $HOME/Downloads/cni-plugins-linux-amd64-v0.8.6/
     containerPath: /opt/cni/bin/
     readOnly: false  
 # the worker
 - role: worker
   extraMounts:
-  - hostPath: /home/hitler/Downloads/cni-plugins-linux-amd64-v0.8.6/
+  - hostPath: $HOME/Downloads/cni-plugins-linux-amd64-v0.8.6/
     containerPath: /opt/cni/bin/
     readOnly: false
 - role: worker
   extraMounts:
-  - hostPath: /home/hitler/Downloads/cni-plugins-linux-amd64-v0.8.6/
+  - hostPath: $HOME/Downloads/cni-plugins-linux-amd64-v0.8.6/
     containerPath: /opt/cni/bin/
     readOnly: false
 ```
@@ -229,7 +228,7 @@ nodes:
 +                    +-------------+                    +
 + +kind node1+-------+             +                    +
 +                    + kind-bridge +   +--------+       +
-+ +kind node2+-------+  layer2-SW  +---+iptables+------eth0------<Vnet8>-----<INET>
++ +kind node2+-------+  layer2-SW  +++++iptables+------eth0------<Vnet8>-----<INET>
 +                    +  172.18.0.1 +   +--------+       +
 + +kind node3+-------+             +                    +
 +                    +-------------+                    +
