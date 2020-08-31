@@ -3,6 +3,22 @@
 ## KIND introduction
 - Kind is a tool for running local Kubernetes clusters using Docker container "nodes".
 kind was primarily designed for testing Kubernetes itself, but may be used for local development or just for FUN.
+## Why Kind?
+- Lightweight (contrainerD in docker)
+- Speeeeed!!! more power!!! (By the way, I love top gear/TGT)
+- Multi-cluster/Multi-nodes deployment
+- Logically: KIND = Tiny production kubernetes replica
+
+## Minikube vs Microk8s vs KIND 
+```
+|             	| kind 	| minikube 	| microk8s 	|
+|:-----------:	|:----:	|:--------:	|:--------:	|
+|    speed    	| fast 	|   slow   	|   fast   	|
+|   feature   	| rich 	|   poor   	|  medium  	|
+| hard-to-use 	|  ez  	|   damn!  	|  medium  	|
+```
+
+
 ## Env setup
 - Docker: v19.03.8
 - HostOS: Ubuntu 20.04.1 Desktop TLS!!!! (cuz It's ez to use...)
@@ -30,7 +46,7 @@ Linux hitler-k8s 5.4.0-42-generic 46-Ubuntu SMP Fri Jul 10 00:24:02 UTC 2020 x86
 ```
 
 
-## Before you started, you should know this (Don't skip)
+## Before you begin, you should know this (Don't skip)
 - Ubuntu 20.04 desktop version has snap package manager, which is by default, you did't have kubectl command line(kind is only care it's own core elements, cuz for kind perspective: I don't know where your control-machine is) to make sure you can talk to kind cluster. here is the example you should check it out.
 ## kubectl binary installation with snap
 
@@ -156,10 +172,16 @@ chmod +x ./kind
 sudo mv ./kind /usr/local/bin
 source <(kind completion bash)
 ```
-## Starting kind
+## Creating/delete kind cluster  
 ```sh
-$docker image ls 
+$docker image ls
+## without --image=kindest/node:v1.19.0, by default is v1.18.2
+## you can check version on dockerhub
+## ref: https://hub.docker.com/r/kindest/node/tags 
 $kind create cluster --image=kindest/node:v1.19.0
+
+##delete kind cluster
+$kind delete cluster
 
 ###login to control-plane node
 docker exec -it kind-control-plane /bin/bash
@@ -208,7 +230,7 @@ $kind create cluster
 ###delete cluster
 $kind delete cluster
 ###get cluster list
-$kind get cluster
+$kind get clusters
 ###kind will load locally docker-image, this setting will make your dev more faster,this example shows I already downloading cilium and calico CNI images, kind loaded, then when I deploy those CNI yaml. kind don't need to pull the image from internet.
 $kind load docker-image cilium/cilium:latest;
 $kind load docker-image calico/cni:v3.14.1;
