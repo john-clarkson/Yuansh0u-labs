@@ -24,7 +24,7 @@ kind was primarily designed for testing Kubernetes itself, but may be used for l
 +                    +-------------+                    +
 + +kind node1+-------+             +                    +
 +                    +             +   +--------+       +
-+ +kind node2+-------+ kind-bridge +---+iptables+---  eth0------<Vnet8>
++ +kind node2+-------+ kind-bridge +---+iptables+------eth0------<Vnet8>
 +                    +             +   +--------+       +
 + +kind node3+-------+             +                    +
 +                    +-------------+                    +
