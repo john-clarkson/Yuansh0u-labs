@@ -550,28 +550,35 @@ curl -s http://10.103.13.216:8080/env/api
 ##ref url: http://bashrcgenerator.com/
 ##you can design your preference
 export PS1="\[\033[38;5;243m\]\w\[$(tput sgr0)\]\n\[$(tput sgr0)\]\[\033[38;5;50m\]\\$\[$(tput sgr0)\]"
+
 ##completion
 source <(kind completion bash)
 source <(kubectl completion bash)
 source <(kubeadm completion bash)
 source <(helm completion bash)
+
 ##vscode is my editor
 export KUBE_EDITOR="code --wait"
+
 ##golang env path
 export GOPATH=~/go/bin
 export PATH=$PATH:~/go/bin
 export GOROOT=~/go
+
 ##calicoctl loading kubeconfig path
 echo calicoctl loading kubernetes
 export CALICO_DATASTORE_TYPE=kubernetes
 export CALICO_KUBECONFIG=~/.kube/config
+
 ##execute calicoctl commands, when you setup kind cluster with calico CNI 
 calicoctl get workloadendpoints;
 calicoctl get node;
 calicoctl version;
+
 ##just a alias,,,nothing fancy...
 echo "kid=k8s in docker"
 alias kid='kind create cluster --image=kindest/node:v1.19.0'
+
 ##DNS request to GOOGLE. make sure you can access google.com, cuz for downloading image...
 echo "dig google"
 dig google;
