@@ -32,7 +32,7 @@ $
 
 
 ## Before you started, you should know this
-### Ubuntu 20.04 desktop version has snap package manager, which is by default, you did't have kubectl command line(kind is only care it's own core elements, cuz for kind perspective, I don't know your control-machine is.)to make sure you can talk to kind cluster. here is the example you should do.
+- Ubuntu 20.04 desktop version has snap package manager, which is by default, you did't have kubectl command line(kind is only care it's own core elements, cuz for kind perspective, I don't know your control-machine is.)to make sure you can talk to kind cluster. here is the example you should do.
 
 
 ```sh
