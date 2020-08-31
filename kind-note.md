@@ -1,7 +1,7 @@
 # KIND(kubernetes in docker) Playgroud k8s v1.18.2
 ## Env setup
 - Docker installation v19.03.8
-- HostOS: UBUNTU 20.04.1 Desktop TLS!!!! (cuz It's ez to use...)
+- HostOS: Ubuntu 20.04.1 Desktop TLS!!!! (cuz It's ez to use...)
 - VM resource: Intel I7 CPU 4 cores Memory:7GB disk: 100GB (Sata SSD) vNIC1:vnet8 NAT mode.
 - kernel-version: 5.4.0
 ## Sample output
@@ -29,7 +29,7 @@ $
 
 
 ## Before you started, you should know this
-### ubuntu 20.04 desktop version has snap package manager, which is by default, you did't have kubectl command line(kind is only care it's own core elements, cuz for kind perspective, I don't know your control-machine is.)to make sure you can talk to kind cluster.here is the example you should do.
+### Ubuntu 20.04 desktop version has snap package manager, which is by default, you did't have kubectl command line(kind is only care it's own core elements, cuz for kind perspective, I don't know your control-machine is.)to make sure you can talk to kind cluster. here is the example you should do.
 
 
 ```sh
@@ -77,7 +77,7 @@ $ sudo usermod -aG docker $USER
 $ newgrp docker 
 $ sudo chmod 777 /var/run/docker.sock
 ```
-## Download golang pack
+## Download Golang pack (cuz Kind is based on Golang)
 ### https://golang.org/dl/
 ```sh
 cd ~/Downloads
@@ -143,7 +143,7 @@ $sudo  docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always
 #password:admin@123
 ```
 
-## kind load config file example.
+## Kind load config file example.
 ```sh
 ##kind configration file
 $kind create cluster --config kind-example-config.yaml
@@ -237,7 +237,7 @@ export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config
 
 ## Example kubectl cli introduction
 ```sh
-##k8s deployment and replicaset
+##k8s deployment and replicaset dry-run means: dry-run.....just give you a output but not apply to k8s.
 $kubectl create deployment nginx-fucking-cli --image=nginx --dry-run=client -o yaml >>nginx-fucking-cli.yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -352,7 +352,42 @@ $
 
 
 ## kuard demo app playgroud
+### with kubectl apply -f <yourfile.yaml>
+```yaml
+##kuard sample yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: kuard
+  name: kuard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kuard
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: kuard
+    spec:
+      containers:
+      - image: gcr.io/kuar-demo/kuard-amd64:1
+        name: kuard-amd64
+        resources: {}
+status: {}
+```
+### kubectl cli way~~~
 ```sh
+##generate a kuard deployment yaml template 
+kubectl create deployment --image=gcr.io/kuar-demo/kuard-amd64:1 kuard --dry-run -o yaml
+
+##service template...right...you got the idea
+kubectl expose deployment kuardelb --type=LoadBlancer --port 8111 --target-port 8080 --external-ip 7.7.7.7 --dry-run -o yaml 
+
 ##Kubernetes modify service load-balancer with external-ip
 $kubectl patch service kuard -p '{"spec": {"type": "LoadBalancer", "externalIPs":["1.2.3.4"]}}'
 
