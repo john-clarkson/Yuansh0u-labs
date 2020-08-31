@@ -125,7 +125,7 @@ sudo chmod -R 777 $PWD
 ls -al 
 ```
 
-## kind installation
+## Kind installation
 
 ```sh
 $GO111MODULE="on" go get sigs.k8s.io/kind@v0.8.1
@@ -158,14 +158,7 @@ $kind create cluster --image=kindest/node:v1.19.0
 ###login control-plane node
 docker exec -it kind-control-plane /bin/bash
 ```
-## Portainer setup for WEB GUI MGMT
-```sh
-$sudo  docker volume create portainer_data
-$sudo  docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
-#portainer login: http://localhost:9000
-#username:admin
-#password:admin@123
-```
+
 
 ## Kind load config file example.
 ```sh
@@ -227,66 +220,6 @@ osrg/gobgp                                   latest              4974819d6ccb   
 
 ```
 
-
-## Optional setting: kind-node enable ssh
-```sh
-##reset root password under root
-root@kind-control-plane:~# passwd root
-New password: 
-Retype new password: 
-passwd: password updated successfully
-
-##enable ssh
-$apt update
-$apt install ssh
-$apt install nano
-$nano /etc/ssh/sshd_config
-# Authentication:
-#LoginGraceTime 2m
-PermitRootLogin yes
-#StrictModes yes
-#MaxAuthTries 6
-#MaxSessions 10
-$service sshd restart
-
-##copy cni binary to kind-control-plane
-$scp -r ~/Downloads/cni-plugins-linux-amd64-v0.8.6/* root@172.18.0.3:/opt/cni/bin/
-
-##check networking plugin
-root@kind-control-plane:/# ls /opt/cni/bin
-bandwidth  dhcp      flannel      host-local  loopback  portmap  sbr     tuning
-bridge     firewall  host-device  ipvlan      macvlan   ptp      static  vlan
-root@kind-control-plane:/# 
-##install ping-kind-node
-apt-get install iputils-ping
-```
-## Rancher WebUI setup
-
-```sh
-##install rancher UI for k8s
-$sudo docker run -d --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher
-##install rancher UI and set local mount
-$sudo docker run -d --restart=unless-stopped -p 80:80 -p 443:443 -v /opt/rancher:/var/lib/rancher rancher/rancher
-
-##rancher UI password
-admin@123
-##rancher server is host machine: in this case:172.18.0.1
-##nav web info copy rancher setup CMD, copy to your control machine for boot it.
-$ curl --insecure -sfL https://172.18.0.1/v3/import/2bdjkptgsppgxrqkb4wd7682bxjgkv5qpf88m47f6bhrhzqdvw96qr.yaml | kubectl apply -f -
-clusterrole.rbac.authorization.k8s.io/proxy-clusterrole-kubeapiserver created
-clusterrolebinding.rbac.authorization.k8s.io/proxy-role-binding-kubernetes-master created
-namespace/cattle-system created
-serviceaccount/cattle created
-clusterrolebinding.rbac.authorization.k8s.io/cattle-admin-binding created
-secret/cattle-credentials-f6e77d5 created
-clusterrole.rbac.authorization.k8s.io/cattle-admin created
-deployment.apps/cattle-cluster-agent created
-daemonset.apps/cattle-node-agent created
-/kuber-deployment/kubernetes/yamls$ 
-
-##linux kubeconfig env
-export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config
-```
 
 ## Example kubectl cli introduction
 ```sh
@@ -485,6 +418,80 @@ KUBE-SVC-A7YGKRTI6TALCQ54  tcp  --  anywhere             6.6.6.6              /*
 KUBE-SVC-A7YGKRTI6TALCQ54  tcp  --  anywhere             6.6.6.6              /* default/motherfucker: external IP */ tcp dpt:8080 ADDRTYPE match dst-type LOCAL
 root@kind-worker:/# 
 ```
+
+
+# Appendix
+## Portainer setup for docker container WEB GUI MGMT  
+```sh
+$sudo  docker volume create portainer_data
+$sudo  docker run -d -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+#portainer login: http://localhost:9000
+#username:admin
+#password:admin@123
+```
+
+
+## Rancher WebUI setup
+
+```sh
+##install rancher UI for k8s
+$sudo docker run -d --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher
+##install rancher UI and set local mount
+$sudo docker run -d --restart=unless-stopped -p 80:80 -p 443:443 -v /opt/rancher:/var/lib/rancher rancher/rancher
+
+##rancher UI password
+admin@123
+##rancher server is host machine: in this case:172.18.0.1
+##nav web info copy rancher setup CMD, copy to your control machine for boot it.
+$ curl --insecure -sfL https://172.18.0.1/v3/import/2bdjkptgsppgxrqkb4wd7682bxjgkv5qpf88m47f6bhrhzqdvw96qr.yaml | kubectl apply -f -
+clusterrole.rbac.authorization.k8s.io/proxy-clusterrole-kubeapiserver created
+clusterrolebinding.rbac.authorization.k8s.io/proxy-role-binding-kubernetes-master created
+namespace/cattle-system created
+serviceaccount/cattle created
+clusterrolebinding.rbac.authorization.k8s.io/cattle-admin-binding created
+secret/cattle-credentials-f6e77d5 created
+clusterrole.rbac.authorization.k8s.io/cattle-admin created
+deployment.apps/cattle-cluster-agent created
+daemonset.apps/cattle-node-agent created
+/kuber-deployment/kubernetes/yamls$ 
+
+##linux kubeconfig env
+export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config
+```
+## Kind-node enable ssh
+```sh
+##reset root password under root
+root@kind-control-plane:~# passwd root
+New password: 
+Retype new password: 
+passwd: password updated successfully
+
+##enable ssh
+$apt update
+$apt install ssh
+$apt install nano
+$nano /etc/ssh/sshd_config
+# Authentication:
+#LoginGraceTime 2m
+PermitRootLogin yes
+#StrictModes yes
+#MaxAuthTries 6
+#MaxSessions 10
+$service sshd restart
+
+##copy cni binary to kind-control-plane
+$scp -r ~/Downloads/cni-plugins-linux-amd64-v0.8.6/* root@172.18.0.3:/opt/cni/bin/
+
+##check networking plugin
+root@kind-control-plane:/# ls /opt/cni/bin
+bandwidth  dhcp      flannel      host-local  loopback  portmap  sbr     tuning
+bridge     firewall  host-device  ipvlan      macvlan   ptp      static  vlan
+root@kind-control-plane:/# 
+##install ping-kind-node
+apt-get install iputils-ping
+```
+
+
 ## My ~/.bashrc setting 
 ```sh
 ##color/dir path with newline/
@@ -517,7 +524,7 @@ alias kid='kind create cluster --image=kindest/node:v1.19.0'
 echo "dig google"
 dig google;
 ```
-## How my terminal looks like?
+## My terminal looks like?
 ```sh
 $
 ~
