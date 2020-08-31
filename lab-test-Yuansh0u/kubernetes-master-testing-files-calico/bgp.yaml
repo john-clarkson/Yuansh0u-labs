@@ -1,9 +1,0 @@
-apiVersion: projectcalico.org/v3
-kind: BGPConfiguration
-metadata:
-  creationTimestamp: null
-  name: default
-spec:
-  asNumber: 64512
-  logSeverityScreen: Info
-  nodeToNodeMeshEnabled: true

@@ -1,6 +1,0 @@
-[ios_devices-switch]
-SW ansible_host=150.1.19.4
-
-[ios_devices-router]
-E1 ansible_host=150.1.19.1
-
