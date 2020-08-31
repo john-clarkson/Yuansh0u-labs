@@ -5,7 +5,7 @@ kind was primarily designed for testing Kubernetes itself, but may be used for l
 ## Env setup
 - Docker: v19.03.8
 - HostOS: Ubuntu 20.04.1 Desktop TLS!!!! (cuz It's ez to use...)
-- VM resource: Intel I7 4700HQ CPU 4 cores Memory: 7GB disk: 100GB (Sata SSD) vNIC1:vnet8 NAT mode.
+- VM resource: Intel I7 4700HQ CPU 4 cores Memory: 7GB disk: 100GB (Sata SSD) vNIC1: vnet8 NAT mode.
 - kernel-version: 5.4.0
 ## Sample output
 ```sh
