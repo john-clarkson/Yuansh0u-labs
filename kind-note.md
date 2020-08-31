@@ -227,9 +227,12 @@ osrg/gobgp                                   latest              4974819d6ccb   
 ```
 
 
-## Example kubectl cli introduction
+## Example kubectl CLI introduction
+- Generate deployment template
 ```sh
-##k8s deployment and replicaset dry-run means: dry-run.....just give you a output but not apply to k8s.
+##create deployment/replicaset/autoscaling  
+##dry-run means: show the output, but not apply to k8s.
+##when you're dealing with real production env, this is very useful
 $kubectl create deployment nginx-fucking-cli --image=nginx --dry-run=client -o yaml >>nginx-fucking-cli.yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -255,9 +258,8 @@ spec:
         name: nginx
         resources: {}
 status: {}
-```
-```sh
-$kubectl get replicaset -o wide
+
+##autoscale temp
 $kubectl autoscale rs nginx-deploy-76df748b9 --max=10 --min=3 --cpu-percent=50 --dry-run=client -oyaml >>kube-auto-scale-replicaset.yaml
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
@@ -275,59 +277,33 @@ spec:
 status:
   currentReplicas: 0
   desiredReplicas: 0
-##
-$kubectl scale deployment kuard --replicas=10
-```
-## Helm 3 setup ref link:
--  https://helm.sh/docs/intro/install/
-```sh
-curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
-sudo apt-get install apt-transport-https --yes
-echo "deb https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
-sudo apt-get update
-sudo apt-get install helm
 ```
 
-## Helm 2 setup, ref link:
-- https://helm.sh/docs/intro/install/#from-the-binary-releases
+- Verification example with replicaset
+
 
 ```sh
-##install helm version2 and tiller on k8s v1.18
-Find the helm binary in the unpacked directory, and move it to its desired destination 
-$mv /home/hitler/Downloads/helm-v2.16.9-linux-amd64/linux-amd64/helm /usr/local/bin/helm
-/kuber-deployment$ whereis helm
-helm: /usr/local/bin/helm
-$kubectl -n kube-system create serviceaccount tiller
-$kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
-
-$ helm init --service-account tiller
-Creating /home/hitler/.helm 
-Creating /home/hitler/.helm/repository 
-Creating /home/hitler/.helm/repository/cache 
-Creating /home/hitler/.helm/repository/local 
-Creating /home/hitler/.helm/plugins 
-Creating /home/hitler/.helm/starters 
-Creating /home/hitler/.helm/cache/archive 
-Creating /home/hitler/.helm/repository/repositories.yaml 
-Adding stable repo with URL: https://kubernetes-charts.storage.googleapis.com 
-Adding local repo with URL: http://127.0.0.1:8879/charts 
-$HELM_HOME has been configured at /home/hitler/.helm.
-
-Tiller (the Helm server-side component) has been installed into your Kubernetes Cluster.
-
-Please note: by default, Tiller is deployed with an insecure 'allow unauthenticated users' policy.
-To prevent this, run `helm init` with the --tiller-tls-verify flag.
-For more information on securing your installation see: https://v2.helm.sh/docs/securing_installation/
-$ 
-
-##helm repo update&&useful cli
-$helm repo update 
-$helm list
-$helm search nginx-inress 
-$helm install xxxx
-
-##clusterip internal testing on kind node.
-curl -s http://10.103.13.216:8080/env/api
+$kubectl get pods -o wide
+NAME                     READY   STATUS    RESTARTS   AGE   IP           NODE           NOMINATED NODE   READINESS GATES
+kuard-74684b58b8-58jsm   1/1     Running   0          40m   10.244.2.4   kind-worker2   <none>           <none>
+kuard-74684b58b8-g7m49   1/1     Running   0          38m   10.244.2.5   kind-worker2   <none>           <none>
+~
+$kubectl get replicaset -o wide
+NAME               DESIRED   CURRENT   READY   AGE   CONTAINERS    IMAGES                           SELECTOR
+kuard-74684b58b8   2         2         2       40m   kuard-amd64   gcr.io/kuar-demo/kuard-amd64:1   app=kuard,pod-template-hash=74684b58b8
+~
+$
+$kubectl scale deployment kuard --replicas=5
+$kubectl get pods -o wide
+NAME                     READY   STATUS              RESTARTS   AGE   IP           NODE           NOMINATED NODE   READINESS GATES
+kuard-74684b58b8-58jsm   1/1     Running             0          41m   10.244.2.4   kind-worker2   <none>           <none>
+kuard-74684b58b8-5w8h4   0/1     ContainerCreating   0          8s    <none>       kind-worker    <none>           <none>
+kuard-74684b58b8-dcksd   1/1     Running             0          8s    10.244.2.6   kind-worker2   <none>           <none>
+kuard-74684b58b8-g7m49   1/1     Running             0          39m   10.244.2.5   kind-worker2   <none>           <none>
+kuard-74684b58b8-lnjv8   0/1     ContainerCreating   0          8s    <none>       kind-worker    <none>           <none>
+~
+##kubectl get all -o wide #show me all info inside default namespace
+##kubectl get all -n <your-namespace> -o wide #show me all info inside default namespace
 ```
 
 ## kuard demo app playgroud
@@ -359,43 +335,43 @@ spec:
         resources: {}
 status: {}
 ```
-### kubectl CLI way
+### kubectl expose service example 
+- In this case: type=LoadBalancer
+- --port=hostport
+- --target-port=pod port
+
 ```sh
 ##generate a kuard deployment yaml template 
 kubectl create deployment --image=gcr.io/kuar-demo/kuard-amd64:1 kuard --dry-run -o yaml
 
-##service template...right...you got the idea
-kubectl expose deployment kuardelb --type=LoadBlancer --port 8111 --target-port 8080 --external-ip 7.7.7.7 --dry-run -o yaml 
+##service template...right...you got the idea (add new)
+kubectl expose deployment kuardelb --type=LoadBlancer --port 8080 --target-port 8080 --external-ip 1.2.3.4 --dry-run -o yaml 
 
-##Kubernetes modify service load-balancer with external-ip
+##Kubernetes modify service load-balancer with external-ip (live)
 $kubectl patch service kuard -p '{"spec": {"type": "LoadBalancer", "externalIPs":["1.2.3.4"]}}'
 
 ##kubernetes add service with external-ip option
-$kubectl expose deployment kuard --name=kuardelb --port 8080 --type=LoadBalancer --external-ip=6.6.6.6
+$kubectl expose deployment kuard --name=kuardelb --port 8080 --type=LoadBalancer --external-ip=1.2.3.4
 
-##ExternalIPtesting, host add static route to worker1=172.18.0.2
+##ExternalIPtesting, host(ubuntu20.04 as client) add static route to worker1=172.18.0.2
 $ sudo ip route add 1.2.3.4/32 via 172.18.0.2 dev br-0a1a1395012d
 [sudo] password for hitler: 
 $ ip route show
 default via 192.168.120.2 dev ens33 proto dhcp metric 100 
 1.2.3.4 via 172.18.0.2 dev br-0a1a1395012d
 
-## curl kube service testing
+## curl KUARD service with tcp port 8080
 $ curl -s http://1.2.3.4:8080/env/api
 {"commandLine":["/kuard"],"env":{"HOME":"/","HOSTNAME":"kuard-74684b58b8-w57zs","KUBERNETES_PORT":"tcp://10.96.0.1:443","KUBERNETES_PORT_443_TCP":"tcp://10.96.0.1:443","KUBERNETES_PORT_443_TCP_ADDR":"10.96.0.1","KUBERNETES_PORT_443_TCP_PORT":"443","KUBERNETES_PORT_443_TCP_PROTO":"tcp","KUBERNETES_SERVICE_HOST":"10.96.0.1","KUBERNETES_SERVICE_PORT":"443","KUBERNETES_SERVICE_PORT_HTTPS":"443","PATH":"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"}}
 $
 
 ##linux static-route-ECMP
 sudo ip route add 1.2.3.4/32 nexthop via 172.18.0.4 dev br-0a1a1395012d nexthop via 172.18.0.3 dev br-0a1a1395012d
-sudo ip route add 6.6.6.6/32 nexthop via 172.18.0.4 dev br-0a1a1395012d nexthop via 172.18.0.3 dev br-0a1a1395012d
 $ ip route show
 default via 192.168.120.2 dev ens33 proto dhcp metric 100 
 1.2.3.4 
 	nexthop via 172.18.0.2 dev br-0a1a1395012d weight 1 
 	nexthop via 172.18.0.3 dev br-0a1a1395012d weight 1 
-6.6.6.6 
-	nexthop via 172.18.0.2 dev br-0a1a1395012d weight 1 
-	nexthop via 172.18.0.3 dev br-0a1a1395012d weight 1
 
 ## curl loop testing
 $ while true ; do curl -s http://1.2.3.4:8080/env/api | jq '.env.HOSTNAME'; done
@@ -410,18 +386,16 @@ $ while true ; do curl -s http://1.2.3.4:8080/env/api | jq '.env.HOSTNAME'; done
 "kuard-74684b58b8-2d2nl"
 "kuard-74684b58b8-w57zs"
 "kuard-74684b58b8-2d2nl"
+```
 
+### kube-proxy mode: iptables (by default)
+```sh
 ##kubernetes service iptables cli check, login kind-worker node.
 $docker exec -it kind-worker /bin/bash
 root@kind-worker:/# iptables -L -t nat |grep 1.2.3.4
 KUBE-MARK-MASQ  tcp  --  anywhere             1.2.3.4              /* default/kuard: external IP */ tcp dpt:8080
 KUBE-SVC-CUXC5A3HHHVSSN62  tcp  --  anywhere             1.2.3.4              /* default/kuard: external IP */ tcp dpt:8080 PHYSDEV match ! --physdev-is-in ADDRTYPE match src-type !LOCAL
 KUBE-SVC-CUXC5A3HHHVSSN62  tcp  --  anywhere             1.2.3.4              /* default/kuard: external IP */ tcp dpt:8080 ADDRTYPE match dst-type LOCAL
-root@kind-worker:/# 
-root@kind-worker:/# iptables -L -t nat |grep 6.6.6.6          
-KUBE-MARK-MASQ  tcp  --  anywhere             6.6.6.6              /* default/motherfucker: external IP */ tcp dpt:8080
-KUBE-SVC-A7YGKRTI6TALCQ54  tcp  --  anywhere             6.6.6.6              /* default/motherfucker: external IP */ tcp dpt:8080 PHYSDEV match ! --physdev-is-in ADDRTYPE match src-type !LOCAL
-KUBE-SVC-A7YGKRTI6TALCQ54  tcp  --  anywhere             6.6.6.6              /* default/motherfucker: external IP */ tcp dpt:8080 ADDRTYPE match dst-type LOCAL
 root@kind-worker:/# 
 ```
 
@@ -495,6 +469,57 @@ bridge     firewall  host-device  ipvlan      macvlan   ptp      static  vlan
 root@kind-control-plane:/# 
 ##install ping-kind-node
 apt-get install iputils-ping
+```
+## Helm 3 setup ref link:
+-  https://helm.sh/docs/intro/install/
+```sh
+curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
+sudo apt-get install apt-transport-https --yes
+echo "deb https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+sudo apt-get update
+sudo apt-get install helm
+```
+
+## Helm 2 setup, ref link:
+- https://helm.sh/docs/intro/install/#from-the-binary-releases
+
+```sh
+##install helm version2 and tiller on k8s v1.18
+Find the helm binary in the unpacked directory, and move it to its desired destination 
+$mv /home/hitler/Downloads/helm-v2.16.9-linux-amd64/linux-amd64/helm /usr/local/bin/helm
+/kuber-deployment$ whereis helm
+helm: /usr/local/bin/helm
+$kubectl -n kube-system create serviceaccount tiller
+$kubectl create clusterrolebinding tiller --clusterrole cluster-admin --serviceaccount=kube-system:tiller
+
+$ helm init --service-account tiller
+Creating /home/hitler/.helm 
+Creating /home/hitler/.helm/repository 
+Creating /home/hitler/.helm/repository/cache 
+Creating /home/hitler/.helm/repository/local 
+Creating /home/hitler/.helm/plugins 
+Creating /home/hitler/.helm/starters 
+Creating /home/hitler/.helm/cache/archive 
+Creating /home/hitler/.helm/repository/repositories.yaml 
+Adding stable repo with URL: https://kubernetes-charts.storage.googleapis.com 
+Adding local repo with URL: http://127.0.0.1:8879/charts 
+$HELM_HOME has been configured at /home/hitler/.helm.
+
+Tiller (the Helm server-side component) has been installed into your Kubernetes Cluster.
+
+Please note: by default, Tiller is deployed with an insecure 'allow unauthenticated users' policy.
+To prevent this, run `helm init` with the --tiller-tls-verify flag.
+For more information on securing your installation see: https://v2.helm.sh/docs/securing_installation/
+$ 
+
+##helm repo update&&useful cli
+$helm repo update 
+$helm list
+$helm search nginx-inress 
+$helm install xxxx
+
+##clusterip internal testing on kind node.
+curl -s http://10.103.13.216:8080/env/api
 ```
 
 
