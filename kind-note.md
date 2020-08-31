@@ -31,10 +31,10 @@ Linux hitler-k8s 5.4.0-42-generic 46-Ubuntu SMP Fri Jul 10 00:24:02 UTC 2020 x86
 
 ## Before you started, you should know this (Don't skip)
 - Ubuntu 20.04 desktop version has snap package manager, which is by default, you did't have kubectl command line(kind is only care it's own core elements, cuz for kind perspective: I don't know where your control-machine is) to make sure you can talk to kind cluster. here is the example you should check it out.
-
+## kubectl binary installation with snap
 
 ```sh
-##kubectl installation
+##kubectl installation, I'v done that before.
 $sudo snap install kubectl
 snap "kubectl" is already installed, see 'snap help refresh'
 ~
