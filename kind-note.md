@@ -400,7 +400,7 @@ root@kind-worker:/#
 
 
 # Appendix
-## Portainer setup WebUI setup for docker  
+## Portainer setup WebUI setup for docker (Open source version)  
 ```sh
 $sudo  docker volume create portainer_data
 $sudo  docker run -d -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
@@ -410,7 +410,7 @@ $sudo  docker run -d -p 9000:9000 --name=portainer --restart=always -v /var/run/
 ```
 
 
-## Rancher WebUI setup for kubernetes
+## Rancher WebUI setup for kubernetes (Open source version)
 
 ```sh
 ##install rancher UI for k8s
