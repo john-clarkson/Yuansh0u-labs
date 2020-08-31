@@ -54,7 +54,7 @@ snap-store         3.36.0-80-g208fd61  467   latest/stable/…  canonical✓  -
 snapd              2.45.3.1            8790  latest/stable    canonical✓  snapd
 ~
 ```
-## Sample outputs (I did't setup kind cluster, so kubectl is confusing...)
+## Sample output (I did't setup kind cluster, so kubectl is confusing...where should I go??? but don't worry, we will fix it later, keep reading!)
 ```sh
 $kubectl get nodes
 The connection to the server localhost:8080 was refused - did you specify the right host or port?
@@ -63,7 +63,8 @@ $
 ```
 ## After you done that, you should enable completion func to make life ezier. 
 ```sh
-##copy this to ~/.bashrc, save it, then source ~/.bashrc
+##copy this to ~/.bashrc, save it, then 
+## $source ~/.bashrc
 source <(kind completion bash)
 source <(kubectl completion bash)
 source <(kubeadm completion bash)
@@ -447,4 +448,54 @@ KUBE-MARK-MASQ  tcp  --  anywhere             6.6.6.6              /* default/mo
 KUBE-SVC-A7YGKRTI6TALCQ54  tcp  --  anywhere             6.6.6.6              /* default/motherfucker: external IP */ tcp dpt:8080 PHYSDEV match ! --physdev-is-in ADDRTYPE match src-type !LOCAL
 KUBE-SVC-A7YGKRTI6TALCQ54  tcp  --  anywhere             6.6.6.6              /* default/motherfucker: external IP */ tcp dpt:8080 ADDRTYPE match dst-type LOCAL
 root@kind-worker:/# 
+```
+## My ~/.bashrc setting 
+```sh
+##color/dir path with newline/
+##ref url: http://bashrcgenerator.com/
+##you can design your preference
+export PS1="\[\033[38;5;243m\]\w\[$(tput sgr0)\]\n\[$(tput sgr0)\]\[\033[38;5;50m\]\\$\[$(tput sgr0)\]"
+##completion
+source <(kind completion bash)
+source <(kubectl completion bash)
+source <(kubeadm completion bash)
+source <(helm completion bash)
+##vscode is my editor
+export KUBE_EDITOR="code --wait"
+##golang env path
+export GOPATH=~/go/bin
+export PATH=$PATH:~/go/bin
+export GOROOT=~/go
+##calicoctl loading kubeconfig path
+echo calicoctl loading kubernetes
+export CALICO_DATASTORE_TYPE=kubernetes
+export CALICO_KUBECONFIG=~/.kube/config
+##execute calicoctl commands, when you setup kind cluster with calico CNI 
+calicoctl get workloadendpoints;
+calicoctl get node;
+calicoctl version;
+##just a alias,,,nothing fancy...
+echo "kid=k8s in docker"
+alias kid='kind create cluster --image=kindest/node:v1.19.0'
+##DNS request to GOOGLE. make sure you can access google.com, cuz for downloading image...
+echo "dig google"
+dig google;
+```
+## How my terminal looks like?
+```sh
+$
+~
+$cd Wallpapers/
+~/Wallpapers
+$
+~/Wallpapers
+$
+~/Wallpapers
+$ls
+jakpost.travel-dark-forest-wallpaper-302514.jpg
+~/Wallpapers
+$file jakpost.travel-dark-forest-wallpaper-302514.jpg 
+jakpost.travel-dark-forest-wallpaper-302514.jpg: JPEG image data, JFIF standard 1.01, aspect ratio, density 1x1, segment length 16, comment: "CREATOR: gd-jpeg v1.0 (using IJG JPEG v62), quality = 100", baseline, precision 8, 2560x1440, components 1
+~/Wallpapers
+$
 ```
