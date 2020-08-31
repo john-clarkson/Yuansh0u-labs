@@ -46,10 +46,9 @@ $uname -a
 Linux hitler-k8s 5.4.0-42-generic 46-Ubuntu SMP Fri Jul 10 00:24:02 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
 ```
 
-
-## Before you begin, you should know this (Don't skip)
-- Ubuntu 20.04 desktop version has snap package manager, which is by default, you did't have kubectl command line(kind is only care it's own core elements, cuz for kind perspective: I'm cluster!!! not control-machine, so control-machine will need kubectl binary to talk to Kind cluster) to make sure you can talk to kind cluster. here is the example you should check it out.
-## kubectl binary installation with snap
+## Before you begin, you should know this (Don't skip) 
+- Ubuntu 20.04 desktop version has snap package manager CLI and GUI Version called ubuntu software, which is by default, you did't have kubectl command line(kind is only care it's own core elements, cuz for kind perspective: I'm cluster!!! not control-machine, so control-machine will need kubectl binary to talk to Kind cluster) to make sure you can talk to kind cluster. here is the example you should check it out.
+## Kubectl binary installation with snap
 
 ```sh
 ##kubectl installation, I'v done that before.
