@@ -19,14 +19,17 @@ kind was primarily designed for testing Kubernetes itself, but may be used for l
 ```
 ## Kind topology
 ```
-                     +-------------+   
-  kind node1+--------+             |
-                     |             |   +--------+
-  kind node2+--------+ kind-bridge +---+iptables+---eth0
-                     |             |   +--------+
-  kind node3+--------+             +
-                     +-------------+
-+<--------172.18.0.0/16------------><------SNAT-------->
++<----------------YOUR UBUNTU VM HOST------------------>+
++                                                       +
++                    +-------------+                    +
++ +kind node1+-------+             +                    +
++                    +             +   +--------+       +
++ +kind node2+-------+ kind-bridge +---+iptables+---  eth0------<Vnet8>
++                    +             +   +--------+       +
++ +kind node3+-------+             +                    +
++                    +-------------+                    +
++                                                       +
++<--------172.18.0.0/16------------><-------SNAT------->+
 ```
 
 ## Env setup
