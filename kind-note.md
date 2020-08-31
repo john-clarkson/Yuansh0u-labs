@@ -11,11 +11,13 @@ kind was primarily designed for testing Kubernetes itself, but may be used for l
 
 ## Minikube vs Microk8s vs KIND 
 ```
-|             	| kind 	| minikube 	| microk8s 	|
++-----------------------------------------------+
+|             	| Kind 	| Minikube 	| Microk8s 	|
 |:-----------:	|:----:	|:--------:	|:--------:	|
-|    speed    	| fast 	|   slow   	|   fast   	|
-|   feature   	| rich 	|   poor   	|  medium  	|
-| hard-to-use 	|  ez  	|   damn!  	|  medium  	|
+|    Speed    	| Fast 	|   Slow   	|   Fast   	|
+|   Feature   	| Rich 	|   Poor   	|  Medium  	|
+| Hard-to-use 	|  Ez  	|   Damn!  	|  Medium  	|
++-----------------------------------------------+
 ```
 
 ## Env setup
