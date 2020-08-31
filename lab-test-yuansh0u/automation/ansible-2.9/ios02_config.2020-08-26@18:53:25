@@ -1,0 +1,238 @@
+Building configuration...
+
+Current configuration : 4861 bytes
+!
+! Last configuration change at 18:53:19 UTC Wed Aug 26 2020 by cisco
+!
+version 16.9
+service timestamps debug datetime msec
+service timestamps log datetime msec
+platform qfp utilization monitor load 80
+no platform punt-keepalive disable-kernel-core
+platform console virtual
+!
+hostname R2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+login on-success log
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+! 
+! 
+! 
+! 
+!
+ipv6 unicast-routing
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-449127218
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-449127218
+ revocation-check none
+ rsakeypair TP-self-signed-449127218
+!
+!
+crypto pki certificate chain TP-self-signed-449127218
+ certificate self-signed 01
+  3082032E 30820216 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  30312E30 2C060355 04031325 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 34343931 32373231 38301E17 0D323030 38323631 37343035 
+  345A170D 33303031 30313030 30303030 5A303031 2E302C06 03550403 1325494F 
+  532D5365 6C662D53 69676E65 642D4365 72746966 69636174 652D3434 39313237 
+  32313830 82012230 0D06092A 864886F7 0D010101 05000382 010F0030 82010A02 
+  82010100 AB211F3A EA66AA8C 19980828 C2B525B6 B5629D16 1D4C66B7 B225CDC8 
+  8A6FA6C6 9D908BF8 778E00E6 1038C430 C6DF7E71 21486984 E7F34FBD 7A22C6F0 
+  DF9922F4 C30DB869 E347C54A 418057AC 48B81944 D8C708A5 D300888A 17C4EB71 
+  E4C8A6D4 751F5022 82A29DDE 9B930A92 D40116B8 30093FB3 503A6096 0C87EF3D 
+  A84B3F06 D0C5922E DFE7310C EBDB9687 0DCA2193 A863C7F0 49ACD92B 0ADD15E7 
+  2AE6B341 89ABFE99 B4823AAE 5C051B7C 9B3572E1 FEBF9103 65E6EF58 248DCB49 
+  E306F90B EE8B2947 8BF367E8 A1589205 283C0438 EF28C56B 94327876 F7CDC83B 
+  3F3578D0 696F4925 78979A3F 5D174FD8 8DB1286F 1CCF8496 EA759653 9C88B0E2 
+  6C855F41 02030100 01A35330 51300F06 03551D13 0101FF04 05300301 01FF301F 
+  0603551D 23041830 1680146F 6546C6F4 3C6F9BBE 8A9A2492 7EE0AB0D 7FB5E530 
+  1D060355 1D0E0416 04146F65 46C6F43C 6F9BBE8A 9A24927E E0AB0D7F B5E5300D 
+  06092A86 4886F70D 01010505 00038201 01004D7B 5C44AEE0 B6FC6D43 FBE71981 
+  724653FD A0CBB157 2D5B31FE 37ACD6AE 6FBF9B6E 467EC6AF C07E0166 48ADB756 
+  68DB65C8 3A136228 F012835B 2F25344A 88E24FFF CCE71372 2FCC1F86 B44C41A1 
+  C2956382 F5C85093 4DA08BD8 221C0B4A 7494516A 30094029 A98E6DF2 4E2DC604 
+  8866A490 E9CFDB3F 2CEF5819 19B49F88 A414C4A0 73EE0825 F6FBD669 A83C656E 
+  FC143E7E C95F1CDF 72C3ABB5 D75290B3 5824DAA8 5ED82B73 C5A05E7E BF7EBBE6 
+  21EF93F2 7898CF53 91A791F5 1D5AD0C9 7BACDAF6 B8C7C7AD B7413D1C B5470F1A 
+  182AFCB4 BFA455A8 516BB6CB 0D3573D7 42F3388A C872E633 B2EBDB89 6E2F1310 
+  1CE69E33 1DAF79EA AA52769F C8FCCECC 0FDD
+  	quit
+!
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 9BYQTYAWMGJ
+no license smart enable
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+!
+username cisco privilege 15 password 0 cisco
+!
+redundancy
+!
+!
+!
+!
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 2.2.2.1 255.255.255.255 secondary
+ ip address 2.2.2.3 255.255.255.255 secondary
+ ip address 2.2.2.2 255.255.255.255
+ ipv6 address FC00::2/128
+ ipv6 address FC00::20/128
+!
+interface Loopback66
+ description test interface
+ ip address 6.6.6.6 255.255.255.255
+!
+interface GigabitEthernet1
+ ip address 100.64.1.66 255.255.255.0
+ ip ospf 1 area 0
+ negotiation auto
+ ipv6 address FE80::2 link-local
+ ipv6 address FD00::2/64
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet2
+ no ip address
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+interface GigabitEthernet3
+ no ip address
+ shutdown
+ negotiation auto
+ no mop enabled
+ no mop sysid
+!
+router ospf 1
+ distribute link-state
+!
+router bgp 1
+ bmp server 1
+  address 100.64.1.20 port-number 5000
+  description "BMP Server - primary"
+  initial-delay 10
+  failure-retry-delay 120
+  flapping-delay 120
+  stats-reporting-period 300
+  update-source GigabitEthernet1
+  activate
+ exit-bmp-server-mode
+ !
+ bmp buffer-size 100
+ bmp initial-refresh delay 1
+ bgp log-neighbor-changes
+ neighbor 100.64.1.20 remote-as 1
+ neighbor 100.64.1.100 remote-as 1
+ neighbor 100.64.1.100 bmp-activate all
+ neighbor FD00::1 remote-as 1
+ neighbor FD00::1 bmp-activate all
+ !
+ address-family ipv4
+  redistribute connected
+  neighbor 100.64.1.20 activate
+  neighbor 100.64.1.100 activate
+  no neighbor FD00::1 activate
+  maximum-paths eibgp 32
+ exit-address-family
+ !
+ address-family ipv6
+  redistribute connected
+  neighbor 100.64.1.100 activate
+  neighbor FD00::1 activate
+ exit-address-family
+ !
+ address-family link-state link-state
+ exit-address-family
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+ip ssh version 2
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0 4
+ exec-timeout 0 0
+ login local
+line vty 5 16
+ exec-timeout 0 0
+ login local
+!
+!
+!
+!
+!
+!
+end

@@ -1,0 +1,58 @@
+﻿
+
+feature telnet
+feature nxapi
+feature bash-shell
+feature scp-server
+cfs eth distribute
+nv overlay evpn
+feature ospf
+feature bgp
+feature pim
+feature interface-vlan
+feature vn-segment-vlan-based
+feature vpc
+feature lldp
+feature nv overlay
+
+ip pim rp-address 10.100.100.100 group-list 239.0.0.0/8
+ip pim ssm range 232.0.0.0/8
+vlan 1
+
+
+interface loopback0
+  ip address 10.0.0.1/32
+  ip router ospf 1 area 0.0.0.0
+  ip pim sparse-mode
+
+interface loopback100
+  description for Anycast RP
+  ip address 10.100.100.100/32
+  ip router ospf 1 area 0.0.0.0
+  ip pim sparse-mode
+line console
+line vty
+boot nxos bootflash:/nxos.7.0.3.I7.2.bin 
+router ospf 1
+
+router bgp 65511
+  router-id 10.0.0.1
+  address-family ipv4 unicast
+  address-family l2vpn evpn
+    retain route-target all
+  neighbor 10.0.0.200/29
+    remote-as 65511
+    update-source loopback0
+    address-family ipv4 unicast
+      send-community
+      send-community extended
+      route-reflector-client
+    address-family l2vpn evpn
+      send-community
+      send-community extended
+      route-reflector-client
+
+
+username cisco password cisco role network-admin
+copy run s
+

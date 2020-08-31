@@ -1,0 +1,141 @@
+﻿          
+R2#SH RUN
+Building configuration...
+
+Current configuration : 1606 bytes
+!
+! Last configuration change at 07:29:47 UTC Tue May 2 2017
+!
+upgrade fpd auto
+version 15.0
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no aaa new-model
+!
+!
+!
+ip source-route
+no ip icmp rate-limit unreachable
+ip cef    
+!
+!
+!
+!
+no ip domain lookup
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+ip tcp synwait-time 5
+! 
+!         
+!
+bridge irb
+!
+!
+!
+!
+!
+interface Tunnel0
+ ip address 100.64.1.1 255.255.255.0
+ ip flow ingress
+ ip flow egress
+ tunnel source FastEthernet1/0
+ tunnel destination 24.1.1.4
+ !
+!
+interface FastEthernet0/0
+ no ip address
+ ip flow ingress
+ ip flow egress
+ duplex auto
+ speed auto
+ bridge-group 1
+ !        
+!
+interface FastEthernet0/1
+ no ip address
+ ip flow ingress
+ ip flow egress
+ duplex auto
+ speed auto
+ bridge-group 1
+ !
+!
+interface FastEthernet1/0
+ ip address 24.1.1.2 255.255.255.0
+ duplex half
+ !
+!
+interface BVI1
+ no ip address
+ ip flow ingress
+ ip flow egress
+ !
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+ip flow-egress input-interface
+ip flow-capture vlan-id
+ip flow-capture mac-addresses
+ip flow-export source Tunnel0
+ip flow-export version 5
+ip flow-export destination 100.64.1.2 9991
+!
+!
+no cdp advertise-v2
+!
+!
+!
+!
+!
+!
+control-plane
+ !
+!
+bridge 1 protocol ieee
+bridge 1 route ip
+!         
+!
+!
+!
+gatekeeper
+ shutdown
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ login
+!
+end
+

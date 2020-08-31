@@ -1,0 +1,22 @@
+#
+# Deploy VPNv4 services from services-vpnv4 definition
+#
+---
+- name: Create and deploy VPNv4 configurations
+  hosts: all
+  vars:
+    configs: "{{inventory_dir}}/configs"
+    services: "{{inventory_dir}}/services-vpnv4.yml"
+    allnodes: false
+  tasks:
+  - include: vars_vpnv4.yml
+    tags: [ configs,deploy ]
+  - include: ../tools/clean.yml
+    tags: [ clean ]
+  - include: ../tools/create_config_dir.yml
+  - include: config_vpnv4.yml
+    tags: [ configs ]
+    when: customers|length > 0
+  - include: deploy_vpnv4.yml
+    tags: [ deploy ]
+    when: customers|length > 0

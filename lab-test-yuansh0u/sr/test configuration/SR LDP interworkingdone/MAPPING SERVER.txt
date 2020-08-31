@@ -1,0 +1,216 @@
+##XR-P2 MPLS LDP ONLY
+ mpls ldp
+ router-id 100.64.1.2
+ address-family ipv4
+  label
+   local
+    allocate for host-routes
+  !
+router isis fuck
+ is-type level-2-only
+ net 49.0001.0000.0002.00
+ address-family ipv4 unicast
+  metric-style wide
+  mpls ldp auto-config 
+  !
+  commit
+##XR-P1 and XR-PE1 
+!
+mpls ldp
+ router-id 100.64.1.1
+ address-family ipv4
+  label
+   local
+    allocate for host-routes
+   !
+  !
+ !
+ interface GigabitEthernet0/0/0/0.12
+  address-family ipv4   
+
+##XR-P1 and XR-PE1 MAPPING Server {Can be control-plane}
+segment-routing
+ mapping-server
+ prefix-sid-map
+address-family ipv4
+ 100.64.1.2/32 2
+!
+router isis fuck
+ address-family ipv4 unicast
+ segment-routing prefix-sid-map advertise-local
+ commit
+!
+###MPLS LDP LABEL FILTER {option feature}
+##IOS XR-P1
+mpls ldp
+ address-family ipv4
+  label
+   local
+    allocate for host-routes
+    commit
+##IOS XE-PE2
+ mpls ldp label
+ allocate global host-routes
+
+=======================================
+Note:
+ when MAPPING-SERVER advertise XR-P2(non-SR) loopback 0(100.64.1.2/32)
+ the other XR will recieve this messages and <show isis database verbose XR-P1>
+
+RP/0/0/CPU0:XR-P3#show isis database verbose XR-P1 
+Sat Nov 18 16:17:48.075 UTC
+<Delete>
+  SID Binding:  100.64.1.2/32 F:0 M:0 S:0 D:0 A:0 Weight:0 Range:1
+    SID: Start:2, Algorithm:0, R:0 N:0 P:0 E:0 V:0 L:0
+
+ Total Level-2 LSP count: 1     Local Level-2 LSP count: 0
+RP/0/0/CPU0:XR-P3# 
+
+##But IOS XE version: nothing show up, maybe versions issues.
+XE-PE2#show isis database verbose XR-P1
+XE-PE2#show version 
+Cisco IOS XE Software, Version 03.16.00.S - Extended Support Release
+Cisco IOS Software, CSR1000V Software (X86_64_LINUX_IOSD-UNIVERSALK9-M), Version 15.5(3)S
+
+##trace 2.2.2.2 from 1.1.1.1
+Shutdown interface g0/0/0/0.34|13
+
+LSP={CE1}-->{XR-P3}-->{XR-PE1}-->{XR-P1}-->{XR-P2}-->{CE2}
+
+CE1#traceroute vrf B 2.2.2.2 sou lo0  
+Type escape sequence to abort.
+Tracing the route to 2.2.2.2
+VRF info: (vrf in name/id, vrf out name/id)
+  1 169.254.100.254 118 msec 16 msec 16 msec
+  2 169.254.113.1 [MPLS: Labels 16002/24002 Exp 0] 59 msec 62 msec 60 msec
+  3 169.254.111.11 [MPLS: Labels 16002/24002 Exp 0] 52 msec 434 msec 58 msec
+  4 169.254.12.2 [MPLS: Label 24002 Exp 0] 51 msec 156 msec 44 msec
+  5 169.254.200.1 59 msec 67 msec * 
+CE1#
+
+
+RP/0/0/CPU0:XR-P3#show mpls forwarding 
+Sat Nov 18 16:32:07.826 UTC
+Local  Outgoing    Prefix             Outgoing     Next Hop        Bytes       
+Label  Label       or ID              Interface                    Switched    
+------ ----------- ------------------ ------------ --------------- ------------       
+16002  16002       SR Pfx (idx 2)     Gi0/0/0/0.113 169.254.113.1   373200               
+RP/0/0/CPU0:XR-P3#
+
+
+RP/0/0/CPU0:XR-PE1#sh mpls forwarding 
+Sat Nov 18 16:32:48.623 UTC
+Local  Outgoing    Prefix             Outgoing     Next Hop        Bytes       
+Label  Label       or ID              Interface                    Switched    
+------ ----------- ------------------ ------------ --------------- ------------
+16002  16002       SR Pfx (idx 2)     Gi0/0/0/0.111 169.254.111.11  26552       
+
+RP/0/0/CPU0:XR-P1#show mpls forwarding 
+Sat Nov 18 16:36:06.430 UTC
+Local  Outgoing    Prefix             Outgoing     Next Hop        Bytes       
+Label  Label       or ID              Interface                    Switched    
+------ ----------- ------------------ ------------ --------------- ------------
+16002  Pop         SR Pfx (idx 2)     Gi0/0/0/0.12 169.254.12.2    146062    {segment-routing}          
+24018  Pop         100.64.1.2/32      Gi0/0/0/0.12 169.254.12.2    20967     {LDP}
+
+RP/0/0/CPU0:XR-P2# SHOW MPLS FORwarding 
+Sat Nov 18 16:38:56.058 UTC
+Local  Outgoing    Prefix             Outgoing     Next Hop        Bytes       
+Label  Label       or ID              Interface                    Switched    
+------ ----------- ------------------ ------------ --------------- ------------       
+24002  Unlabelled  2.2.2.2/32[V]      Gi0/0/0/0.201 169.254.200.1   142636           
+RP/0/0/CPU0:XR-P2#
+
+##trace 1.1.1.1 from 2.2.2.2 
+  ##{By default LDP label will be preferred over SR.}
+CE2#trac vrf B 1.1.1.1 sou 2.2.2.2   
+Type escape sequence to abort.
+Tracing the route to 1.1.1.1
+VRF info: (vrf in name/id, vrf out name/id)
+  1 169.254.200.254 19 msec 177 msec 10 msec
+  2 169.254.12.1 [MPLS: Labels 24011/24006 Exp 0] 60 msec 86 msec 44 msec
+  3 169.254.111.1 [MPLS: Labels 16003/24006 Exp 0] 413 msec 65 msec 54 msec
+  4 169.254.113.3 [MPLS: Label 24006 Exp 0] 55 msec 176 msec 43 msec
+  5 169.254.100.1 56 msec 72 msec * 
+CE2#
+
+RP/0/0/CPU0:XR-P1# show mpls forwarding | include "100.64.1.3/32|16003"
+Sat Nov 18 18:39:09.924 UTC
+16003  Pop         SR Pfx (idx 3)     Gi0/0/0/0.13 169.254.13.3    824         
+24011  Pop         100.64.1.3/32      Gi0/0/0/0.13 169.254.13.3    128516      
+RP/0/0/CPU0:XR-P1#
+RP/0/0/CPU0:XR-P1#show cef 100.64.1.3
+Sat Nov 18 18:40:08.590 UTC
+100.64.1.3/32, version 293, internal 0x1000001 0x5 (ptr 0xa13f1e74) [1], 0x0 (0xa13bd4f4), 0xa20 (0xa155b2d0)
+ Updated Sep 18 10:36:58.209 
+ local adjacency 169.254.13.3
+ Prefix Len 32, traffic index 0, precedence n/a, priority 15
+   via 169.254.13.3/32, GigabitEthernet0/0/0/0.13, 13 dependencies, weight 0, class 0 [flags 0x0]
+    path-idx 0 NHID 0x0 [0xa10cb49c 0xa10cb34c]
+    next hop 169.254.13.3/32
+    local adjacency
+     local label 24011      labels imposed {ImplNull}
+RP/0/0/CPU0:XR-P1#
+
+##After changing default
+
+RP/0/0/CPU0:XR-P1(config)#router isis fuck
+RP/0/0/CPU0:XR-P1(config-isis)#address-family ipv4
+RP/0/0/CPU0:XR-P1(config-isis-af)#segment-routing mpls sr-prefer 
+RP/0/0/CPU0:XR-P1(config-isis-af)#commit
+Sat Nov 18 18:40:43.287 UTC
+RP/0/0/CPU0:XR-P1(config-isis-af)#end
+RP/0/0/CPU0:XR-P1#
+RP/0/0/CPU0:XR-P1#
+RP/0/0/CPU0:XR-P1# show mpls forwarding | include "100.64.1.3/32|16003"
+Sat Nov 18 18:40:46.307 UTC
+16003  Pop         SR Pfx (idx 3)     Gi0/0/0/0.13 169.254.13.3    0           
+24011  Pop         100.64.1.3/32      Gi0/0/0/0.13 169.254.13.3    0           
+RP/0/0/CPU0:XR-P1#show cef 100.64.1.3/32                               
+Sat Nov 18 18:41:00.656 UTC
+100.64.1.3/32, version 743, internal 0x1000001 0x83 (ptr 0xa13f1e74) [1], 0x0 (0xa13bd4f4), 0xa20 (0xa155b488)
+ Updated Sep 18 10:36:58.208 
+ local adjacency 169.254.13.3
+ Prefix Len 32, traffic index 0, precedence n/a, priority 1
+   via 169.254.13.3/32, GigabitEthernet0/0/0/0.13, 11 dependencies, weight 0, class 0 [flags 0x0]
+    path-idx 0 NHID 0x0 [0xa10cb49c 0xa10cb34c]
+    next hop 169.254.13.3/32
+    local adjacency
+     local label 16003      labels imposed {ImplNull}
+RP/0/0/CPU0:XR-P1#
+
+CE2#   traceroute vrf B 1.1.1.1 source loo1
+Type escape sequence to abort.
+Tracing the route to 1.1.1.1
+VRF info: (vrf in name/id, vrf out name/id)
+  1 169.254.200.254 19 msec 19 msec 12 msec
+  2 169.254.12.1 [MPLS: Labels 24011/24006 Exp 0] 72 msec 91 msec 50 msec
+  3 169.254.111.1 [MPLS: Labels 16003/24006 Exp 0] 53 msec 71 msec 62 msec {labal push changed by SR}
+  4 169.254.113.3 [MPLS: Label 24006 Exp 0] 52 msec 185 msec 49 msec
+  5 169.254.100.1 281 msec 288 msec * 
+
+  ##MPLS OAM feature: MPLS PING
+   XR NODE
+    config  
+      mpls OAM
+      commit
+
+RP/0/0/CPU0:XR-P2#ping mpls ipv4 100.64.1.3/32 fec-type generic 
+Sat Nov 18 18:53:50.693 UTC
+
+Sending 5, 100-byte MPLS Echos to 100.64.1.3/32,
+      timeout is 2 seconds, send interval is 0 msec:
+
+Codes: '!' - success, 'Q' - request not sent, '.' - timeout,
+  'L' - labeled output interface, 'B' - unlabeled output interface, 
+  'D' - DS Map mismatch, 'F' - no FEC mapping, 'f' - FEC mismatch,
+  'M' - malformed request, 'm' - unsupported tlvs, 'N' - no rx label, 
+  'P' - no rx intf label prot, 'p' - premature termination of LSP, 
+  'R' - transit router, 'I' - unknown upstream index,
+  'X' - unknown return code, 'x' - return code 0
+
+Type escape sequence to abort.
+
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 20/28/30 ms
+RP/0/0/CPU0:XR-P2#

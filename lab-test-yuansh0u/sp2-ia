@@ -1,0 +1,11 @@
+interface Tunnel100
+
+ ip address 150.254.2.1 255.255.255.0
+ ip mtu 1400
+ ip tcp adjust-mss 1360
+ tunnel source 168.192.2.1
+ tunnel destination 168.192.2.254
+ ip nat outside
+
+ip route 0.0.0.0 0.0.0.0 tunnel 100
+ 

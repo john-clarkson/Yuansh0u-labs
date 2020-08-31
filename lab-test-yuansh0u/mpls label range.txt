@@ -1,0 +1,12 @@
+PE1: mpls label range 100 150
+PE2: mpls label range 200 250
+PE3-0: mpls label range 300 349
+PE3-1: mpls label range 350 399
+P1: mpls label range 1000 1500
+P2: mpls label range 2000 2500
+RR1: mpls label range 10000 15000
+RR1: mpls label range 20000 25000
+
+clea mpls ldp neighbor *
+clea mpls counters
+!

@@ -1,0 +1,25 @@
+tokyo 
+  router bgp 65511
+    neighbor 192.168.1.254 shutdown
+interface f0/0
+    ip ospf 100 area 0
+
+NEET
+  router bgp 65511
+    neighbor 192.168.2.254 shutdown
+interface f0/0
+    ip ospf 200 area 0
+======================
+JAPAN-PE1
+  router bgp 10000
+     address-family ipv4 vrf SP2-CE1
+       neighbor 192.168.1.1 shutdown
+JAPAN-PE2
+  router bgp 10000
+     address-family ipv4 vrf SP2-CE2
+       neighbor 192.168.2.1 shutdown
+======================
+  tokyo
+
+  router ospf 12 vrf SP2-CE1
+     

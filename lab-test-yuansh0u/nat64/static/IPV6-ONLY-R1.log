@@ -1,0 +1,160 @@
+﻿
+hostname IPV6_ONLY-R1
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!         
+!
+!
+!
+!
+!
+!
+
+
+
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 92DEBRQP87N
+!
+spanning-tree extend system-id
+!
+!
+redundancy
+!
+!
+!
+!         
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!         
+interface Loopback0
+ no ip address
+ ipv6 address AB00::1/128
+ ipv6 rip RIP enable
+!
+interface Loopback1
+ no ip address
+ ipv6 address AB01::1/128
+ ipv6 rip RIP enable
+!
+interface GigabitEthernet1
+ no ip address
+ negotiation auto
+!
+interface GigabitEthernet1.12
+ encapsulation dot1Q 12
+ ipv6 address 2001::A00:A/128
+ ipv6 rip RIP enable
+!
+interface GigabitEthernet2
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet3
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet4
+ no ip address
+ shutdown
+ negotiation auto
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+ipv6 router rip RIP
+!
+!
+!         
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0
+ login
+line vty 1
+ login
+ length 0
+line vty 2 4
+ login
+!
+!         
+end
+
+IPV6_ONLY-R3#ping 3001::A00:1 re 1
+Type escape sequence to abort.
+Sending 1, 100-byte ICMP Echos to 3001::A00:1, timeout is 2 seconds:
+!
+Success rate is 100 percent (1/1), round-trip min/avg/max = 18/18/18 ms
+IPV6_ONLY-R3#
+*Dec 11 15:59:05.325: ICMPv6: Sent echo request, Src=2001::A00:A, Dst=3001::A00:1

@@ -1,0 +1,82 @@
+##### cli test
+   ##General Routing Commands
+Display the routing table
+username admin
+password admin
+
+	
+> show routing route
+Look at routes for a specific destination
+	
+> show routing fib virtual-router <name> | match <x.x.x.x/Y>
+NAT
+Show the NAT policy table
+	
+> show running nat-policy
+Test the NAT policy
+	
+> test nat-policy-match
+Show NAT pool utilization
+	
+> show running ippool
+> show running global-ippool
+IPSec
+Show IPSec counters
+	
+> show vpn flow
+Show a list of all IPSec gateways and their configurations
+	
+> show vpn gateway
+Show IKE phase 1 SAs
+	
+> show vpn ike-sa
+Show IKE phase 2 SAs
+	
+> show vpn ipsec-sa
+Show a list of auto-key IPSec tunnel configurations
+	
+> show vpn tunnel
+BFD
+Show BFD profiles
+	
+> show routing bfd active-profile [<name>]
+Show BFD details
+	
+> show routing bfd details [interface <name>] [local-ip <ip>] [multihop] [peer-ip <ip>] [session-id] [virtual-router <name>]
+Show BFD statistics on dropped sessions
+	
+> show routing bfd drop-counters session-id <session-id>
+Show counters of transmitted, received, and dropped BFD packets
+	
+> show counter global | match bfd
+Clear counters of transmitted, received, and dropped BFD packets
+	
+> clear routing bfd counters session-id all | <1-1024>
+Clear BFD sessions for debugging purposes
+	
+> clear routing bfd session-state session-id all | <1-1024>
+PVST+
+Set the native VLAN ID
+	
+> set session pvst-native-vlan-id <vid>
+Drop all STP BPDU packets
+	
+> set session drop-stp-packet
+Verify PVST+ BPDU rewrite configuration, native VLAN ID, and STP BPDU packet drop
+	
+> show vlan all
+Show counter of times the 802.1Q tag and PVID fields in a PVST+ BPDU packet do not match
+	
+> show counter global
+Look at the flow_pvid_inconsistent counter.
+Troubleshooting
+Ping from the management (MGT) interface to a destination IP address
+	
+> ping host <destination-ip-address>
+Ping from a dataplane interface to a destination IP address
+	
+> ping source <ip-address-on-dataplane> host <destination-ip-address>
+Show network statistics
+	
+> request netstat statistics yes
+ 

@@ -1,0 +1,56 @@
+R1#show ip route static 
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area 
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, + - replicated route
+
+Gateway of last resort is 202.100.1.254 to network 0.0.0.0
+
+S*    0.0.0.0/0 [1/0] via 202.100.1.254
+      61.0.0.0/32 is subnetted, 1 subnets
+S        61.128.1.1 [1/0] via 202.200.1.254
+R1#
+
+R1#SHOW CRYpto ROUTE 
+
+VPN Routing Table: Shows RRI and VTI created routes
+Codes: RRI - Reverse-Route, VTI- Virtual Tunnel Interface
+        S - Static Map ACLs
+
+Routes created in table GLOBAL DEFAULT
+2.2.2.0/255.255.255.0 [1/0] via 61.128.1.1 tag 0
+                                on FastEthernet0/0 RRI  S
+172.255.255.5/255.255.255.255 [1/0] via 202.100.2.1 tag 0
+                                on Virtual-Access2 RRI  
+R1#
+
+
+R1#conf
+Configuring from terminal, memory, or network [terminal]? 
+Enter configuration commands, one per line.  End with CNTL/Z.
+R1(config)#ip route 172.255.255.5 255.255.255.255 null 0
+R1(config)#no ip route 172.255.255.5 255.255.255.255 null 0
+R1(config)#exit
+R1#sh ip rout
+*Nov 20 04:36:45.711: %SYS-5-CONFIG_I: Configured from console by console
+R1#sh ip route st
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area 
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, + - replicated route
+
+Gateway of last resort is 202.100.1.254 to network 0.0.0.0
+
+S*    0.0.0.0/0 [1/0] via 202.100.1.254
+      61.0.0.0/32 is subnetted, 1 subnets
+S        61.128.1.1 [1/0] via 202.200.1.254
+      172.255.0.0/32 is subnetted, 1 subnets
+S        172.255.255.5 [1/0] via 202.100.2.1, Virtual-Access2
+R1#
+

@@ -1,0 +1,202 @@
+﻿PE3#SH RUN
+PE3#SH RUNning-config 
+Building configuration...
+
+Current configuration : 2347 bytes
+!
+! Last configuration change at 16:18:48 UTC Thu Sep 7 2017
+!
+version 15.5
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no platform punt-keepalive disable-kernel-core
+platform console serial
+!
+hostname PE3
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition A
+ rd 1:1
+ vpn id 1:1
+ !
+ address-family ipv4
+  mdt default mpls mldp 4.4.4.4
+  route-target export 1:1
+  route-target import 1:1
+ exit-address-family
+!
+!
+no aaa new-model
+!
+ip multicast-routing distributed
+ip multicast-routing vrf A distributed
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+          
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!         
+!
+!
+!
+license udi pid CSR1000V sn 9XOOVFGABF2
+!
+spanning-tree extend system-id
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!         
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 3.3.3.3 255.255.255.255
+!
+interface GigabitEthernet1
+ vrf forwarding A
+ ip address 169.254.33.1 255.255.255.0
+ ip pim sparse-mode
+ negotiation auto
+!
+interface GigabitEthernet2
+ no ip address
+ negotiation auto
+!
+interface GigabitEthernet2.23
+!
+interface GigabitEthernet2.34
+ encapsulation dot1Q 34
+ ip address 169.254.1.9 255.255.255.252
+ ip router isis FUCK
+!
+interface GigabitEthernet3
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet4
+ no ip address
+ shutdown
+ negotiation auto
+!
+router isis FUCK
+ net 00.0000.0000.0003.00
+ is-type level-2-only
+ advertise passive-only
+ passive-interface Loopback0
+ mpls ldp autoconfig
+!
+router bgp 9000
+ bgp router-id 3.3.3.3
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ neighbor 4.4.4.4 remote-as 9000
+ neighbor 4.4.4.4 update-source Loopback0
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family vpnv4
+  neighbor 4.4.4.4 activate
+  neighbor 4.4.4.4 send-community extended
+ exit-address-family
+ !
+ address-family ipv4 vrf A
+  neighbor 169.254.33.254 remote-as 60000
+  neighbor 169.254.33.254 activate
+  neighbor 169.254.33.254 as-override
+ exit-address-family
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+ip pim ssm default
+ip pim mpls source Loopback0
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!         
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0
+ login
+line vty 1
+ login
+ length 0
+line vty 2 4
+ login
+!
+!
+end
+

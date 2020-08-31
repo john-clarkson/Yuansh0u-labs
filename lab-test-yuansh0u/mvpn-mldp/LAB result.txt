@@ -1,0 +1,116 @@
+CE source
+ !
+interface GigabitEthernet3
+ ip address 192.168.1.1 255.255.255.0
+ ip pim dr-priority 0
+ ip pim sparse-mode
+ negotiation auto
+ interface Loopback0
+ ip address 10.10.10.10 255.255.255.255
+ ip pim sparse-mode
+end
+====
+PE1#show mpls mldp neighbors 
+
+ MLDP peer ID    : 4.4.4.4:0, uptime 00:20:46 Up, 
+  Target Adj     : No
+  Session hndl   : 3
+  Upstream count : 1
+  Branch count   : 0
+  Path count     : 1
+  Path(s)        : 169.254.1.2       LDP GigabitEthernet2.12
+  Nhop count     : 1
+  Nhop list      : 169.254.1.2 
+PE1# 
+
+PE1# show mpls mldp root
+
+ Root node    : 4.4.4.4 
+  Metric      : 10
+  Distance    : 115
+  Interface   : GigabitEthernet2.12 (via unicast RT)
+  FEC count   : 1
+  Path count  : 1
+  Path(s)     : 169.254.1.2      LDP nbr: 4.4.4.4:0         GigabitEthernet2.12
+PE1#
+
+P#show mpls mldp root
+
+ Root node    : 4.4.4.4 (We are the root)
+  Metric      : 0
+  Distance    : 0
+  Interface   : Loopback0 (via unicast RT)
+  FEC count   : 1
+  Path count  : 1
+  Path(s)     : 4.4.4.4          LDP nbr: none              Loopback0
+P#
+
+P#show mpls forwarding-table 
+Local      Outgoing   Prefix           Bytes Label   Outgoing   Next Hop    
+Label      Label      or Tunnel Id     Switched      interface              
+16         Pop Label  1.1.1.1/32       0             Gi2.12     169.254.1.1 
+17         Pop Label  2.2.2.2/32       0             Gi2.23     169.254.1.5 
+18         Pop Label  3.3.3.3/32       0             Gi2.34     169.254.1.9 
+19         24         [mdt 1:1 0]      4896          Gi2.12     169.254.1.1 
+           17         [mdt 1:1 0]      4896          Gi2.34     169.254.1.9 
+20         20         [mdt 1:1 0]      7112          Gi2.23     169.254.1.5 
+           17         [mdt 1:1 0]      7112          Gi2.34     169.254.1.9 
+21         20         [mdt 1:1 0]      4728          Gi2.23     169.254.1.5 
+           24         [mdt 1:1 0]      4728          Gi2.12     169.254.1.1 
+P#
+
+PE1#show mpls forwarding-table 
+Local      Outgoing   Prefix           Bytes Label   Outgoing   Next Hop    
+Label      Label      or Tunnel Id     Switched      interface              
+16         Pop Label  4.4.4.4/32       0             Gi2.12     169.254.1.2 
+17         No Label   192.168.1.0/24[V]   \
+                                       0             Gi1        169.254.11.254
+18         18         3.3.3.3/32       0             Gi2.12     169.254.1.2 
+19         17         2.2.2.2/32       0             Gi2.12     169.254.1.2 
+21         No Label   10.10.10.10/32[V]   \
+                                       300060        Gi1        169.254.11.254
+24    [T]  No Label   [mdt 1:1 0][V]   0             aggregate/A 
+
+[T]     Forwarding through a LSP tunnel.
+        View additional labelling info with the 'detail' option
+PE1# 
+
+
+PE1# show ip pim vrf A neighbor   
+PIM Neighbor Table
+Mode: B - Bidir Capable, DR - Designated Router, N - Default DR Priority,
+      P - Proxy Capable, S - State Refresh Capable, G - GenID Capable,
+      L - DR Load-balancing Capable
+Neighbor          Interface                Uptime/Expires    Ver   DR
+Address                                                            Prio/Mode
+169.254.11.254    GigabitEthernet1         22:18:14/00:01:27 v2    1 / DR S P G
+2.2.2.2           Lspvif1                  00:39:25/00:01:41 v2    1 / S P G
+3.3.3.3           Lspvif1                  00:40:53/00:01:41 v2    1 / DR S P G
+PE1#
+
+P#show mpls mldp database
+  * Indicates MLDP recursive forwarding is enabled
+
+LSM ID : 1B   Type: MP2MP   Uptime : 00:25:28
+  FEC Root           : 4.4.4.4 (we are the root)
+  Opaque decoded     : [mdt 1:1 0] 
+  Opaque length      : 11 bytes
+  Opaque value       : 02 000B 0000010000000100000000
+  Upstream client(s) :
+    None
+      Expires        : N/A           Path Set ID  : 53
+  Replication client(s): 
+    2.2.2.2:0 
+      Uptime         : 00:25:28      Path Set ID  : 54
+      Out label (D)  : 20            Interface    : GigabitEthernet2.23*
+      Local label (U): 19            Next Hop     : 169.254.1.5
+    1.1.1.1:0 
+      Uptime         : 00:25:28      Path Set ID  : 55
+      Out label (D)  : 24            Interface    : GigabitEthernet2.12*
+      Local label (U): 20            Next Hop     : 169.254.1.1
+    3.3.3.3:0 
+      Uptime         : 00:25:28      Path Set ID  : 56
+      Out label (D)  : 17            Interface    : GigabitEthernet2.34*
+      Local label (U): 21            Next Hop     : 169.254.1.9
+
+   

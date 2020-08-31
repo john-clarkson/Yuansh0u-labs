@@ -1,0 +1,39 @@
+hostname:
+  CSR-R1 150.1.250.1 telnet
+  CSR-R2 150.1.250.2 telnet
+  CSR-R3 150.1.250.3 telnet
+  CSR-R4 150.1.250.4 telnet
+  CSR-R5 150.1.250.5 telnet
+  CSR-R6 150.1.250.6 telnet
+  CSR-R7 150.1.250.7 telnet
+  CSR-R8 150.1.250.8 telnet
+  CSR-R9 150.1.250.9 telnet
+  CSR-R10 150.1.250.10 telnet
+
+
+  ## init config
+  enable 
+  config ter
+  no service timestamps debug
+  no service timestamps log  
+  no service timestamps
+ ip http server 
+ ip http authentication local
+ username cisco priv 15 pass cisco
+!
+ vrf defination MGMT
+   address-family ipv4
+   exit
+   inter g1
+     vrf forwarding MGMT
+      ip address 150.1.250.1 255.255.0.0
+      no shut
+!
+!
+ line vty 0 4
+   login local
+    pass cisco
+    trans input all
+    exec-timeout 0 0
+    do wr
+    

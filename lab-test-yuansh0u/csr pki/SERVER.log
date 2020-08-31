@@ -1,0 +1,239 @@
+﻿IPSEC-CE2#SH RUN
+IPSEC-CE2#SH RUNning-config 
+Building configuration...
+
+  
+Current configuration : 4903 bytes
+!
+! Last configuration change at 00:47:10 UTC Thu Jun 8 2017
+! NVRAM config last updated at 00:03:41 UTC Thu Jun 8 2017
+!
+version 15.5
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no platform punt-keepalive disable-kernel-core
+platform console serial
+!
+hostname IPSEC-CE2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+!
+!
+!         
+!
+!
+!
+!
+!
+!
+!
+
+
+
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki trustpoint CA
+ enrollment url http://219.235.230.1:80
+ serial-number
+ ip-address 100.1.1.1
+ revocation-check none
+ rsakeypair PKI
+!
+!
+crypto pki certificate chain CA
+ certificate 03
+  30820223 3082018C A0030201 02020103 300D0609 2A864886 F70D0101 0D050030 
+  18311630 14060355 0403130D 43412E68 69746C65 722E636F 6D301E17 0D313730 
+  36303830 30303235 335A170D 31383036 30383030 30323533 5A304631 44301206 
+  03550405 130B3958 56594335 31464D54 36301606 092A8648 86F70D01 09021609 
+  49505345 432D4345 32301606 092A8648 86F70D01 09081309 3130302E 312E312E 
+  3130819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281 8100C19B 
+  ECCF9CAB 7ECC7FD7 33EEF36D CD31F5A9 604A95F1 B03EA2C5 797DEBBD 9DAA4B4C 
+  84D02890 B9D6C5C8 78832C08 DD9E1C3B E4E83438 49B6799A B9FA89F3 7CEA0BEA 
+  0A21C124 F6E9DF41 AB1C8176 02DE2C99 A178759C 48EC7986 3E647B24 66D19A92 
+  DD9ADBD1 DB58D816 08B8871D 2E660848 39E60CC7 4265FD38 664ACDA9 7B0B0203 
+  010001A3 4F304D30 0B060355 1D0F0404 030205A0 301F0603 551D2304 18301680 
+  1497CF1D 3EA28A84 EAC8E4ED 95F8D28B 539C6675 B6301D06 03551D0E 04160414 
+  A5F51752 B926BE22 63E9A784 CF0B72C0 AC07C4FB 300D0609 2A864886 F70D0101 
+  0D050003 81810068 CD277A69 77A046C2 47133D78 7CA971AA 29D08732 1716D098 
+  DC2E2308 86F2CEF8 9252E546 ACA68934 B22801CF 5D058982 EC6C2E3C 99945237 
+  B36D8723 84807BF1 C74DC7E1 4DB2F2BB A823EE4E 2F117BE2 CC2BF0B4 47694D62 
+  7FA16D90 997FB022 C32491C5 79F5EBD3 17F8CDD8 9A6EB5F1 230137A2 FC402EB4 
+  D4E48F40 027C88
+        quit
+ certificate ca 01
+  30820209 30820172 A0030201 02020101 300D0609 2A864886 F70D0101 0D050030 
+  18311630 14060355 0403130D 43412E68 69746C65 722E636F 6D301E17 0D313730 
+  36303732 32333235 355A170D 32303036 30363232 33323535 5A301831 16301406 
+  03550403 130D4341 2E686974 6C65722E 636F6D30 819F300D 06092A86 4886F70D 
+  01010105 0003818D 00308189 02818100 AFBF9D77 E768CE93 D140B2AC C8B64CCF 
+  0A689257 EF1A8B9D 722635C0 EE3A9EC0 C71C2254 57BAD192 8A64F17F E034D58F 
+  3367CA0F 83D30AF9 0CD6BE52 78835021 50A1A8BD 25365D1D 6E46F393 9CCD8833 
+  5FF439DA D992BD0E C40F0232 E52A0DC4 A6536E22 038EDA59 7F39499D 1EAF7004 
+  D1167F7B E71A255A F9118901 5788A7DD 02030100 01A36330 61300F06 03551D13 
+  0101FF04 05300301 01FF300E 0603551D 0F0101FF 04040302 0186301F 0603551D 
+  23041830 16801497 CF1D3EA2 8A84EAC8 E4ED95F8 D28B539C 6675B630 1D060355 
+  1D0E0416 041497CF 1D3EA28A 84EAC8E4 ED95F8D2 8B539C66 75B6300D 06092A86 
+  4886F70D 01010D05 00038181 005F503A ADE0B24A F1DFE4D6 F4D260C9 19F9FB8E 
+  46A2965B 0EDD13A6 BBB8B1A0 3C32AEF1 0F3673E1 9EECAA3B ABFA722D C32520A0 
+  1DCDAD5A A3ADD7B7 A3CA5B01 DEA0CD5F 1262D5AD D69385CC FC04C080 C2573BBE 
+  B6158953 5E7DFD15 82FF7A99 28B416FC 5744502A 3F801908 819E6746 E9CB22C8 
+  CFE0E8C8 9A0C53E1 975734DE 15
+        quit
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 9XVYC51FMT6
+!
+spanning-tree extend system-id
+!
+!
+redundancy
+!
+!
+!         
+!
+!
+!
+! 
+crypto keyring RA  
+  pre-shared-key hostname CLIENT key CISCO
+!
+!
+!
+!
+!
+crypto isakmp policy 10
+ encr 3des
+ group 2
+ lifetime 6000
+crypto isakmp profile CLIENT
+   keyring RA
+   match identity host CLIENT
+   initiate mode aggressive
+!
+!
+crypto ipsec transform-set PHASE-2 esp-null esp-md5-hmac 
+ mode tunnel
+!
+!
+!
+crypto dynamic-map DMAP 1
+ set transform-set PHASE-2 
+ set isakmp-profile CLIENT
+ reverse-route remote-peer 100.1.1.254
+!
+!
+crypto map SMAP local-address GigabitEthernet1
+crypto map SMAP 100 ipsec-isakmp dynamic DMAP 
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!         
+interface Loopback0
+ ip address 10.2.2.2 255.255.255.255
+!
+interface Tunnel2
+ description CE-C1921-SEC/K9
+ ip address 100.64.2.2 255.255.255.252
+ ip mtu 1400
+ ip tcp adjust-mss 1360
+ ip ospf 1 area 0
+ tunnel source 10.2.2.2
+ tunnel destination 10.1.1.1
+!
+interface GigabitEthernet1
+ ip address 100.1.1.1 255.255.255.0
+ negotiation auto
+ crypto map SMAP
+!
+interface GigabitEthernet2
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet3
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet4
+ no ip address
+ shutdown
+ negotiation auto
+!
+router ospf 1
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+ip route 0.0.0.0 0.0.0.0 100.1.1.254
+!
+access-list 101 permit ip host 10.1.1.1 host 10.2.2.2
+!
+!         
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0
+ login
+line vty 1
+ login
+ length 0
+line vty 2 4
+ login
+!
+ntp source GigabitEthernet1
+ntp peer 219.235.230.1 source GigabitEthernet1
+!
+end
+

@@ -1,0 +1,96 @@
+SP1
+ core ip address: 169.169.X.X
+
+SP2
+ core ip address 192.168.X.X
+========================
+PE1
+
+ip vrf SP2-branch1
+  rd 8888:100
+
+
+router isis ???
+ int lo0
+ descri Router-ID
+  ip address 192.168.253.1 255.255.255.255
+ int f0/0
+ descri TO CE1
+  ip vrf forwarding SP2-branch1
+  ip address 192.168.1.1 255.255.255.252
+  no shut
+ int f0/1
+  ip address 192.168.254.1 255.255.255.252
+  no sh
+  mpls ip
+
+
+int f2/0
+  desc to AS9809-PE1
+   ip address 98.98.98.98 255.255.255.0
+   no sh
+exit
+
+int S3/1
+  desc to AS9809-PE3-0
+   ip address 93.93.93.8 255.255.255.0
+   no sh
+exit
+
+router bgp 8888
+  bgp router-id 192.168.253.1
+  no bgp default unicast
+  neighbor 192.168.253.2 remote 8888
+  neighbor 192.168.253.2 up lo0
+  address-family ipv4
+  neighbor 192.168.253.2 ac
+ 
+  address-family vpnv4
+  neighbor 192.168.253.2 ac
+  neighbor 192.168.253.2 send-comm ex
+
+
+PE2
+router isis xxxx
+ 
+ip vrf SP2-branch2
+  rd 8888:200
+ int lo0
+  descri Router-ID
+   ip address 192.168.253.2 255.255.255.255
+int f0/0
+ descri TO CE2
+  ip vrf forwarding SP2-branch2
+  ip address 192.168.1.5 255.255.255.252
+  no sh
+int f0/1
+  ip address 192.168.254.2 255.255.255.252
+  no sh
+  mpls ip
+
+int f2/1
+  desc to AS9809-PE2
+   ip address 89.89.89.89 255.255.255.0
+   no sh
+exit
+
+int S3/2
+  desc to AS9809-PE3-1
+   ip address 39.39.39.8 255.255.255.0
+   no sh
+exit
+router bgp 8888
+  bgp router-id 192.168.253.2
+  no bgp default unicast
+  neighbor 192.168.253.1 remote 8888
+  neighbor 192.168.253.1 up lo0
+  address-family ipv4
+  neighbor 192.168.253.1 ac
+ 
+  address-family vpnv4
+  neighbor 192.168.253.1 ac
+  neighbor 192.168.253.1 send-comm ex
+
+
+
+ 

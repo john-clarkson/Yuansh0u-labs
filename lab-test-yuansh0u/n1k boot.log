@@ -1,0 +1,101 @@
+
+
+
+feature telnet
+
+
+
+vrf context management
+  ip route 0.0.0.0/0 150.1.1.254
+vlan 1
+
+
+
+interface mgmt0
+  ip address 150.1.1.11/24
+
+interface control0
+
+svs-domain
+  domain id 1000
+  control vlan 1
+  packet vlan 1
+  svs mode L3 interface mgmt0
+  switch-guid 7e368c1f-26e0-4136-abd3-e9f5667084fa
+  enable l3sec 
+
+
+svs connection VCENTER6
+  protocol vmware-vim
+  remote ip address 150.1.1.254 port 80
+  transport type ipv4
+  vmware dvs uuid "3c 82 29 50 ea 6b 71 36-a9 be 5b 6c 86 8f a5 96" datacenter-name FUCK
+  max-ports 50000
+  vmware dvs-version 6.0.0
+  connect 
+
+
+======================
+[root@localhost:~] cd tmp
+[root@localhost:/tmp] ls
+Cisco_bootbank_cisco-vem-v340-esx_5.2.1.3.2.8.0-6.0.1.vib  vem-syslog-on
+dpa_start.log                                              vem-vmkbinding.log
+dpafifo                                                    vemdpa_cpu_mhz
+nfsgssd_krb5cc                                             vemdpa_mem_kb
+probe.session                                              vmware-root
+[root@localhost:/tmp]
+[root@localhost:/tmp] esxcli software vib install -v /tmp/Cisco_bootbank_cisco-vem-v340-esx_5.2.1.3.2.8.0-6.0.1.vib
+
+===
+
+config t
+
+no port-profile type ethernet Uplink-ESXi215
+no port-profile type vethernet Veth-ESXi215
+
+port-profile type ethernet Uplink-ESXi215
+vmware port-group
+switchport mode trunk
+switchport trunk allowed vlan all
+no shutdown
+system vlan 1
+state enabled
+
+port-profile type vethernet Veth-ESXi215
+vmware port-group
+capability l3control
+switchport mode access
+switchport access vlan 1
+no shutdown
+system vlan 1
+state enabled
+
+copy running-config startup-config
+end
+
+show running-config port-profile
+
+===============
+unregis vcenter plugins
+I saw a post on the VMTN forums the other day about unregistering a vCenter plugin. The user had a bad installation of an early preview of NetApp's VSC utility. After uninstalling the plugin, the user was still unable to unlink the plugin from vCenter. There is actually a pretty simple solution to this problem which can be accomplished by using the vSphere MOB.
+
+Here are the instructions to remove a specific plugin/extension from your vCenter server:
+
+1. Point your web browser to your vCenter server: https://your_vc_server/mob and login.
+
+2. Click on content:
+
+
+3. Locate and click on ExtensionManager:
+
+
+4. Click on the plugin you are interested in removing:
+
+
+5. Record the plugin key id which will be used to remove the plugin:
+
+
+6. Now, go back to previous page and at the bottom click on the function "UnregisterExtension". A new window will open and ask for the plugin key id which was recorded from above. Enter the key and click on the "Invoke Method" to remove the plugin
+
+
+You can now refresh the page and you will see that the plugin is no longer available. You can restart your vSphere Client to see that the plugin has now been removed.

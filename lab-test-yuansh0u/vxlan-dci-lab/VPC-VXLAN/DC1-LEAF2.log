@@ -1,0 +1,318 @@
+﻿
+feature telnet
+feature nxapi
+feature bash-shell
+feature scp-server
+cfs eth distribute
+nv overlay evpn
+feature ospf
+feature bgp
+feature pim
+feature interface-vlan
+feature vn-segment-vlan-based
+feature lacp
+feature vpc
+feature lldp
+feature nv overlay
+
+no password strength-check
+
+fabric forwarding anycast-gateway-mac 1234.5678.9abc
+ip pim rp-address 10.100.100.100 group-list 239.0.0.0/8
+ip pim ssm range 232.0.0.0/8
+vlan 1,10,20,30,500,1234
+vlan 20
+  vn-segment 10020
+vlan 30
+  vn-segment 10030
+vlan 500
+  name PEER-LINK
+vlan 1234
+  name L3VNI-Routing-TENANT1
+  vn-segment 101234
+
+vrf context TENANT1
+  vni 101234
+  rd auto
+  address-family ipv4 unicast
+    route-target both auto
+    route-target both auto evpn
+  address-family ipv6 unicast
+    route-target both auto
+    route-target both auto evpn
+vrf context management
+vpc domain 99
+  peer-keepalive destination 10.0.0.101 source 10.0.0.102 vrf default
+  delay restore 60
+  peer-gateway
+  ipv6 nd synchronize
+  ip arp synchronize
+
+interface Vlan1
+  no ip redirects
+  no ipv6 redirects
+
+interface Vlan20
+  no shutdown
+  vrf member TENANT1
+  no ip redirects
+  ip address 192.168.20.254/24
+  ipv6 address fc00:192:168:20::254/64
+  no ipv6 redirects
+  fabric forwarding mode anycast-gateway
+
+interface Vlan30
+  no shutdown
+  vrf member TENANT1
+  no ip redirects
+  ip address 192.168.30.254/24
+  ipv6 address fc00:192:168:30::254/64
+  no ipv6 redirects
+  fabric forwarding mode anycast-gateway
+
+interface Vlan500
+  no shutdown
+  no ip redirects
+  ip address 10.123.123.2/30
+  no ipv6 redirects
+  ip ospf cost 10
+  ip ospf network point-to-point
+  ip router ospf 1 area 0.0.0.0
+  ip pim sparse-mode
+
+interface Vlan1234
+  description L3VNI-Routing
+  no shutdown
+  vrf member TENANT1
+  no ip redirects
+  ip forward
+  no ipv6 redirects
+
+interface port-channel99
+  description FACING TO Server
+  switchport mode trunk
+  switchport trunk allowed vlan 20,30
+  spanning-tree port type edge trunk
+  spanning-tree bpdufilter enable
+  vpc 99
+
+interface port-channel500
+  description peer link
+  switchport mode trunk
+  spanning-tree port type network
+  vpc peer-link
+
+interface nve1
+  no shutdown
+  host-reachability protocol bgp
+  source-interface loopback0
+  member vni 10020
+    mcast-group 239.20.20.20
+  member vni 10030
+    mcast-group 239.30.30.30
+  member vni 101234 associate-vrf
+
+interface Ethernet1/1
+  no switchport
+  medium p2p
+  ip unnumbered loopback0
+  ip ospf network point-to-point
+  ip router ospf 1 area 0.0.0.0
+  ip pim sparse-mode
+  no shutdown
+
+interface Ethernet1/2
+  no switchport
+  medium p2p
+  ip unnumbered loopback0
+  ip ospf network point-to-point
+  ip router ospf 1 area 0.0.0.0
+  ip pim sparse-mode
+  no shutdown
+
+interface Ethernet1/3
+
+interface Ethernet1/4
+
+interface Ethernet1/5
+
+interface Ethernet1/6
+
+interface Ethernet1/7
+
+interface Ethernet1/8
+  switchport mode trunk
+  switchport trunk allowed vlan 20,30
+  channel-group 99 mode active
+
+interface Ethernet1/9
+  switchport mode trunk
+  switchport trunk allowed vlan 20,30
+  channel-group 99 mode active
+
+interface Ethernet1/10
+  description PEER-LINK
+  switchport mode trunk
+  channel-group 500 mode active
+
+interface Ethernet1/11
+  description PEER-LINK
+  switchport mode trunk
+  channel-group 500 mode active
+
+interface Ethernet1/12
+  no switchport
+  ip address 169.254.255.2/24
+  no shutdown
+
+interface Ethernet1/13
+
+interface Ethernet1/14
+
+interface Ethernet1/15
+
+interface Ethernet1/16
+
+interface Ethernet1/17
+
+interface Ethernet1/18
+
+interface Ethernet1/19
+
+interface Ethernet1/20
+
+interface Ethernet1/21
+
+interface Ethernet1/22
+
+interface Ethernet1/23
+
+interface Ethernet1/24
+
+interface Ethernet1/25
+
+interface Ethernet1/26
+
+interface Ethernet1/27
+
+interface Ethernet1/28
+
+interface Ethernet1/29
+
+interface Ethernet1/30
+
+interface Ethernet1/31
+
+interface Ethernet1/32
+
+interface Ethernet1/33
+
+interface Ethernet1/34
+
+interface Ethernet1/35
+
+interface Ethernet1/36
+
+interface Ethernet1/37
+
+interface Ethernet1/38
+
+interface Ethernet1/39
+
+interface Ethernet1/40
+
+interface Ethernet1/41
+
+interface Ethernet1/42
+
+interface Ethernet1/43
+
+interface Ethernet1/44
+
+interface Ethernet1/45
+
+interface Ethernet1/46
+
+interface Ethernet1/47
+
+interface Ethernet1/48
+
+interface Ethernet1/49
+
+interface Ethernet1/50
+
+interface Ethernet1/51
+
+interface Ethernet1/52
+
+interface Ethernet1/53
+
+interface Ethernet1/54
+
+interface Ethernet1/55
+
+interface Ethernet1/56
+
+interface Ethernet1/57
+
+interface Ethernet1/58
+
+interface Ethernet1/59
+
+interface Ethernet1/60
+
+interface Ethernet1/61
+
+interface Ethernet1/62
+
+interface Ethernet1/63
+
+interface Ethernet1/64
+
+interface mgmt0
+  vrf member management
+
+interface loopback0
+  ip address 10.0.0.102/32
+  ip address 10.255.255.255/32 secondary
+  ip router ospf 1 area 0.0.0.0
+  ip pim sparse-mode
+line console
+line vty
+boot nxos bootflash:/nxos.7.0.3.I7.2.bin 
+router ospf 1
+  router-id 10.0.0.102
+  log-adjacency-changes detail
+router bgp 65511
+  router-id 10.0.0.102
+  address-family ipv4 unicast
+  address-family l2vpn evpn
+  neighbor 10.0.0.1
+    remote-as 65511
+    update-source loopback0
+    address-family ipv4 unicast
+    address-family l2vpn evpn
+      send-community extended
+  neighbor 10.0.0.2
+    remote-as 65511
+    update-source loopback0
+    address-family ipv4 unicast
+    address-family l2vpn evpn
+      send-community extended
+  vrf TENANT1
+    address-family ipv4 unicast
+      advertise l2vpn evpn
+      redistribute direct route-map ALL
+evpn
+  vni 10020 l2
+    rd auto
+    route-target import auto
+    route-target export auto
+  vni 10030 l2
+    rd auto
+    route-target import auto
+    route-target export auto
+logging monitor 7
+logging console 7
+
+

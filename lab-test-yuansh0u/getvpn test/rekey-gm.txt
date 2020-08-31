@@ -1,0 +1,867 @@
+﻿USA-1# 
+*Sep 23 09:30:40.811: PIM(0): Insert (155.155.155.1,232.23.23.23) join in nbr 55.55.55.1's queue
+*Sep 23 09:30:40.819: PIM(0): Building Join/Prune packet for nbr 55.55.55.1
+*Sep 23 09:30:40.819: PIM(0):  Adding v2 (155.155.155.1/32, 232.23.23.23), S-bit Join
+*Sep 23 09:30:40.823: PIM(0): Send v2 join/prune to 55.55.55.1 (FastEthernet2/0)
+USA-1# 
+*Sep 23 09:31:39.523: PIM(0): Insert (155.155.155.1,232.23.23.23) join in nbr 55.55.55.1's queue
+*Sep 23 09:31:39.535: PIM(0): Building Join/Prune packet for nbr 55.55.55.1
+*Sep 23 09:31:39.535: PIM(0):  Adding v2 (155.155.155.1/32, 232.23.23.23), S-bit Join
+*Sep 23 09:31:39.539: PIM(0): Send v2 join/prune to 55.55.55.1 (FastEthernet2/0)
+USA-1# 
+*Sep 23 09:32:10.451: %CRYPTO-5-GM_REGSTER: Start registration to KS 155.155.155.2 for group GETVPN-GROUP-MULTICAST using address 169.169.254.21
+USA-1# 
+*Sep 23 09:32:38.011: PIM(0): Insert (155.155.155.1,232.23.23.23) join in nbr 55.55.55.1's queue
+*Sep 23 09:32:38.019: PIM(0): Building Join/Prune packet for nbr 55.55.55.1
+*Sep 23 09:32:38.023: PIM(0):  Adding v2 (155.155.155.1/32, 232.23.23.23), S-bit Join
+*Sep 23 09:32:38.023: PIM(0): Send v2 join/prune to 55.55.55.1 (FastEthernet2/0)
+USA-1# 
+*Sep 23 09:32:50.479: %CRYPTO-5-GM_REGSTER: Start registration to KS 155.155.155.1 for group GETVPN-GROUP-MULTICAST using address 169.169.254.21
+*Sep 23 09:32:50.691: %GDOI-5-GM_REGS_COMPL: Registration to KS 155.155.155.1 complete for group GETVPN-GROUP-MULTICAST using address 169.169.254.21
+USA-1# 
+*Sep 23 09:33:37.319: PIM(0): Insert (155.155.155.1,232.23.23.23) join in nbr 55.55.55.1's queue
+*Sep 23 09:33:37.331: PIM(0): Building Join/Prune packet for nbr 55.55.55.1
+*Sep 23 09:33:37.331: PIM(0):  Adding v2 (155.155.155.1/32, 232.23.23.23), S-bit Join
+*Sep 23 09:33:37.335: PIM(0): Send v2 join/prune to 55.55.55.1 (FastEthernet2/0)
+USA-1# 
+*Sep 23 09:33:45.711: %CRYPTO-5-GM_REGSTER: Start registration to KS 155.155.155.2 for group GETVPN-GROUP-MULTICAST using address 169.169.254.21
+USA-1#show cry gdoi
+GROUP INFORMATION
+
+    Group Name               : GETVPN-GROUP-MULTICAST
+    Group Identity           : 17320222
+    Rekeys received          : 0
+    IPSec SA Direction       : Both
+
+     Group Server list       : 155.155.155.2
+                               155.155.155.1
+                               
+    Group member             : 169.169.254.21   vrf: None
+       Registration status   : Registering
+       Registering to        : 155.155.155.2
+       Re-registers in       : 63 sec
+       Succeeded registration: 2
+       Attempted registration: 5
+       Last rekey from       : 0.0.0.0
+       Last rekey seq num    : 0
+       Multicast rekey rcvd  : 0
+
+    Rekeys cumulative
+       Total received        : 0
+       After latest register : 0
+       Rekey Received        : never
+
+ ACL Downloaded From KS 155.155.155.1:
+   access-list  permit ip 5.5.5.0 0.0.0.255 3.3.3.0 0.0.0.255
+   access-list  permit ip 3.3.3.0 0.0.0.255 5.5.5.0 0.0.0.255
+
+KEK POLICY:
+    Rekey Transport Type     : Multicast
+    Lifetime (secs)          : 108
+    Encrypt Algorithm        : AES
+    Key Size                 : 256     
+    Sig Hash Algorithm       : HMAC_AUTH_SHA
+    Sig Key Length (bits)    : 2048    
+
+TEK POLICY for the current KS-Policy ACEs Downloaded:
+
+USA-1#show cry gdoi
+GROUP INFORMATION
+
+    Group Name               : GETVPN-GROUP-MULTICAST
+    Group Identity           : 17320222
+    Rekeys received          : 0
+    IPSec SA Direction       : Both
+
+     Group Server list       : 155.155.155.2
+                               155.155.155.1
+                               
+    Group member             : 169.169.254.21   vrf: None
+       Registration status   : Registering
+       Registering to        : 155.155.155.2
+       Re-registers in       : 33 sec
+       Succeeded registration: 2
+       Attempted registration: 5
+       Last rekey from       : 0.0.0.0
+       Last rekey seq num    : 0
+       Multicast rekey rcvd  : 0
+
+    Rekeys cumulative
+       Total received        : 0
+       After latest register : 0
+       Rekey Received        : never
+          
+ ACL Downloaded From KS 155.155.155.1:
+   access-list  permit ip 5.5.5.0 0.0.0.255 3.3.3.0 0.0.0.255
+   access-list  permit ip 3.3.3.0 0.0.0.255 5.5.5.0 0.0.0.255
+          
+KEK POLICY:
+    Rekey Transport Type     : Multicast
+    Lifetime (secs)          : 108
+    Encrypt Algorithm        : AES
+    Key Size                 : 256     
+    Sig Hash Algorithm       : HMAC_AUTH_SHA
+    Sig Key Length (bits)    : 2048    
+
+TEK POLICY for the current KS-Policy ACEs Downloaded:
+
+USA-1#
+*Sep 23 09:34:25.739: %CRYPTO-5-GM_REGSTER: Start registration to KS 155.155.155.1 for group GETVPN-GROUP-MULTICAST using address 169.169.254.21
+USA-1#show cry gdoi
+GROUP INFORMATION
+
+    Group Name               : GETVPN-GROUP-MULTICAST
+    Group Identity           : 17320222
+    Rekeys received          : 0
+    IPSec SA Direction       : Both
+
+     Group Server list       : 155.155.155.2
+                               155.155.155.1
+                               
+    Group member             : 169.169.254.21   vrf: None
+       Registration status   : Registering
+       Registering to        : 155.155.155.1
+       Re-registers in       : 65 sec
+       Succeeded registration: 2
+       Attempted registration: 6
+       Last rekey from       : 0.0.0.0
+       Last rekey seq num    : 0
+       Multicast rekey rcvd  : 0
+
+    Rekeys cumulative
+       Total received        : 0
+       After latest register : 0
+       Rekey Received        : never
+
+ ACL Downloaded From KS 155.155.155.1:
+   access-list  permit ip 5.5.5.0 0.0.0.255 3.3.3.0 0.0.0.255
+   access-list  permit ip 3.3.3.0 0.0.0.255 5.5.5.0 0.0.0.255
+
+KEK POLICY:
+    Rekey Transport Type     : Multicast
+    Lifetime (secs)          : 108
+    Encrypt Algorithm        : AES
+    Key Size                 : 256     
+    Sig Hash Algorithm       : HMAC_AUTH_SHA
+    Sig Key Length (bits)    : 2048    
+
+TEK POLICY for the current KS-Policy ACEs Downloaded:
+
+USA-1#show cry gdoi
+GROUP INFORMATION
+
+    Group Name               : GETVPN-GROUP-MULTICAST
+    Group Identity           : 17320222
+    Rekeys received          : 0
+    IPSec SA Direction       : Both
+
+     Group Server list       : 155.155.155.2
+                               155.155.155.1
+                               
+    Group member             : 169.169.254.21   vrf: None
+       Registration status   : Registering
+       Registering to        : 155.155.155.1
+       Re-registers in       : 64 sec
+       Succeeded registration: 2
+       Attempted registration: 6
+       Last rekey from       : 0.0.0.0
+       Last rekey seq num    : 0
+       Multicast rekey rcvd  : 0
+
+    Rekeys cumulative
+       Total received        : 0
+       After latest register : 0
+       Rekey Received        : never
+
+ ACL Downloaded From KS 155.155.155.1:
+   access-list  permit ip 5.5.5.0 0.0.0.255 3.3.3.0 0.0.0.255
+   access-list  permit ip 3.3.3.0 0.0.0.255 5.5.5.0 0.0.0.255
+
+KEK POLICY:
+    Rekey Transport Type     : Multicast
+    Lifetime (secs)          : 108
+    Encrypt Algorithm        : AES
+    Key Size                 : 256     
+    Sig Hash Algorithm       : HMAC_AUTH_SHA
+    Sig Key Length (bits)    : 2048    
+
+TEK POLICY for the current KS-Policy ACEs Downloaded:
+
+USA-1# 
+*Sep 23 09:34:35.915: PIM(0): Insert (155.155.155.1,232.23.23.23) join in nbr 55.55.55.1's queue
+*Sep 23 09:34:35.923: PIM(0): Building Join/Prune packet for nbr 55.55.55.1
+*Sep 23 09:34:35.927: PIM(0):  Adding v2 (155.155.155.1/32, 232.23.23.23), S-bit Join
+*Sep 23 09:34:35.931: PIM(0): Send v2 join/prune to 55.55.55.1 (FastEthernet2/0)
+USA-1# 
+*Sep 23 09:34:36.039: %GDOI-5-GM_REGS_COMPL: Registration to KS 155.155.155.1 complete for group GETVPN-GROUP-MULTICAST using address 169.169.254.21
+USA-1#show cry gdoi
+GROUP INFORMATION
+
+    Group Name               : GETVPN-GROUP-MULTICAST
+    Group Identity           : 17320222
+    Rekeys received          : 0
+    IPSec SA Direction       : Both
+
+     Group Server list       : 155.155.155.2
+                               155.155.155.1
+                               
+    Group member             : 169.169.254.21   vrf: None
+       Registration status   : Registered
+       Registered with       : 155.155.155.1
+       Re-registers in       : 25 sec
+       Succeeded registration: 3
+       Attempted registration: 6
+       Last rekey from       : 0.0.0.0
+       Last rekey seq num    : 0
+       Multicast rekey rcvd  : 0
+
+    Rekeys cumulative
+       Total received        : 0
+       After latest register : 0
+       Rekey Received        : never
+
+ ACL Downloaded From KS 155.155.155.1:
+   access-list  permit ip 5.5.5.0 0.0.0.255 3.3.3.0 0.0.0.255
+   access-list  permit ip 3.3.3.0 0.0.0.255 5.5.5.0 0.0.0.255
+
+KEK POLICY:
+    Rekey Transport Type     : Multicast
+    Lifetime (secs)          : 243
+    Encrypt Algorithm        : AES
+    Key Size                 : 256     
+    Sig Hash Algorithm       : HMAC_AUTH_SHA
+    Sig Key Length (bits)    : 2048    
+
+TEK POLICY for the current KS-Policy ACEs Downloaded:
+  FastEthernet0/0:
+    IPsec SA:
+        spi: 0x1D9BC6CB(496748235)
+        transform: esp-256-aes esp-sha-hmac 
+        sa timing:remaining key lifetime (sec): (22)
+        Anti-Replay(Time Based) : 20 sec interval
+
+    IPsec SA:
+        spi: 0x107B8F81(276533121)
+        transform: esp-256-aes esp-sha-hmac 
+        sa timing:remaining key lifetime (sec): (52)
+        Anti-Replay(Time Based) : 20 sec interval
+
+    IPsec SA:
+        spi: 0x125CC850(308070480)
+        transform: esp-256-aes esp-sha-hmac 
+        sa timing:remaining key lifetime (sec): (82)
+        Anti-Replay(Time Based) : 20 sec interval
+
+
+USA-1#show cry gdoi
+GROUP INFORMATION
+
+    Group Name               : GETVPN-GROUP-MULTICAST
+    Group Identity           : 17320222
+    Rekeys received          : 0
+    IPSec SA Direction       : Both
+
+     Group Server list       : 155.155.155.2
+                               155.155.155.1
+                               
+    Group member             : 169.169.254.21   vrf: None
+       Registration status   : Registered
+       Registered with       : 155.155.155.1
+       Re-registers in       : 21 sec
+       Succeeded registration: 3
+       Attempted registration: 6
+       Last rekey from       : 0.0.0.0
+       Last rekey seq num    : 0
+       Multicast rekey rcvd  : 0
+
+    Rekeys cumulative
+       Total received        : 0
+       After latest register : 0
+       Rekey Received        : never
+
+ ACL Downloaded From KS 155.155.155.1:
+   access-list  permit ip 5.5.5.0 0.0.0.255 3.3.3.0 0.0.0.255
+   access-list  permit ip 3.3.3.0 0.0.0.255 5.5.5.0 0.0.0.255
+
+KEK POLICY:
+    Rekey Transport Type     : Multicast
+    Lifetime (secs)          : 243
+    Encrypt Algorithm        : AES
+    Key Size                 : 256     
+    Sig Hash Algorithm       : HMAC_AUTH_SHA
+    Sig Key Length (bits)    : 2048    
+
+TEK POLICY for the current KS-Policy ACEs Downloaded:
+  FastEthernet0/0:
+    IPsec SA:
+        spi: 0x1D9BC6CB(496748235)
+        transform: esp-256-aes esp-sha-hmac 
+        sa timing:remaining key lifetime (sec): (18)
+        Anti-Replay(Time Based) : 20 sec interval
+
+    IPsec SA:
+        spi: 0x107B8F81(276533121)
+        transform: esp-256-aes esp-sha-hmac 
+        sa timing:remaining key lifetime (sec): (48)
+        Anti-Replay(Time Based) : 20 sec interval
+
+    IPsec SA:
+        spi: 0x125CC850(308070480)
+        transform: esp-256-aes esp-sha-hmac 
+        sa timing:remaining key lifetime (sec): (78)
+        Anti-Replay(Time Based) : 20 sec interval
+
+
+USA-1#show cry gdoi
+GROUP INFORMATION
+
+    Group Name               : GETVPN-GROUP-MULTICAST
+    Group Identity           : 17320222
+    Rekeys received          : 0
+    IPSec SA Direction       : Both
+
+     Group Server list       : 155.155.155.2
+                               155.155.155.1
+                               
+    Group member             : 169.169.254.21   vrf: None
+       Registration status   : Registered
+       Registered with       : 155.155.155.1
+       Re-registers in       : 18 sec
+       Succeeded registration: 3
+       Attempted registration: 6
+       Last rekey from       : 0.0.0.0
+       Last rekey seq num    : 0
+       Multicast rekey rcvd  : 0
+
+    Rekeys cumulative
+       Total received        : 0
+       After latest register : 0
+       Rekey Received        : never
+
+ ACL Downloaded From KS 155.155.155.1:
+   access-list  permit ip 5.5.5.0 0.0.0.255 3.3.3.0 0.0.0.255
+   access-list  permit ip 3.3.3.0 0.0.0.255 5.5.5.0 0.0.0.255
+
+KEK POLICY:
+    Rekey Transport Type     : Multicast
+    Lifetime (secs)          : 243
+    Encrypt Algorithm        : AES
+    Key Size                 : 256     
+    Sig Hash Algorithm       : HMAC_AUTH_SHA
+    Sig Key Length (bits)    : 2048    
+
+TEK POLICY for the current KS-Policy ACEs Downloaded:
+  FastEthernet0/0:
+    IPsec SA:
+        spi: 0x1D9BC6CB(496748235)
+        transform: esp-256-aes esp-sha-hmac 
+        sa timing:remaining key lifetime (sec): (15)
+        Anti-Replay(Time Based) : 20 sec interval
+
+    IPsec SA:
+          
+USA-1#
+USA-1#show cry gdoi
+GROUP INFORMATION
+
+    Group Name               : GETVPN-GROUP-MULTICAST
+    Group Identity           : 17320222
+    Rekeys received          : 0
+    IPSec SA Direction       : Both
+
+     Group Server list       : 155.155.155.2
+                               155.155.155.1
+                               
+    Group member             : 169.169.254.21   vrf: None
+       Registration status   : Registered
+       Registered with       : 155.155.155.1
+       Re-registers in       : 15 sec
+       Succeeded registration: 3
+       Attempted registration: 6
+       Last rekey from       : 0.0.0.0
+       Last rekey seq num    : 0
+       Multicast rekey rcvd  : 0
+
+    Rekeys cumulative
+       Total received        : 0
+       After latest register : 0
+       Rekey Received        : never
+
+ ACL Downloaded From KS 155.155.155.1:
+   access-list  permit ip 5.5.5.0 0.0.0.255 3.3.3.0 0.0.0.255
+   access-list  permit ip 3.3.3.0 0.0.0.255 5.5.5.0 0.0.0.255
+
+KEK POLICY:
+    Rekey Transport Type     : Multicast
+    Lifetime (secs)          : 243
+    Encrypt Algorithm        : AES
+    Key Size                 : 256     
+    Sig Hash Algorithm       : HMAC_AUTH_SHA
+    Sig Key Length (bits)    : 2048    
+
+TEK POLICY for the current KS-Policy ACEs Downloaded:
+  FastEthernet0/0:
+    IPsec SA:
+        spi: 0x1D9BC6CB(496748235)
+        transform: esp-256-aes esp-sha-hmac 
+        sa timing:remaining key lifetime (sec): (12)
+        Anti-Replay(Time Based) : 20 sec interval
+
+    IPsec SA:
+          
+USA-1#
+USA-1#show cry gdoi
+GROUP INFORMATION
+
+    Group Name               : GETVPN-GROUP-MULTICAST
+    Group Identity           : 17320222
+    Rekeys received          : 0
+    IPSec SA Direction       : Both
+
+     Group Server list       : 155.155.155.2
+                               155.155.155.1
+                               
+    Group member             : 169.169.254.21   vrf: None
+       Registration status   : Registered
+       Registered with       : 155.155.155.1
+       Re-registers in       : 13 sec
+       Succeeded registration: 3
+       Attempted registration: 6
+       Last rekey from       : 0.0.0.0
+       Last rekey seq num    : 0
+       Multicast rekey rcvd  : 0
+
+    Rekeys cumulative
+       Total received        : 0
+       After latest register : 0
+       Rekey Received        : never
+
+ ACL Downloaded From KS 155.155.155.1:
+   access-list  permit ip 5.5.5.0 0.0.0.255 3.3.3.0 0.0.0.255
+   access-list  permit ip 3.3.3.0 0.0.0.255 5.5.5.0 0.0.0.255
+
+KEK POLICY:
+    Rekey Transport Type     : Multicast
+    Lifetime (secs)          : 243
+    Encrypt Algorithm        : AES
+    Key Size                 : 256     
+    Sig Hash Algorithm       : HMAC_AUTH_SHA
+    Sig Key Length (bits)    : 2048    
+
+TEK POLICY for the current KS-Policy ACEs Downloaded:
+  FastEthernet0/0:
+    IPsec SA:
+        spi: 0x1D9BC6CB(496748235)
+        transform: esp-256-aes esp-sha-hmac 
+        sa timing:remaining key lifetime (sec): (10)
+        Anti-Replay(Time Based) : 20 sec interval
+
+    IPsec SA:
+          
+USA-1#
+USA-1#show cry gdoi
+GROUP INFORMATION
+
+    Group Name               : GETVPN-GROUP-MULTICAST
+    Group Identity           : 17320222
+    Rekeys received          : 0
+    IPSec SA Direction       : Both
+
+     Group Server list       : 155.155.155.2
+                               155.155.155.1
+                               
+    Group member             : 169.169.254.21   vrf: None
+       Registration status   : Registered
+       Registered with       : 155.155.155.1
+       Re-registers in       : 10 sec
+       Succeeded registration: 3
+       Attempted registration: 6
+       Last rekey from       : 0.0.0.0
+       Last rekey seq num    : 0
+       Multicast rekey rcvd  : 0
+
+    Rekeys cumulative
+       Total received        : 0
+       After latest register : 0
+       Rekey Received        : never
+
+ ACL Downloaded From KS 155.155.155.1:
+   access-list  permit ip 5.5.5.0 0.0.0.255 3.3.3.0 0.0.0.255
+   access-list  permit ip 3.3.3.0 0.0.0.255 5.5.5.0 0.0.0.255
+
+KEK POLICY:
+    Rekey Transport Type     : Multicast
+    Lifetime (secs)          : 243
+    Encrypt Algorithm        : AES
+    Key Size                 : 256     
+    Sig Hash Algorithm       : HMAC_AUTH_SHA
+    Sig Key Length (bits)    : 2048    
+
+TEK POLICY for the current KS-Policy ACEs Downloaded:
+  FastEthernet0/0:
+    IPsec SA:
+        spi: 0x1D9BC6CB(496748235)
+        transform: esp-256-aes esp-sha-hmac 
+        sa timing:remaining key lifetime (sec): (7)
+        Anti-Replay(Time Based) : 20 sec interval
+
+    IPsec SA:
+        spi: 0x107B8F81(276533121)
+        transform: esp-256-aes esp-sha-hmac 
+        sa timing:remaining key lifetime (sec): (37)
+        Anti-Replay(Time Based) : 20 sec interval
+
+    IPsec SA:
+        spi: 0x125CC850(308070480)
+        transform: esp-256-aes esp-sha-hmac 
+        sa timing:remaining key lifetime (sec): (67)
+        Anti-Replay(Time Based) : 20 sec interval
+
+
+USA-1#
+*Sep 23 09:35:13.059: %CRYPTO-5-GM_REGSTER: Start registration to KS 155.155.155.2 for group GETVPN-GROUP-MULTICAST using address 169.169.254.21
+USA-1#show cry gdoi
+GROUP INFORMATION
+
+    Group Name               : GETVPN-GROUP-MULTICAST
+    Group Identity           : 17320222
+    Rekeys received          : 0
+    IPSec SA Direction       : Both
+
+     Group Server list       : 155.155.155.2
+                               155.155.155.1
+                               
+    Group member             : 169.169.254.21   vrf: None
+       Registration status   : Registering
+       Registering to        : 155.155.155.2
+       Re-registers in       : 57 sec
+       Succeeded registration: 3
+       Attempted registration: 7
+       Last rekey from       : 0.0.0.0
+       Last rekey seq num    : 0
+       Multicast rekey rcvd  : 0
+
+    Rekeys cumulative
+       Total received        : 0
+       After latest register : 0
+       Rekey Received        : never
+
+ ACL Downloaded From KS 155.155.155.1:
+   access-list  permit ip 5.5.5.0 0.0.0.255 3.3.3.0 0.0.0.255
+   access-list  permit ip 3.3.3.0 0.0.0.255 5.5.5.0 0.0.0.255
+
+KEK POLICY:
+    Rekey Transport Type     : Multicast
+    Lifetime (secs)          : 243
+    Encrypt Algorithm        : AES
+    Key Size                 : 256     
+    Sig Hash Algorithm       : HMAC_AUTH_SHA
+    Sig Key Length (bits)    : 2048    
+
+TEK POLICY for the current KS-Policy ACEs Downloaded:
+
+USA-1#show cry gdoi
+GROUP INFORMATION
+
+    Group Name               : GETVPN-GROUP-MULTICAST
+    Group Identity           : 17320222
+    Rekeys received          : 0
+    IPSec SA Direction       : Both
+
+     Group Server list       : 155.155.155.2
+                               155.155.155.1
+                               
+    Group member             : 169.169.254.21   vrf: None
+       Registration status   : Registering
+       Registering to        : 155.155.155.2
+       Re-registers in       : 55 sec
+       Succeeded registration: 3
+       Attempted registration: 7
+       Last rekey from       : 0.0.0.0
+       Last rekey seq num    : 0
+       Multicast rekey rcvd  : 0
+
+    Rekeys cumulative
+       Total received        : 0
+       After latest register : 0
+       Rekey Received        : never
+
+ ACL Downloaded From KS 155.155.155.1:
+   access-list  permit ip 5.5.5.0 0.0.0.255 3.3.3.0 0.0.0.255
+   access-list  permit ip 3.3.3.0 0.0.0.255 5.5.5.0 0.0.0.255
+
+KEK POLICY:
+    Rekey Transport Type     : Multicast
+    Lifetime (secs)          : 243
+    Encrypt Algorithm        : AES
+    Key Size                 : 256     
+    Sig Hash Algorithm       : HMAC_AUTH_SHA
+    Sig Key Length (bits)    : 2048    
+
+TEK POLICY for the current KS-Policy ACEs Downloaded:
+
+USA-1#show cry gdoi
+GROUP INFORMATION
+
+    Group Name               : GETVPN-GROUP-MULTICAST
+    Group Identity           : 17320222
+    Rekeys received          : 0
+    IPSec SA Direction       : Both
+
+     Group Server list       : 155.155.155.2
+                               155.155.155.1
+                               
+    Group member             : 169.169.254.21   vrf: None
+       Registration status   : Registering
+       Registering to        : 155.155.155.2
+       Re-registers in       : 53 sec
+       Succeeded registration: 3
+       Attempted registration: 7
+       Last rekey from       : 0.0.0.0
+       Last rekey seq num    : 0
+       Multicast rekey rcvd  : 0
+
+    Rekeys cumulative
+       Total received        : 0
+       After latest register : 0
+       Rekey Received        : never
+
+ ACL Downloaded From KS 155.155.155.1:
+   access-list  permit ip 5.5.5.0 0.0.0.255 3.3.3.0 0.0.0.255
+   access-list  permit ip 3.3.3.0 0.0.0.255 5.5.5.0 0.0.0.255
+
+KEK POLICY:
+    Rekey Transport Type     : Multicast
+    Lifetime (secs)          : 243
+    Encrypt Algorithm        : AES
+    Key Size                 : 256     
+    Sig Hash Algorithm       : HMAC_AUTH_SHA
+    Sig Key Length (bits)    : 2048    
+
+TEK POLICY for the current KS-Policy ACEs Downloaded:
+
+USA-1#show cry gdoi
+GROUP INFORMATION
+
+    Group Name               : GETVPN-GROUP-MULTICAST
+    Group Identity           : 17320222
+    Rekeys received          : 0
+    IPSec SA Direction       : Both
+
+     Group Server list       : 155.155.155.2
+                               155.155.155.1
+                               
+    Group member             : 169.169.254.21   vrf: None
+       Registration status   : Registering
+       Registering to        : 155.155.155.2
+       Re-registers in       : 53 sec
+       Succeeded registration: 3
+       Attempted registration: 7
+       Last rekey from       : 0.0.0.0
+       Last rekey seq num    : 0
+       Multicast rekey rcvd  : 0
+
+    Rekeys cumulative
+       Total received        : 0
+       After latest register : 0
+       Rekey Received        : never
+
+ ACL Downloaded From KS 155.155.155.1:
+   access-list  permit ip 5.5.5.0 0.0.0.255 3.3.3.0 0.0.0.255
+   access-list  permit ip 3.3.3.0 0.0.0.255 5.5.5.0 0.0.0.255
+
+KEK POLICY:
+    Rekey Transport Type     : Multicast
+    Lifetime (secs)          : 243
+    Encrypt Algorithm        : AES
+    Key Size                 : 256     
+    Sig Hash Algorithm       : HMAC_AUTH_SHA
+    Sig Key Length (bits)    : 2048    
+
+TEK POLICY for the current KS-Policy ACEs Downloaded:
+
+USA-1#show cry gdoi
+GROUP INFORMATION
+
+    Group Name               : GETVPN-GROUP-MULTICAST
+    Group Identity           : 17320222
+    Rekeys received          : 0
+    IPSec SA Direction       : Both
+
+     Group Server list       : 155.155.155.2
+                               155.155.155.1
+                               
+    Group member             : 169.169.254.21   vrf: None
+       Registration status   : Registering
+       Registering to        : 155.155.155.2
+       Re-registers in       : 52 sec
+       Succeeded registration: 3
+       Attempted registration: 7
+       Last rekey from       : 0.0.0.0
+       Last rekey seq num    : 0
+       Multicast rekey rcvd  : 0
+
+    Rekeys cumulative
+       Total received        : 0
+       After latest register : 0
+       Rekey Received        : never
+
+ ACL Downloaded From KS 155.155.155.1:
+   access-list  permit ip 5.5.5.0 0.0.0.255 3.3.3.0 0.0.0.255
+   access-list  permit ip 3.3.3.0 0.0.0.255 5.5.5.0 0.0.0.255
+
+KEK POLICY:
+    Rekey Transport Type     : Multicast
+    Lifetime (secs)          : 243
+    Encrypt Algorithm        : AES
+    Key Size                 : 256     
+    Sig Hash Algorithm       : HMAC_AUTH_SHA
+    Sig Key Length (bits)    : 2048    
+
+TEK POLICY for the current KS-Policy ACEs Downloaded:
+
+USA-1#show cry gdoi
+GROUP INFORMATION
+
+    Group Name               : GETVPN-GROUP-MULTICAST
+    Group Identity           : 17320222
+    Rekeys received          : 0
+    IPSec SA Direction       : Both
+
+     Group Server list       : 155.155.155.2
+                               155.155.155.1
+                               
+    Group member             : 169.169.254.21   vrf: None
+       Registration status   : Registering
+       Registering to        : 155.155.155.2
+       Re-registers in       : 50 sec
+       Succeeded registration: 3
+       Attempted registration: 7
+       Last rekey from       : 0.0.0.0
+       Last rekey seq num    : 0
+       Multicast rekey rcvd  : 0
+
+    Rekeys cumulative
+       Total received        : 0
+       After latest register : 0
+       Rekey Received        : never
+
+ ACL Downloaded From KS 155.155.155.1:
+   access-list  permit ip 5.5.5.0 0.0.0.255 3.3.3.0 0.0.0.255
+   access-list  permit ip 3.3.3.0 0.0.0.255 5.5.5.0 0.0.0.255
+
+KEK POLICY:
+    Rekey Transport Type     : Multicast
+    Lifetime (secs)          : 243
+    Encrypt Algorithm        : AES
+    Key Size                 : 256     
+    Sig Hash Algorithm       : HMAC_AUTH_SHA
+    Sig Key Length (bits)    : 2048    
+
+TEK POLICY for the current KS-Policy ACEs Downloaded:
+
+USA-1#show cry gdoi
+GROUP INFORMATION
+
+    Group Name               : GETVPN-GROUP-MULTICAST
+    Group Identity           : 17320222
+    Rekeys received          : 0
+    IPSec SA Direction       : Both
+
+     Group Server list       : 155.155.155.2
+                               155.155.155.1
+                               
+    Group member             : 169.169.254.21   vrf: None
+       Registration status   : Registering
+       Registering to        : 155.155.155.2
+       Re-registers in       : 49 sec
+       Succeeded registration: 3
+       Attempted registration: 7
+       Last rekey from       : 0.0.0.0
+       Last rekey seq num    : 0
+       Multicast rekey rcvd  : 0
+
+    Rekeys cumulative
+       Total received        : 0
+       After latest register : 0
+       Rekey Received        : never
+
+ ACL Downloaded From KS 155.155.155.1:
+   access-list  permit ip 5.5.5.0 0.0.0.255 3.3.3.0 0.0.0.255
+   access-list  permit ip 3.3.3.0 0.0.0.255 5.5.5.0 0.0.0.255
+
+KEK POLICY:
+    Rekey Transport Type     : Multicast
+    Lifetime (secs)          : 243
+    Encrypt Algorithm        : AES
+    Key Size                 : 256     
+    Sig Hash Algorithm       : HMAC_AUTH_SHA
+    Sig Key Length (bits)    : 2048    
+
+TEK POLICY for the current KS-Policy ACEs Downloaded:
+
+USA-1#show cry gdoi
+GROUP INFORMATION
+
+    Group Name               : GETVPN-GROUP-MULTICAST
+    Group Identity           : 17320222
+    Rekeys received          : 0
+    IPSec SA Direction       : Both
+
+     Group Server list       : 155.155.155.2
+                               155.155.155.1
+                               
+    Group member             : 169.169.254.21   vrf: None
+       Registration status   : Registering
+       Registering to        : 155.155.155.2
+       Re-registers in       : 47 sec
+       Succeeded registration: 3
+       Attempted registration: 7
+       Last rekey from       : 0.0.0.0
+       Last rekey seq num    : 0
+       Multicast rekey rcvd  : 0
+
+    Rekeys cumulative
+       Total received        : 0
+       After latest register : 0
+       Rekey Received        : never
+
+ ACL Downloaded From KS 155.155.155.1:
+   access-list  permit ip 5.5.5.0 0.0.0.255 3.3.3.0 0.0.0.255
+   access-list  permit ip 3.3.3.0 0.0.0.255 5.5.5.0 0.0.0.255
+
+KEK POLICY:
+    Rekey Transport Type     : Multicast
+    Lifetime (secs)          : 243
+    Encrypt Algorithm        : AES
+    Key Size                 : 256     
+    Sig Hash Algorithm       : HMAC_AUTH_SHA
+    Sig Key Length (bits)    : 2048    
+
+TEK POLICY for the current KS-Policy ACEs Downloaded:
+
+USA-1#
+*Sep 23 09:35:34.427: PIM(0): Insert (155.155.155.1,232.23.23.23) join in nbr 55.55.55.1's queue
+*Sep 23 09:35:34.435: PIM(0): Building Join/Prune packet for nbr 55.55.55.1
+*Sep 23 09:35:34.439: PIM(0):  Adding v2 (155.155.155.1/32, 232.23.23.23), S-bit Join
+*Sep 23 09:35:34.439: PIM(0): Send v2 join/prune to 55.55.55.1 (FastEthernet2/0)
+USA-1# 
+USA-1#
+USA-1#
+USA-1#
+USA-1#
+USA-1#
+USA-1#
+USA-1#
+USA-1#
+USA-1#
+USA-1#
+USA-1#
+USA-1#
+USA-1#
+USA-1#
+USA-1#
+USA-1#
+USA-1#
+USA-1#
+USA-1#

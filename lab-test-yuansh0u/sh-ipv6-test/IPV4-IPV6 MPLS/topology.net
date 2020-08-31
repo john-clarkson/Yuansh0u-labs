@@ -1,0 +1,87 @@
+autostart = False
+version = 0.8.6
+[127.0.0.1:7202]
+    workingdir = C:\Users\JOHNC~1\AppData\Local\Temp
+    udp = 10201
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ROUTER GLOBAL-INET]]
+        console = 9005
+        aux = 2509
+        cnfg = configs\GLOBAL-INET.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = PE f0/0
+        slot1 = PA-GE
+        x = 250.0
+        y = -56.0
+        z = 1.0
+[127.0.0.1:7200]
+    workingdir = C:\Users\JOHNC~1\AppData\Local\Temp
+    udp = 10001
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ROUTER CE]]
+        console = 9001
+        aux = 2501
+        cnfg = configs\CE.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = nio_gen_eth:\device\npf_{a9b18fca-4be8-4ec5-a6b2-19619a935786}
+        f0/1 = INET f0/1
+        slot1 = PA-GE
+        x = -463.0
+        y = -74.0
+        z = 1.0
+    [[ROUTER INET]]
+        console = 9002
+        aux = 2502
+        cnfg = configs\INET.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = IPSEC-GW f0/0
+        f0/1 = CE f0/1
+        slot1 = PA-GE
+        x = -314.0
+        y = -158.0
+        z = 1.0
+[127.0.0.1:7201]
+    workingdir = C:\Users\JOHNC~1\AppData\Local\Temp
+    udp = 10101
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ROUTER IPSEC-GW]]
+        console = 9003
+        aux = 2503
+        cnfg = configs\IPSEC-GW.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = INET f0/0
+        f0/1 = PE f0/1
+        slot1 = PA-GE
+        x = -131.0
+        y = -54.0
+        z = 1.0
+    [[ROUTER PE]]
+        console = 9004
+        aux = 2504
+        cnfg = configs\PE.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = GLOBAL-INET f0/0
+        f0/1 = IPSEC-GW f0/1
+        slot1 = PA-GE
+        x = 65.0
+        y = -175.0
+        z = 1.0
+[GNS3-DATA]
+    configs = configs
+    [[Cloud WIN-7]]
+        x = -504.5
+        y = 92.0
+        z = 1.0
+        connections = CE:f0/0:nio_gen_eth:\device\npf_{a9b18fca-4be8-4ec5-a6b2-19619a935786}

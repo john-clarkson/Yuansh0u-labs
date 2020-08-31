@@ -1,0 +1,16 @@
+ip access-list extended tcp
+ 
+ permit ospf any any
+ permit icmp any any echo-reply
+ permit tcp host 23.1.1.3 host 1.1.1.1 range 10 81
+ permit tcp any host 12.1.1.1 established
+ permit tcp any any established syn
+ permit tcp any any established fin
+ permit tcp any any established psh
+ permit tcp any any established urg
+ permit tcp any any ack
+ deny   ip any any
+ 
+ inter f0/1
+ ip access-group tcp in
+ !

@@ -1,0 +1,49 @@
+test loopback interface:
+
+
+  enable 
+   cofig ter
+    UK: 1.1.1.0 255.255.255.0
+    GERMANY 2.2.2.0 255.255.255.0
+    CHINA 3.3.3.0 255.255.255.0
+    RUSSIA 4.4.4.0 255.255.255.0
+    USA 5.5.5.0 255.255.255.0
+
+interface loopback 11
+ ip vrf forwarding UK
+ ip ospf 10 area 0
+ ip ospf network point-to-point
+ ip address	181.11.1.1 255.255.0.0
+interface loopback 22
+ ip vrf forwarding GERMANY
+ ip ospf 20 area 0
+ ip ospf network point-to-point
+ ip address	182.22.2.2 255.255.0.0 
+
+interface loopback 31
+ ip vrf forwarding CHINA
+ ip ospf 30 area 0
+ ip address	183.31.3.3 255.255.0.0
+interface loopback 32
+ ip vrf forwarding CHINA
+ ip ospf 30 area 0
+ ip address	183.32.3.3 255.255.0.0
+interface loopback 33
+ ip vrf forwarding CHINA
+ ip ospf 30 area 0
+ ip address	183.33.3.3 255.255.0.0
+
+ interface loopback 51
+ ip vrf forwarding USA
+ ip address	185.51.5.5 255.255.0.0
+
+  interface loopback 52
+ ip vrf forwarding USA
+ ip address	185.52.5.5 255.255.0.0
+
+   interface loopback 53
+ ip vrf forwarding USA
+ ip address	185.53.5.5 255.255.0.0
+
+
+

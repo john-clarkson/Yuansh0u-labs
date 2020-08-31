@@ -1,0 +1,168 @@
+﻿
+CE1>EN
+CE1#SH RUN
+Building configuration...
+
+Current configuration : 1598 bytes
+!
+! Last configuration change at 15:07:47 UTC Thu Sep 7 2017
+!
+version 15.5
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no platform punt-keepalive disable-kernel-core
+platform console serial
+!
+hostname CE1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+ip multicast-routing distributed
+!
+!
+!         
+!
+!
+!
+!
+!
+!
+!
+
+
+
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 9292LR7GQOU
+!
+spanning-tree extend system-id
+!
+!
+redundancy
+!
+!
+!
+!         
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!         
+interface GigabitEthernet1
+ ip address 169.254.11.254 255.255.255.0
+ ip pim sparse-mode
+ negotiation auto
+!
+interface GigabitEthernet2
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet3
+ ip address 192.168.1.254 255.255.255.0
+ ip pim sparse-mode
+ negotiation auto
+!
+interface GigabitEthernet4
+ no ip address
+ shutdown
+ negotiation auto
+!
+router ospf 1
+ redistribute bgp 60000 subnets
+ network 10.10.10.10 0.0.0.0 area 0
+ network 192.168.1.0 0.0.0.255 area 0
+!
+router bgp 60000
+ bgp router-id 10.10.10.10
+ bgp log-neighbor-changes
+ neighbor 169.254.11.1 remote-as 9000
+ !
+ address-family ipv4
+  redistribute ospf 1 match internal external 1 external 2
+  neighbor 169.254.11.1 activate
+ exit-address-family
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+ip pim ssm default
+!
+no ip http server
+no ip http secure-server
+!
+!
+!         
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0
+ login
+line vty 1
+ login
+ length 0
+line vty 2 4
+ login
+!
+!         
+end
+

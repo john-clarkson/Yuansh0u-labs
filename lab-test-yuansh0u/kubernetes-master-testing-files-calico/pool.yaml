@@ -1,0 +1,28 @@
+apiVersion: projectcalico.org/v3
+items:
+- apiVersion: projectcalico.org/v3
+  kind: IPPool
+  metadata:
+    creationTimestamp: 2019-01-03T09:28:09Z
+    name: default-pool
+    resourceVersion: "728"
+    uid: e24a1a89-0f39-11e9-abd6-005056996082
+  spec:
+    cidr: 10.233.64.0/18
+    ipipMode: Always
+    natOutgoing: true
+    disabled: true
+- apiVersion: projectcalico.org/v3
+  kind: IPPool
+  metadata:
+    creationTimestamp: 2019-01-21T13:54:34Z
+    name: new-pool
+    resourceVersion: "92376"
+    uid: 15b4a4a3-1d84-11e9-a3b3-005056996082
+  spec:
+    cidr: 10.0.0.0/16
+    ipipMode: Always
+    natOutgoing: true
+kind: IPPoolList
+metadata:
+  resourceVersion: "92580"

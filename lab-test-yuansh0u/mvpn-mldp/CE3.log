@@ -1,0 +1,166 @@
+﻿CE3#sh run
+Building configuration...
+
+Current configuration : 1555 bytes
+!
+! Last configuration change at 16:09:35 UTC Thu Sep 7 2017
+!
+version 15.5
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no platform punt-keepalive disable-kernel-core
+platform console serial
+!
+hostname CE3
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+ip multicast-routing distributed
+!
+!
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+!         
+
+
+
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!         
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 9CPXM2BQTWJ
+!
+spanning-tree extend system-id
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+! 
+!
+!
+!
+!         
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 30.30.30.30 255.255.255.255
+!
+interface GigabitEthernet1
+ ip address 169.254.33.254 255.255.255.0
+ ip pim sparse-mode
+ ip igmp join-group 232.1.1.1 source 10.10.10.10
+ ip igmp version 3
+ negotiation auto
+!
+interface GigabitEthernet2
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet3
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet4
+ no ip address
+ shutdown
+ negotiation auto
+!
+router bgp 60000
+ bgp router-id 30.30.30.30
+ bgp log-neighbor-changes
+ neighbor 169.254.33.1 remote-as 9000
+ !        
+ address-family ipv4
+  network 30.30.30.30 mask 255.255.255.255
+  neighbor 169.254.33.1 activate
+ exit-address-family
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+ip pim ssm default
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !        
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0
+ login
+line vty 1
+ login
+ length 0
+line vty 2 4
+ login
+!
+!
+end
+

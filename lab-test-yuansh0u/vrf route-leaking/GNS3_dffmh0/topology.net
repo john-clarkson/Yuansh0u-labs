@@ -1,0 +1,48 @@
+autostart = False
+version = 0.8.6
+[127.0.0.1:7200]
+    workingdir = c:\users\johnc~1\appdata\local\temp\GNS3_dffmh0\working
+    udp = 10001
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ROUTER R1]]
+        console = 9001
+        aux = 2501
+        cnfg = configs\R1.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = R2 f0/0
+        x = -487.0
+        y = -155.0
+        z = 1.0
+    [[ROUTER R2]]
+        console = 9002
+        aux = 2502
+        cnfg = configs\R2.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = R1 f0/0
+        f0/1 = R3 f0/1
+        x = -307.0
+        y = -168.0
+        z = 1.0
+[127.0.0.1:7201]
+    workingdir = c:\users\johnc~1\appdata\local\temp\GNS3_dffmh0\working
+    udp = 10101
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ROUTER R3]]
+        console = 9003
+        aux = 2503
+        cnfg = configs\R3.cfg
+        slot0 = C7200-IO-2FE
+        f0/1 = R2 f0/1
+        x = -129.0
+        y = -155.0
+        z = 1.0
+[GNS3-DATA]
+    configs = configs

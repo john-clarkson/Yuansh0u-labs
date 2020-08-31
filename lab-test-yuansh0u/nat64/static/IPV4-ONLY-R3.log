@@ -1,0 +1,166 @@
+﻿*Dec 11 15:56:23.915: ICMP: echo reply rcvd, src 10.0.0.10, dst 10.0.0.1, topology BASE, dscp 0 topoid 0
+IPv4_Only_R3#SH RUN
+IPv4_Only_R3#SH RUNning-config 
+Building configuration...
+
+Current configuration : 1449 bytes
+!
+! Last configuration change at 15:52:42 UTC Mon Dec 11 2017
+!
+version 15.5
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no platform punt-keepalive disable-kernel-core
+platform console serial
+!
+hostname IPv4_Only_R3
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!         
+!
+!
+!
+!
+!
+!
+
+
+
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 9H49F5GDSOB
+!
+spanning-tree extend system-id
+!
+!
+redundancy
+!
+!
+!
+!         
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!         
+interface Loopback0
+ ip address 1.1.1.1 255.255.255.255
+!
+interface Loopback1
+ ip address 1.1.1.2 255.255.255.255
+!
+interface GigabitEthernet1
+ no ip address
+ negotiation auto
+!
+interface GigabitEthernet1.23
+ encapsulation dot1Q 23
+ ip address 10.0.0.1 255.255.255.0
+!
+interface GigabitEthernet2
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet3
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet4
+ no ip address
+ shutdown
+ negotiation auto
+!
+router ospf 1
+ network 1.1.1.1 0.0.0.0 area 1
+ network 1.1.1.2 0.0.0.0 area 0
+ network 10.0.0.0 0.0.0.255 area 0
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0
+ login
+line vty 1
+ login
+ length 0
+line vty 2 4
+ login
+!
+!
+end
+          

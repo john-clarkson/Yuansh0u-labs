@@ -1,0 +1,7 @@
+username cisco privilege 15 password cisco
+ip ssh ver 2
+line vty 0 15
+login 
+login local
+ip domain-name cisco.com
+crypto key generate rsa modulus 1024

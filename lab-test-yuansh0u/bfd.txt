@@ -1,0 +1,21 @@
+CHINA_USA
+interface {media-type}
+bfd interval 50 min_rx 50 multiplier 3
+
+%SYS-2-INSCHED: idle within scheduler -Process= "*Sched*", ipl= 0 -Traceback=
+%SYS-2-INSCHED: idle within scheduler -Process= "*Sched*", ipl= 0 -Traceback=
+
+CacheErr : 00000000, DErrAddr0 : 00000000, DErrAddr1 : 00000000
+TEXT_START : 0x600089A4
+DATA_START : 0x64208000
+Cause 00000008 (Code 0x2): TLB (load or instruction fetch) exception
+
+
+ 01:44:07 UTC Sat Dec 10 2016: TLB (load or instruction fetch) exception, CPU signal 10, PC = 0x60249FC4
+
+
+
+--------------------------------------------------------------------
+   Possible software fault. Upon reccurence, please collect
+   crashinfo, "show tech" and contact Cisco Technical Support.
+--------------------------------------------------------------------

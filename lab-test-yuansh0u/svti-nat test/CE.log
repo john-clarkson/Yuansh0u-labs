@@ -1,0 +1,250 @@
+﻿CE#SH RUN
+CE#SH RUNning-config 
+Building configuration...
+
+Current configuration : 2007 bytes
+!
+! Last configuration change at 16:02:48 UTC Sat Jun 10 2017
+!
+version 15.5
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no platform punt-keepalive disable-kernel-core
+platform console serial
+!
+hostname CE
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!         
+!
+!
+!
+!
+!
+!
+
+
+
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+multilink bundle-name authenticated
+!         
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 9NIM5C6HHZK
+!
+spanning-tree extend system-id
+!
+!
+redundancy
+!
+!
+!
+!
+!         
+!
+! 
+crypto keyring IPV4  
+  pre-shared-key address 102.1.1.1 key MOTHERFUCKERS
+!
+!
+!
+!
+!
+crypto isakmp policy 10
+ encr aes 256
+ authentication pre-share
+ group 2
+crypto isakmp profile IPV4
+   keyring IPV4
+   match identity address 102.1.1.1 255.255.255.255 
+!
+!
+crypto ipsec transform-set AES256/SHA/TUNNEL/TRANSPORT esp-aes 256 esp-sha-hmac 
+ mode tunnel
+!
+crypto ipsec profile IPV4
+ set transform-set AES256/SHA/TUNNEL/TRANSPORT 
+ set isakmp-profile IPV4
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 10.1.100.255 255.255.255.255
+!
+interface Loopback101
+ ip address 101.1.1.1 255.255.255.255
+!
+interface Tunnel101
+ ip address 12.1.1.1 255.255.255.0
+ ip mtu 1400
+ ip tcp adjust-mss 1360
+ ip ospf mtu-ignore
+ ip ospf 1 area 0
+ tunnel source 101.1.1.1
+ tunnel mode ipsec ipv4
+ tunnel destination 102.1.1.1
+ tunnel protection ipsec profile IPV4
+!
+interface GigabitEthernet1
+ ip address 192.168.1.1 255.255.255.0
+ negotiation auto
+!
+interface GigabitEthernet2
+ no ip address
+ shutdown
+ negotiation auto
+!
+interface GigabitEthernet3
+ no ip address
+ shutdown
+ negotiation auto
+!         
+interface GigabitEthernet4
+ no ip address
+ shutdown
+ negotiation auto
+!
+router ospf 1
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+ip route 0.0.0.0 0.0.0.0 192.168.1.254
+!
+!
+!
+!
+control-plane
+!
+ !
+ !        
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ stopbits 1
+line vty 0
+ login
+line vty 1
+ login
+ length 0
+line vty 2 4
+ login
+!
+!
+end
+
+CE#    
+CE#
+CE#
+CE#show cry isa sa
+IPv4 Crypto ISAKMP SA
+dst             src             state          conn-id status
+101.1.1.1       102.1.1.1       QM_IDLE           1060 ACTIVE
+
+IPv6 Crypto ISAKMP SA
+
+CE#show cry ipsec sa
+
+interface: Tunnel101
+    Crypto map tag: Tunnel101-head-0, local addr 101.1.1.1
+
+   protected vrf: (none)
+   local  ident (addr/mask/prot/port): (0.0.0.0/0.0.0.0/0/0)
+   remote ident (addr/mask/prot/port): (0.0.0.0/0.0.0.0/0/0)
+   current_peer 102.1.1.1 port 500
+     PERMIT, flags={origin_is_acl,}
+    #pkts encaps: 20, #pkts encrypt: 20, #pkts digest: 20
+    #pkts decaps: 19, #pkts decrypt: 19, #pkts verify: 19
+    #pkts compressed: 0, #pkts decompressed: 0
+    #pkts not compressed: 0, #pkts compr. failed: 0
+    #pkts not decompressed: 0, #pkts decompress failed: 0
+    #send errors 0, #recv errors 0
+
+     local crypto endpt.: 101.1.1.1, remote crypto endpt.: 102.1.1.1
+     plaintext mtu 1438, path mtu 1500, ip mtu 1500, ip mtu idb GigabitEthernet1
+     current outbound spi: 0x3B373020(993472544)
+     PFS (Y/N): N, DH group: none
+
+     inbound esp sas:
+      spi: 0xCBF7D623(3422017059)
+        transform: esp-256-aes esp-sha-hmac ,
+        in use settings ={Tunnel, }
+        conn id: 2011, flow_id: CSR:11, sibling_flags FFFFFFFF80000048, crypto map: Tunnel101-head-0
+        sa timing: remaining key lifetime (k/sec): (4607997/3488)
+        IV size: 16 bytes
+        replay detection support: Y
+        Status: ACTIVE(ACTIVE)
+
+     inbound ah sas:
+
+     inbound pcp sas:
+
+     outbound esp sas:
+      spi: 0x3B373020(993472544)
+        transform: esp-256-aes esp-sha-hmac ,
+        in use settings ={Tunnel, }
+        conn id: 2012, flow_id: CSR:12, sibling_flags FFFFFFFF80000048, crypto map: Tunnel101-head-0
+        sa timing: remaining key lifetime (k/sec): (4607998/3488)
+        IV size: 16 bytes
+        replay detection support: Y
+        Status: ACTIVE(ACTIVE)
+          
+     outbound ah sas:
+
+     outbound pcp sas:
+CE#  show ip os nei
+CE#  show ip os neighbor 
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+102.1.1.1         0   FULL/  -        00:00:39    12.1.1.2        Tunnel101

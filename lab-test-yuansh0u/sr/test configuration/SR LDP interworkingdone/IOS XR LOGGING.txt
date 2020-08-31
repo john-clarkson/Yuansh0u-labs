@@ -1,0 +1,12 @@
+
+config
+logging console informational
+logging console alerts 
+logging console critical 
+logging console debugging
+logging console discriminator
+logging console  emergencies 
+logging console notifications
+logging console  warning 
+ commit
+

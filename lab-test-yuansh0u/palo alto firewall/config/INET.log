@@ -1,0 +1,132 @@
+﻿
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname CHINA-INET
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+ip cef    
+no ipv6 cef
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+username cisco privilege 15 password 0 cisco
+!
+!
+!
+!
+!
+! 
+!
+!
+!
+!
+!         
+!
+!
+!
+interface Loopback108
+ description china-route
+ ip address 1.0.8.1 255.255.255.255
+!
+interface Loopback109
+ description china-route
+ ip address 1.0.9.1 255.255.255.255
+!
+interface Loopback110
+ description china-route
+ ip address 1.0.10.1 255.255.255.255
+!
+interface Loopback111
+ description china-route
+ ip address 1.0.11.1 255.255.255.255
+!
+interface Loopback112
+ description china-route
+ ip address 1.0.12.1 255.255.255.255
+!         
+interface FastEthernet0/0
+ no ip address
+ shutdown
+ duplex full
+!
+interface Ethernet1/0
+ no ip address
+ shutdown
+ duplex full
+!
+interface Ethernet1/1
+ no ip address
+ shutdown
+ duplex full
+!
+interface Ethernet1/2
+ no ip address
+ shutdown
+ duplex full
+!
+interface Ethernet1/3
+ ip address 219.235.229.254 255.255.255.0
+ duplex full
+!
+interface Ethernet1/4
+ no ip address
+ duplex full
+!
+interface Ethernet1/5
+ ip address 219.230.229.254 255.255.255.0
+ duplex full
+!
+interface Ethernet1/6
+ ip address 202.20.71.254 255.255.255.0
+ duplex full
+!
+interface Ethernet1/7
+ ip address 202.10.71.254 255.255.255.0
+ duplex full
+!
+ip forward-protocol nd
+!
+!
+ip http server
+ip http authentication local
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ exec-timeout 0 0
+ password cisco
+ login local
+!
+!
+end
+
+CHINA-INET# 

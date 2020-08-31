@@ -1,0 +1,238 @@
+JAPAN-P#sh run | se bgp
+router bgp 1000
+ bgp router-id 192.168.253.253
+ no bgp default ipv4-unicast
+ bgp log-neighbor-changes
+ neighbor 192.168.251.251 remote-as 1000
+ neighbor 192.168.251.251 update-source Loopback0
+ neighbor 192.168.252.252 remote-as 1000
+ neighbor 192.168.252.252 update-source Loopback0
+ neighbor 192.168.254.1 remote-as 1000
+ neighbor 192.168.254.1 update-source Loopback0
+ neighbor 192.168.254.2 remote-as 1000
+ neighbor 192.168.254.2 update-source Loopback0
+ !
+ address-family ipv4
+  no synchronization
+  neighbor 192.168.251.251 activate
+  neighbor 192.168.252.252 activate
+  neighbor 192.168.254.1 activate
+  neighbor 192.168.254.2 activate
+  no auto-summary
+ exit-address-family
+ !
+ address-family vpnv4
+  neighbor 192.168.251.251 activate
+  neighbor 192.168.251.251 send-community extended
+  neighbor 192.168.251.251 route-reflector-client
+  neighbor 192.168.252.252 activate
+  neighbor 192.168.252.252 send-community extended
+  neighbor 192.168.252.252 route-reflector-client
+  neighbor 192.168.254.1 activate
+  neighbor 192.168.254.1 send-community extended
+  neighbor 192.168.254.1 route-reflector-client
+  neighbor 192.168.254.2 activate
+  neighbor 192.168.254.2 send-community extended
+  neighbor 192.168.254.2 route-reflector-client
+ exit-address-family
+JAPAN-P# 
+
+========================================
+
+JAPAN-PE1#sh run | se bgp
+ redistribute bgp 1000 subnets
+router bgp 1000
+ bgp router-id 192.168.251.251
+ no bgp default ipv4-unicast
+ no bgp default route-target filter
+ bgp log-neighbor-changes
+ neighbor 192.168.252.252 remote-as 1000
+ neighbor 192.168.252.252 shutdown
+ neighbor 192.168.252.252 update-source Loopback0
+ neighbor 192.168.253.253 remote-as 1000
+ neighbor 192.168.253.253 update-source Loopback0
+ neighbor 192.168.254.1 remote-as 1000
+ neighbor 192.168.254.1 shutdown
+ neighbor 192.168.254.1 update-source Loopback0
+ neighbor 192.168.254.2 remote-as 1000
+ neighbor 192.168.254.2 shutdown
+ neighbor 192.168.254.2 update-source Loopback0
+ !
+ address-family ipv4
+  no synchronization
+  no auto-summary
+ exit-address-family
+ !
+ address-family vpnv4
+  neighbor 192.168.252.252 activate
+  neighbor 192.168.252.252 send-community extended
+  neighbor 192.168.253.253 activate
+  neighbor 192.168.253.253 send-community extended
+  neighbor 192.168.254.1 activate
+  neighbor 192.168.254.1 send-community extended
+  neighbor 192.168.254.2 activate
+  neighbor 192.168.254.2 send-community extended
+ exit-address-family
+ !
+ address-family ipv4 vrf INET
+  no synchronization
+  network 0.0.0.0
+ exit-address-family
+ !
+ address-family ipv4 vrf TOKYO
+  no synchronization
+  network 121.121.121.1 mask 255.255.255.255
+  redistribute ospf 12 vrf TOKYO match internal external 1 external 2
+  neighbor 168.192.1.1 remote-as 65511
+  neighbor 168.192.1.1 activate
+  neighbor 168.192.1.1 as-override
+  maximum-paths eibgp 32
+ exit-address-family
+JAPAN-PE1#
+
+============
+JAPAN-PE2#sh run | se bgp
+ mpls bgp forwarding
+ redistribute bgp 1000 subnets
+router bgp 1000
+ bgp router-id 192.168.252.252
+ no bgp default ipv4-unicast
+ no bgp default route-target filter
+ bgp log-neighbor-changes
+ neighbor 192.168.251.251 remote-as 1000
+ neighbor 192.168.251.251 shutdown
+ neighbor 192.168.251.251 update-source Loopback0
+ neighbor 192.168.253.253 remote-as 1000
+ neighbor 192.168.253.253 update-source Loopback0
+ neighbor 192.168.254.1 remote-as 1000
+ neighbor 192.168.254.1 shutdown
+ neighbor 192.168.254.1 update-source Loopback0
+ neighbor 192.168.254.2 remote-as 1000
+ neighbor 192.168.254.2 shutdown
+ neighbor 192.168.254.2 update-source Loopback0
+ !
+ address-family ipv4
+  no synchronization
+  no auto-summary
+ exit-address-family
+ !        
+ address-family vpnv4
+  neighbor 192.168.251.251 activate
+  neighbor 192.168.251.251 send-community extended
+  neighbor 192.168.253.253 activate
+  neighbor 192.168.253.253 send-community extended
+  neighbor 192.168.254.1 activate
+  neighbor 192.168.254.1 send-community extended
+  neighbor 192.168.254.2 activate
+  neighbor 192.168.254.2 send-community extended
+ exit-address-family
+ !
+ address-family ipv4 vrf INET
+  no synchronization
+  redistribute static
+ exit-address-family
+ !
+ address-family ipv4 vrf NEET
+  no synchronization
+  network 121.121.121.2 mask 255.255.255.255
+  redistribute ospf 12 vrf NEET match internal external 1 external 2
+  neighbor 168.192.2.1 remote-as 65511
+  neighbor 168.192.2.1 activate
+  neighbor 168.192.2.1 as-override
+ exit-address-family
+JAPAN-PE2# 
+
+===================================
+JAPAN-ASBR-1#sh run | se bgp
+ mpls bgp forwarding
+router bgp 1000
+ bgp router-id 192.168.254.1
+ no bgp default ipv4-unicast
+ no bgp default route-target filter
+ bgp log-neighbor-changes
+ neighbor 91.91.91.5 remote-as 9000
+ neighbor 192.168.251.251 remote-as 1000
+ neighbor 192.168.251.251 shutdown
+ neighbor 192.168.251.251 update-source Loopback0
+ neighbor 192.168.252.252 remote-as 1000
+ neighbor 192.168.252.252 shutdown
+ neighbor 192.168.252.252 update-source Loopback0
+ neighbor 192.168.253.253 remote-as 1000
+ neighbor 192.168.253.253 update-source Loopback0
+ neighbor 192.168.254.2 remote-as 1000
+ neighbor 192.168.254.2 shutdown
+ neighbor 192.168.254.2 update-source Loopback0
+ !
+ address-family ipv4
+  no synchronization
+  no auto-summary
+ exit-address-family
+ !        
+ address-family vpnv4
+  neighbor 91.91.91.5 activate
+  neighbor 91.91.91.5 send-community extended
+  neighbor 192.168.251.251 activate
+  neighbor 192.168.251.251 send-community extended
+  neighbor 192.168.251.251 next-hop-self
+  neighbor 192.168.252.252 activate
+  neighbor 192.168.252.252 send-community extended
+  neighbor 192.168.252.252 next-hop-self
+  neighbor 192.168.253.253 activate
+  neighbor 192.168.253.253 send-community extended
+  neighbor 192.168.254.2 activate
+  neighbor 192.168.254.2 send-community extended
+ exit-address-family
+ !
+ address-family ipv4 vrf TOKYO
+  no synchronization
+  neighbor 91.91.91.1 remote-as 9000
+  neighbor 91.91.91.1 activate
+ exit-address-family
+JAPAN-ASBR-1# 
+=================
+JAPAN-ASBR-2#sh run | se bgp
+ mpls bgp forwarding
+router bgp 1000
+ bgp router-id 192.168.254.2
+ no bgp default ipv4-unicast
+ no bgp default route-target filter
+ bgp log-neighbor-changes
+ neighbor 19.19.1.5 remote-as 9000
+ neighbor 192.168.251.251 remote-as 1000
+ neighbor 192.168.251.251 shutdown
+ neighbor 192.168.251.251 update-source Loopback0
+ neighbor 192.168.252.252 remote-as 1000
+ neighbor 192.168.252.252 shutdown
+ neighbor 192.168.252.252 update-source Loopback0
+ neighbor 192.168.253.253 remote-as 1000
+ neighbor 192.168.253.253 update-source Loopback0
+ neighbor 192.168.254.1 remote-as 1000
+ neighbor 192.168.254.1 shutdown
+ neighbor 192.168.254.1 update-source Loopback0
+ !
+ address-family ipv4
+  no synchronization
+  no auto-summary
+ exit-address-family
+ !        
+ address-family vpnv4
+  neighbor 19.19.1.5 activate
+  neighbor 19.19.1.5 send-community extended
+  neighbor 192.168.251.251 activate
+  neighbor 192.168.251.251 send-community extended
+  neighbor 192.168.251.251 next-hop-self
+  neighbor 192.168.252.252 activate
+  neighbor 192.168.252.252 send-community extended
+  neighbor 192.168.252.252 next-hop-self
+  neighbor 192.168.253.253 activate
+  neighbor 192.168.253.253 send-community extended
+  neighbor 192.168.254.1 activate
+  neighbor 192.168.254.1 send-community extended
+ exit-address-family
+ !
+ address-family ipv4 vrf TOKYO
+  no synchronization
+  neighbor 19.19.1.1 remote-as 9000
+  neighbor 19.19.1.1 activate
+ exit-address-family
+JAPAN-ASBR-2# 

@@ -1,0 +1,19 @@
+enable 
+  config ter
+  no service timestamps debug
+  no service timestamps log  
+  no service timestamps
+ ip http server 
+ ip http authentication local
+ username cisco priv 15 pass cisco
+!
+ip domain lookup source-interface Ethernet1/0
+ip name-server 202.106.196.115
+!
+ line vty 0 4
+   login local
+    pass cisco
+    trans input all
+    exec-timeout 0 0
+    do wr
+    

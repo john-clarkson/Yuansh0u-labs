@@ -1,0 +1,2058 @@
+autostart = False
+version = 0.8.6
+[127.0.0.1:7211]
+    workingdir = C:\Users\JOHNC~1\AppData\Local\Temp
+    udp = 11101
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ETHSW PPPOE-CAMPUS-SW]]
+        1 = access 1 UK-CLIENT-USER f0/1
+        2 = access 1 RA-GW-2 f0/1
+        3 = access 1 UK-CLIENT-USER2 f0/0
+        x = -821.802740679
+        y = 377.15137034
+        z = 1.0
+    [[ETHSW CE-SW]]
+        1 = access 10 CE1 f1/1
+        2 = access 20 CE2 f1/1
+        3 = access 300 CE3-0 f0/1
+        4 = access 301 CE3-1 f0/1
+        5 = access 40 CE4 f1/1
+        6 = access 500 CE5-0 f0/1
+        7 = access 501 CE5-1 f0/1
+        15 = dot1q 1 DATA-CENTER-CORE-SW g1/0
+        16 = access 60 SINGAPORE f0/1
+        17 = access 70 Italy f0/0
+        x = -567.393218814
+        y = -380.575685171
+        z = 1.0
+    [[ROUTER DATA-CENTER-CORE-SW]]
+        console = 2024
+        aux = 2525
+        cnfg = configs\DATA-CENTER-CORE-SW.cfg
+        slot0 = C7200-IO-2FE
+        slot1 = PA-GE
+        g1/0 = CE-SW 15
+        slot2 = PA-GE
+        g2/0 = SW6 15
+        slot3 = PA-GE
+        x = -267.423702085
+        y = -390.821643388
+        z = 1.0
+    [[ROUTER UK-CLIENT-USER]]
+        console = 2023
+        aux = 2524
+        cnfg = configs\UK-CLIENT-USER.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = INET-SW 31
+        f0/1 = PPPOE-CAMPUS-SW 1
+        slot1 = PA-2FE-TX
+        f1/0 = UK-CLIENT-LAN f1/0
+        slot2 = PA-2FE-TX
+        slot3 = PA-2FE-TX
+        x = -963.883117541
+        y = 247.606601718
+        z = 1.0
+        hx = -27.3994949366
+        hy = 41.4680374315
+    [[ETHSW SW6]]
+        1 = access 1 nio_gen_eth:\device\npf_{a9b18fca-4be8-4ec5-a6b2-19619a935786}
+        2 = access 2 nio_gen_eth:\device\npf_{ba1d971f-3453-4c6a-983d-5eeac3aa66c7}
+        15 = dot1q 1 DATA-CENTER-CORE-SW g2/0
+        x = -108.395310854
+        y = -374.738636075
+        z = 1.0
+[127.0.0.1:7210]
+    workingdir = C:\Users\JOHNC~1\AppData\Local\Temp
+    udp = 11001
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ROUTER US-KS-2]]
+        console = 2021
+        aux = 2522
+        cnfg = configs\US-KS-2.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = CE5-1 f2/1
+        f0/1 = CE5-0 f2/1
+        slot1 = PA-2FE-TX
+        slot2 = PA-2FE-TX
+        x = -1129.25692604
+        y = -198.889393669
+        z = 1.0
+    [[ROUTER US-KS-1]]
+        console = 2022
+        aux = 2523
+        cnfg = configs\US-KS-1.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = CE5-0 f2/0
+        f0/1 = CE5-1 f2/0
+        slot1 = PA-2FE-TX
+        slot2 = PA-2FE-TX
+        x = -1264.08091527
+        y = -197.837049096
+        z = 1.0
+        hx = 10.0710678119
+        hy = -26.4142135624
+[127.0.0.1:7213]
+    workingdir = C:\Users\JOHNC~1\AppData\Local\Temp
+    udp = 11301
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ROUTER SP2-CE1]]
+        console = 2027
+        aux = 2527
+        cnfg = configs\SP2-CE1.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = SP2-PE1 f0/0
+        f0/1 = SP2-CE2 f0/1
+        slot1 = PA-2FE-TX
+        f1/0 = TOKYO-LAN f0/0
+        f1/1 = nio_gen_eth:\device\npf_{a9b18fca-4be8-4ec5-a6b2-19619a935786}
+        slot3 = PA-8T
+        s3/0 = SP2-PE1 s3/0
+        x = 558.446101794
+        y = 507.001479296
+        z = 1.0
+    [[ROUTER EDGE-INTER-AS]]
+        console = 2030
+        aux = 2530
+        cnfg = configs\EDGE-INTER-AS.cfg
+        slot0 = C7200-IO-2FE
+        slot1 = PA-2FE-TX
+        f1/0 = ABSR-1 g2/0
+        f1/1 = JAPAN-ASBR-1 g2/0
+        slot2 = PA-2FE-TX
+        f2/0 = ASBR-2 g2/0
+        f2/1 = JAPAN-ASBR-2 g2/0
+        x = -33.6922086885
+        y = 396.856385082
+        z = 1.0
+        hx = -10.9386001798
+        hy = 65.7088924501
+[127.0.0.1:7212]
+    workingdir = C:\Users\JOHNC~1\AppData\Local\Temp
+    udp = 11201
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ROUTER RA-GW-1]]
+        console = 2025
+        aux = 2552
+        cnfg = configs\RA-GW-1.cfg
+        slot0 = C7200-IO-2FE
+        f0/1 = INET-SW 14
+        slot1 = PA-2FE-TX
+        slot2 = PA-2FE-TX
+        slot3 = PA-2FE-TX
+        slot4 = PA-2FE-TX
+        f4/0 = P1 f4/0
+        f4/1 = P2 f4/1
+        x = -811.477525955
+        y = 262.155808229
+        z = 1.0
+        hx = 4.19238815542
+        hy = 40.0796897832
+[127.0.0.1:7215]
+    workingdir = C:\Users\JOHNC~1\AppData\Local\Temp
+    udp = 11501
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ROUTER NEET-LAN]]
+        console = 2031
+        aux = 2531
+        cnfg = configs\NEET-LAN.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = SP2-CE2 f1/0
+        x = 737.562371503
+        y = 276.342533006
+        z = 1.0
+    [[ROUTER TOKYO-LAN]]
+        console = 2029
+        aux = 2529
+        cnfg = configs\TOKYO-LAN.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = SP2-CE1 f1/0
+        x = 735.581707486
+        y = 511.140043583
+        z = 1.0
+[127.0.0.1:7214]
+    workingdir = C:\Users\JOHNC~1\AppData\Local\Temp
+    udp = 11401
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ROUTER UK-CLIENT-USER2]]
+        console = 2032
+        aux = 2532
+        cnfg = configs\UK-CLIENT-USER2.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = PPPOE-CAMPUS-SW 3
+        slot1 = PA-2FE-TX
+        slot2 = PA-2FE-TX
+        slot3 = PA-2FE-TX
+        slot6 = PA-2FE-TX
+        x = -1006.57063454
+        y = 368.269119345
+        z = 1.0
+[127.0.0.1:7217]
+    workingdir = C:\Users\JOHNC~1\AppData\Local\Temp
+    udp = 11701
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ROUTER ABSR-1]]
+        console = 2132
+        aux = 2534
+        cnfg = configs\ABSR-1.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = P1 f3/1
+        f0/1 = P2 f3/0
+        slot1 = PA-GE
+        g1/0 = JAPAN-ASBR-1 g1/0
+        slot2 = PA-GE
+        g2/0 = EDGE-INTER-AS f1/0
+        x = -148.99224458
+        y = 279.066017177
+        z = 1.0
+    [[ROUTER ASBR-2]]
+        console = 2134
+        aux = 2535
+        cnfg = configs\ASBR-2.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = P1 f4/1
+        f0/1 = P2 f4/0
+        slot1 = PA-GE
+        g1/0 = JAPAN-ASBR-2 g1/0
+        slot2 = PA-GE
+        g2/0 = EDGE-INTER-AS f2/0
+        x = -142.427273423
+        y = 522.152849636
+        z = 1.0
+[127.0.0.1:7216]
+    workingdir = C:\Users\JOHNC~1\AppData\Local\Temp
+    udp = 11601
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ROUTER JAPAN-P]]
+        console = 2033
+        aux = 2533
+        cnfg = configs\JAPAN-P.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = SP2-PE1 f0/1
+        f0/1 = SP2-PE2 f0/1
+        slot1 = PA-2FE-TX
+        f1/0 = JAPAN-ASBR-1 f0/0
+        f1/1 = JAPAN-ASBR-2 f0/0
+        slot2 = PA-2FE-TX
+        x = 210.750575576
+        y = 396.126983723
+        z = 1.0
+[127.0.0.1:7219]
+    workingdir = C:\Users\JOHNC~1\AppData\Local\Temp
+    udp = 11901
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ROUTER RA-GW-2]]
+        console = 2140
+        aux = 2540
+        cnfg = configs\RA-GW-2.cfg
+        slot0 = C7200-IO-2FE
+        f0/1 = PPPOE-CAMPUS-SW 2
+        slot1 = PA-2FE-TX
+        slot2 = PA-2FE-TX
+        slot3 = PA-2FE-TX
+        slot6 = PA-2FE-TX
+        f6/0 = P1 f6/0
+        f6/1 = P2 f6/1
+        x = -818.282179207
+        y = 449.36962441
+        z = 1.0
+        hx = -0.292893218812
+        hy = 17.4264068713
+[127.0.0.1:7218]
+    workingdir = C:\Users\JOHNC~1\AppData\Local\Temp
+    udp = 11801
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ROUTER JAPAN-ASBR-2]]
+        console = 2138
+        aux = 2538
+        cnfg = configs\JAPAN-ASBR-2.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = JAPAN-P f1/1
+        slot1 = PA-GE
+        g1/0 = ASBR-2 g1/0
+        slot2 = PA-GE
+        g2/0 = EDGE-INTER-AS f2/1
+        x = 109.517423411
+        y = 525.910208949
+        z = 1.0
+        hx = -15.5
+        hy = 41.0000000001
+    [[ROUTER JAPAN-ASBR-1]]
+        console = 2136
+        aux = 2536
+        cnfg = configs\JAPAN-ASBR-1.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = JAPAN-P f1/0
+        slot1 = PA-GE
+        g1/0 = ABSR-1 g1/0
+        slot2 = PA-GE
+        g2/0 = EDGE-INTER-AS f1/1
+        x = 107.458548909
+        y = 280.672618895
+        z = 1.0
+[127.0.0.1:7224]
+    workingdir = C:\Users\JOHNC~1\AppData\Local\Temp
+    udp = 12401
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ROUTER CHINA-CLIENT-USER2-NAT]]
+        console = 2147
+        aux = 2547
+        cnfg = configs\CHINA-CLIENT-USER2-NAT.cfg
+        slot0 = C7200-IO-2FE
+        f0/1 = CHINA-NAT-DEVICE f0/1
+        slot1 = PA-2FE-TX
+        x = -88.6669555173
+        y = -522.219479562
+        z = 1.0
+    [[ROUTER CHINA-NAT-DEVICE]]
+        console = 2144
+        aux = 2544
+        cnfg = configs\CHINA-NAT-DEVICE.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = CH-INET 2
+        f0/1 = CHINA-CLIENT-USER2-NAT f0/1
+        slot1 = PA-2FE-TX
+        x = -295.142135624
+        y = -525.391052436
+        z = 1.0
+[127.0.0.1:7225]
+    workingdir = C:\Users\JOHNC~1\AppData\Local\Temp
+    udp = 12501
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ROUTER CHINA-CLIENT-USER1-WITHOUT-NAT]]
+        console = 2150
+        aux = 2550
+        cnfg = configs\CHINA-CLIENT-USER1-WITHOUT-NAT.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = CH-INET 5
+        x = -299.355339059
+        y = -610.05591591
+        z = 1.0
+        hx = -64.2867965644
+        hy = -22.1715728753
+[127.0.0.1:7226]
+    workingdir = C:\Users\JOHNC~1\AppData\Local\Temp
+    udp = 12601
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ROUTER Italy]]
+        console = 2149
+        aux = 2549
+        cnfg = configs\Italy.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = CE-SW 17
+        slot1 = PA-FE-TX
+        f1/0 = SP2-PE1 f1/0
+        slot2 = PA-2FE-TX
+        f2/0 = PE1 f2/0
+        x = 159.333044483
+        y = -149.279220614
+        z = 1.0
+    [[ROUTER SINGAPORE]]
+        console = 2148
+        aux = 2548
+        cnfg = configs\SINGAPORE.cfg
+        slot0 = C7200-IO-2FE
+        f0/1 = CE-SW 16
+        slot1 = PA-2FE-TX
+        f1/0 = SP2-PE2 f1/0
+        slot3 = PA-8T
+        s3/1 = PE3 s3/1
+        x = 340.352380466
+        y = -171.906637612
+        z = 1.0
+[127.0.0.1:7220]
+    workingdir = C:\Users\JOHNC~1\AppData\Local\Temp
+    udp = 12001
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ROUTER Central-Service]]
+        console = 2172
+        aux = 2572
+        cnfg = configs\Central-Service.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = P1 f6/1
+        f0/1 = P2 f6/0
+        slot1 = PA-2FE-TX
+        f1/0 = nio_gen_eth:\device\npf_{ba1d971f-3453-4c6a-983d-5eeac3aa66c7}
+        x = -441.83896167
+        y = 685.222871428
+        z = 1.0
+        hx = -127.566017178
+        hy = 1.87005768514
+[127.0.0.1:7221]
+    workingdir = C:\Users\JOHNC~1\AppData\Local\Temp
+    udp = 12101
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ROUTER USA-CLIENT-USER-2]]
+        console = 2141
+        aux = 2541
+        cnfg = configs\USA-CLIENT-USER-2.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = US-INET 1
+        slot1 = PA-2FE-TX
+        slot2 = PA-2FE-TX
+        slot3 = PA-2FE-TX
+        x = -1097.51089348
+        y = -545.165655691
+        z = 1.0
+    [[ROUTER USA-CLIENT-USER-1]]
+        console = 2139
+        aux = 2539
+        cnfg = configs\USA-CLIENT-USER-1.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = US-INET 2
+        slot1 = PA-2FE-TX
+        slot2 = PA-2FE-TX
+        slot3 = PA-2FE-TX
+        x = -1231.51089348
+        y = -525.64379439
+        z = 1.0
+    [[ETHSW US-INET]]
+        1 = access 1 USA-CLIENT-USER-2 f0/0
+        2 = access 1 USA-CLIENT-USER-1 f0/0
+        3 = access 1 DMVPN-INET f0/0
+        4 = access 1 CE5-0 f6/0
+        5 = access 1 CE5-1 f6/0
+        x = -999.092062562
+        y = -355.3422792
+        z = 1.0
+[127.0.0.1:7222]
+    workingdir = C:\Users\JOHNC~1\AppData\Local\Temp
+    udp = 12201
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ETHSW CH-INET]]
+        1 = access 1 DMVPN-INET f0/1
+        2 = access 1 CHINA-NAT-DEVICE f0/0
+        3 = access 1 CE3-0 f6/0
+        4 = access 1 CE3-1 f6/0
+        5 = access 1 CHINA-CLIENT-USER1-WITHOUT-NAT f0/0
+        x = -464.519335984
+        y = -515.148411749
+        z = 1.0
+    [[ROUTER DMVPN-INET]]
+        console = 2143
+        aux = 2543
+        cnfg = configs\DMVPN-INET.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = US-INET 3
+        f0/1 = CH-INET 1
+        slot1 = PA-2FE-TX
+        slot2 = PA-2FE-TX
+        slot3 = PA-2FE-TX
+        x = -790.60216383
+        y = -481.57481862
+        z = 1.0
+[127.0.0.1:7202]
+    workingdir = C:\Users\JOHNC~1\AppData\Local\Temp
+    udp = 10201
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ROUTER CE4]]
+        console = 2005
+        aux = 2506
+        cnfg = configs\CE4.cfg
+        slot0 = C7200-IO-2FE
+        f0/1 = PE4 f0/1
+        slot1 = PA-2FE-TX
+        f1/1 = CE-SW 5
+        slot2 = PA-2FE-TX
+        slot3 = PA-8T
+        s3/0 = PE3 s3/0
+        slot4 = PA-2FE-TX
+        slot6 = PA-2FE-TX
+        x = -91.579510315
+        y = -51.882250994
+        z = 1.0
+    [[ROUTER CE5-0]]
+        console = 2006
+        aux = 2507
+        cnfg = configs\CE5-0.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = PE1-SW 5
+        f0/1 = CE-SW 6
+        slot1 = PA-2FE-TX
+        f1/0 = CE5-1 f1/0
+        slot2 = PA-2FE-TX
+        f2/0 = US-KS-1 f0/0
+        f2/1 = US-KS-2 f0/1
+        slot3 = PA-2FE-TX
+        slot4 = PA-2FE-TX
+        slot6 = PA-2FE-TX
+        f6/0 = US-INET 4
+        x = -1071.9729086
+        y = -49.9203102177
+        z = 1.0
+[127.0.0.1:7203]
+    workingdir = C:\Users\JOHNC~1\AppData\Local\Temp
+    udp = 10301
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ROUTER PE1]]
+        console = 2008
+        aux = 2509
+        cnfg = configs\PE1.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = PE1-SW 15
+        f0/1 = CE1 f0/1
+        slot1 = PA-2FE-TX
+        f1/0 = P1 f1/0
+        f1/1 = P2 f1/0
+        slot2 = PA-2FE-TX
+        f2/0 = Italy f2/0
+        slot3 = PA-2FE-TX
+        slot4 = PA-2FE-TX
+        slot6 = PA-2FE-TX
+        x = -711.993723877
+        y = 184.460894757
+        z = 1.0
+        hx = 15.6715728753
+        hy = 17.5
+    [[ETHSW PE1-SW]]
+        1 = access 10 CE1 f0/0
+        5 = access 50 CE5-0 f0/0
+        15 = dot1q 1 PE1 f0/0
+        x = -791.127237529
+        y = 76.9253608509
+        z = 1.0
+    [[ROUTER CE5-1]]
+        console = 2007
+        aux = 2508
+        cnfg = configs\CE5-1.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = PE2-SW 5
+        f0/1 = CE-SW 7
+        slot1 = PA-2FE-TX
+        f1/0 = CE5-0 f1/0
+        f1/1 = SP2-PE1 f1/1
+        slot2 = PA-2FE-TX
+        f2/0 = US-KS-1 f0/1
+        f2/1 = US-KS-2 f0/0
+        slot3 = PA-2FE-TX
+        slot4 = PA-2FE-TX
+        slot6 = PA-2FE-TX
+        f6/0 = US-INET 5
+        x = -936.650578127
+        y = -46.183766185
+        z = 1.0
+[127.0.0.1:7200]
+    workingdir = C:\Users\JOHNC~1\AppData\Local\Temp
+    udp = 10001
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ETHSW INET-SW]]
+        1 = access 1 CE1 f6/0
+        14 = access 1 RA-GW-1 f0/1
+        31 = access 1 UK-CLIENT-USER f0/0
+        x = -962.800289702
+        y = 129.043109857
+        z = 1.0
+    [[ROUTER CE2]]
+        console = 2002
+        aux = 2503
+        cnfg = configs\CE2.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = PE2-SW 1
+        f0/1 = PE2 f0/1
+        slot1 = PA-2FE-TX
+        f1/1 = CE-SW 2
+        slot2 = PA-2FE-TX
+        slot3 = PA-8T
+        slot4 = PA-2FE-TX
+        f4/0 = nio_gen_eth:\device\npf_{ba1d971f-3453-4c6a-983d-5eeac3aa66c7}
+        slot6 = PA-2FE-TX
+        x = -510.588132286
+        y = -71.545201898
+        z = 1.0
+    [[ROUTER CE1]]
+        console = 2001
+        aux = 2501
+        cnfg = configs\CE1.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = PE1-SW 1
+        f0/1 = PE1 f0/1
+        slot1 = PA-2FE-TX
+        f1/1 = CE-SW 1
+        slot2 = PA-2FE-TX
+        slot3 = PA-8T
+        slot4 = PA-2FE-TX
+        f4/0 = nio_gen_eth:\device\npf_{ba1d971f-3453-4c6a-983d-5eeac3aa66c7}
+        slot6 = PA-2FE-TX
+        f6/0 = INET-SW 1
+        x = -681.324676319
+        y = -69.3883476484
+        z = 1.0
+[127.0.0.1:7201]
+    workingdir = C:\Users\JOHNC~1\AppData\Local\Temp
+    udp = 10101
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ROUTER CE3-1]]
+        console = 2004
+        aux = 2505
+        cnfg = configs\CE3-1.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = PE4 f0/0
+        f0/1 = CE-SW 4
+        slot1 = PA-2FE-TX
+        f1/0 = CE3-0 f1/0
+        slot2 = PA-2FE-TX
+        f2/1 = SP2-PE2 f2/1
+        slot3 = PA-8T
+        slot4 = PA-2FE-TX
+        slot6 = PA-2FE-TX
+        f6/0 = CH-INET 4
+        x = -237.579510314
+        y = -44.882250994
+        z = 1.0
+    [[ROUTER CE3-0]]
+        console = 2003
+        aux = 2504
+        cnfg = configs\CE3-0.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = PE3 f0/0
+        f0/1 = CE-SW 3
+        slot1 = PA-2FE-TX
+        f1/0 = CE3-1 f1/0
+        slot2 = PA-2FE-TX
+        slot3 = PA-8T
+        slot4 = PA-2FE-TX
+        slot6 = PA-2FE-TX
+        f6/0 = CH-INET 3
+        x = -393.579510315
+        y = -42.882250994
+        z = 1.0
+[127.0.0.1:7206]
+    workingdir = C:\Users\JOHNC~1\AppData\Local\Temp
+    udp = 10601
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ROUTER P2]]
+        console = 2013
+        aux = 2514
+        cnfg = configs\P2.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = PE3 f1/1
+        f0/1 = PE4 f1/1
+        slot1 = PA-2FE-TX
+        f1/0 = PE1 f1/1
+        f1/1 = PE2 f1/1
+        slot2 = PA-2FE-TX
+        f2/0 = RR1 f2/0
+        f2/1 = P1 f2/0
+        slot3 = PA-2FE-TX
+        f3/0 = ABSR-1 f0/1
+        f3/1 = RR2 f3/1
+        slot4 = PA-2FE-TX
+        f4/0 = ASBR-2 f0/1
+        f4/1 = RA-GW-1 f4/1
+        slot6 = PA-2FE-TX
+        f6/0 = Central-Service f0/1
+        f6/1 = RA-GW-2 f6/1
+        symbol = label_switch_router
+        x = -363.915513391
+        y = 371.301515189
+        z = 1.0
+        hx = 63.7193000901
+        hy = 14.7071067812
+    [[ROUTER RR1]]
+        console = 2014
+        aux = 2515
+        cnfg = configs\RR1.cfg
+        slot0 = C7200-IO-2FE
+        slot1 = PA-2FE-TX
+        slot2 = PA-2FE-TX
+        f2/0 = P2 f2/0
+        f2/1 = P1 f2/1
+        slot3 = PA-2FE-TX
+        slot4 = PA-2FE-TX
+        slot6 = PA-2FE-TX
+        x = -536.294193047
+        y = 555.970562749
+        z = 1.0
+        hx = 16.1715728753
+        hy = 18.6360389693
+[127.0.0.1:7207]
+    workingdir = C:\Users\JOHNC~1\AppData\Local\Temp
+    udp = 10701
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ROUTER SP2-PE1]]
+        console = 2016
+        aux = 2517
+        cnfg = configs\SP2-PE1.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = SP2-CE1 f0/0
+        f0/1 = JAPAN-P f0/0
+        slot1 = PA-2FE-TX
+        f1/0 = Italy f1/0
+        f1/1 = CE5-1 f1/1
+        slot2 = PA-2FE-TX
+        slot3 = PA-8T
+        s3/0 = SP2-CE1 s3/0
+        slot4 = PA-2FE-TX
+        slot6 = PA-2FE-TX
+        f6/0 = nio_gen_eth:\device\npf_{6125fe9f-1385-463e-938a-44fbf81d9c6b}
+        x = 347.11305731
+        y = 501.201010127
+        z = 1.0
+    [[ROUTER RR2]]
+        console = 2015
+        aux = 2516
+        cnfg = configs\RR2.cfg
+        slot0 = C7200-IO-2FE
+        slot1 = PA-2FE-TX
+        slot2 = PA-2FE-TX
+        slot3 = PA-2FE-TX
+        f3/0 = P1 f3/0
+        f3/1 = P2 f3/1
+        slot4 = PA-2FE-TX
+        slot6 = PA-2FE-TX
+        x = -349.678969358
+        y = 547.701010127
+        z = 1.0
+        hx = 9.17157287525
+        hy = 15.6715728753
+[127.0.0.1:7204]
+    workingdir = C:\Users\JOHNC~1\AppData\Local\Temp
+    udp = 10401
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ETHSW PE2-SW]]
+        1 = access 10 CE2 f0/0
+        5 = access 50 CE5-1 f0/0
+        15 = dot1q 1 PE2 f0/0
+        x = -613.488673244
+        y = 70.9964286623
+        z = 1.0
+    [[ROUTER PE2]]
+        console = 2009
+        aux = 2510
+        cnfg = configs\PE2.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = PE2-SW 15
+        f0/1 = CE2 f0/1
+        slot1 = PA-2FE-TX
+        f1/0 = P1 f1/1
+        f1/1 = P2 f1/1
+        slot2 = PA-2FE-TX
+        slot3 = PA-2FE-TX
+        slot4 = PA-2FE-TX
+        slot6 = PA-2FE-TX
+        x = -543.319625685
+        y = 186.60303038
+        z = 1.0
+        hx = 12.4644660941
+        hy = 15.1715728752
+    [[ROUTER PE3]]
+        console = 2010
+        aux = 2511
+        cnfg = configs\PE3.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = CE3-0 f0/0
+        slot1 = PA-2FE-TX
+        f1/0 = P1 f0/0
+        f1/1 = P2 f0/0
+        slot2 = PA-2FE-TX
+        slot3 = PA-8T
+        s3/0 = CE4 s3/0
+        s3/1 = SINGAPORE s3/1
+        slot4 = PA-2FE-TX
+        slot5 = PA-2FE-TX
+        slot6 = PA-2FE-TX
+        x = -392.520635812
+        y = 183.895923599
+        z = 1.0
+        hx = 11.0
+        hy = 18.0
+[127.0.0.1:7205]
+    workingdir = C:\Users\JOHNC~1\AppData\Local\Temp
+    udp = 10501
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ROUTER P1]]
+        console = 2012
+        aux = 2513
+        cnfg = configs\P1.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = PE3 f1/0
+        f0/1 = PE4 f1/0
+        slot1 = PA-2FE-TX
+        f1/0 = PE1 f1/0
+        f1/1 = PE2 f1/0
+        slot2 = PA-2FE-TX
+        f2/0 = P2 f2/1
+        f2/1 = RR1 f2/1
+        slot3 = PA-2FE-TX
+        f3/0 = RR2 f3/0
+        f3/1 = ABSR-1 f0/0
+        slot4 = PA-2FE-TX
+        f4/0 = RA-GW-1 f4/0
+        f4/1 = ASBR-2 f0/0
+        slot6 = PA-2FE-TX
+        f6/0 = RA-GW-2 f6/0
+        f6/1 = Central-Service f0/0
+        symbol = label_switch_router
+        x = -530.9277067
+        y = 377.857864376
+        z = 1.0
+        hx = -21.0624458406
+        hy = 14.3786796564
+    [[ROUTER PE4]]
+        console = 2011
+        aux = 2512
+        cnfg = configs\PE4.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = CE3-1 f0/0
+        f0/1 = CE4 f0/1
+        slot1 = PA-2FE-TX
+        f1/0 = P1 f0/1
+        f1/1 = P2 f0/1
+        slot2 = PA-2FE-TX
+        slot3 = PA-8T
+        slot4 = PA-2FE-TX
+        slot5 = PA-2FE-TX
+        slot6 = PA-2FE-TX
+        x = -227.976479934
+        y = 178.845671067
+        z = 1.0
+        hx = 8.68629150101
+        hy = 14.5857864376
+[127.0.0.1:7208]
+    workingdir = C:\Users\JOHNC~1\AppData\Local\Temp
+    udp = 10801
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ROUTER SP2-CE2]]
+        console = 2018
+        aux = 2519
+        cnfg = configs\SP2-CE2.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = SP2-PE2 f0/0
+        f0/1 = SP2-CE1 f0/1
+        slot1 = PA-2FE-TX
+        f1/0 = NEET-LAN f0/0
+        f1/1 = nio_gen_eth:\device\npf_{ba1d971f-3453-4c6a-983d-5eeac3aa66c7}
+        slot2 = PA-2FE-TX
+        slot3 = PA-8T
+        slot4 = PA-2FE-TX
+        x = 556.787155503
+        y = 274.446609406
+        z = 1.0
+    [[ROUTER SP2-PE2]]
+        console = 2017
+        aux = 2518
+        cnfg = configs\SP2-PE2.cfg
+        slot0 = C7200-IO-2FE
+        f0/0 = SP2-CE2 f0/0
+        f0/1 = JAPAN-P f0/1
+        slot1 = PA-2FE-TX
+        f1/0 = SINGAPORE f1/0
+        slot2 = PA-2FE-TX
+        f2/1 = CE3-1 f2/1
+        slot3 = PA-8T
+        slot4 = PA-2FE-TX
+        slot6 = PA-2FE-TX
+        x = 336.826694021
+        y = 273.424314829
+        z = 1.0
+[127.0.0.1:7209]
+    workingdir = C:\Users\JOHNC~1\AppData\Local\Temp
+    udp = 10901
+    [[7200]]
+        image = C:\Users\John C\Desktop\C7200-AD.BIN
+        idlepc = 0x60639c18
+        sparsemem = True
+        ghostios = True
+    [[ROUTER UK-CLIENT-LAN]]
+        console = 2019
+        aux = 2520
+        cnfg = configs\UK-CLIENT-LAN.cfg
+        slot0 = C7200-IO-2FE
+        slot1 = PA-2FE-TX
+        f1/0 = UK-CLIENT-USER f1/0
+        slot2 = PA-2FE-TX
+        slot3 = PA-2FE-TX
+        slot4 = PA-2FE-TX
+        x = -1225.29733111
+        y = 253.399315468
+        z = 1.0
+[GNS3-DATA]
+    configs = configs
+    m11 = 0.707106781187
+    m22 = 0.707106781187
+    [[NOTE 1]]
+        text = "ce5 F0/1 -sw-6 PORT TO VRF USA VLAN-500\nG3/0=GLOBAL EIGRP\n"
+        x = -1566.49137803
+        y = -178.454798103
+    [[NOTE 2]]
+        text = "CSR1K G1.11>P1:f2/1\nCSR1K G1.10>P2:f2/0"
+        x = -702.500000001
+        y = 392.0
+    [[NOTE 3]]
+        text = "CE5-1=F0/1->SW 7PORT VLAN 501"
+        x = -1552.41569286
+        y = -116.514718627
+    [[NOTE 4]]
+        text = "GERMANY-F0/1 VLAN 900\nSUBNET:130.1.1.0/24"
+        x = -486.866053072
+        y = 128.333477758
+    [[NOTE 5]]
+        text = "6"
+        x = 424.264068712
+        y = -177.462986798
+    [[NOTE 6]]
+        text = "CSR1K G1.30>P1:F3/0\nCSR1K G1.31>P2:F3/1"
+        x = -262.0
+        y = 384.0
+    [[NOTE 7]]
+        text = "7"
+        x = 234.759451354
+        y = -140.693434176
+    [[NOTE 8]]
+        text = "ATOM-LINK 130.1.1.1"
+        x = -664.971175493
+        y = 165.310137162
+    [[NOTE 9]]
+        text = "bgp as 655.70"
+        x = 57.0
+        y = -143.0
+    [[NOTE 10]]
+        text = "bgp as 655.60"
+        x = 373.0
+        y = -217.0
+    [[NOTE 11]]
+        text = "ATOM-LINK 130.1.1.2"
+        x = -487.487373415
+        y = 160.360389693
+    [[NOTE 12]]
+        text = "G1/0 ASBR"
+        x = 12.179761571
+        y = 315.818325857
+    [[NOTE 13]]
+        text = "UK-F0/1 VLAN 900\nSUBNET: 130.1.1.0/24"
+        x = -664.264068713
+        y = 131.369011664
+    [[NOTE 14]]
+        text = "PPPOE SERVER"
+        x = -821.584919886
+        y = 497.674710937
+    [[NOTE 15]]
+        text = "15"
+        x = -4.42229562139
+        y = 13.5079501775
+        interface = SW6 15
+    [[NOTE 16]]
+        text = "2"
+        x = 74.5003223526
+        y = 7.11322013351
+        interface = SW6 2
+    [[NOTE 17]]
+        text = "1"
+        x = 74.5477942646
+        y = 24.6758148361
+        interface = SW6 1
+    [[NOTE 18]]
+        text = "f2/0"
+        x = 6.78284728437
+        y = 52.21027811
+        interface = EDGE-INTER-AS f2/0
+    [[NOTE 19]]
+        text = "f1/1"
+        x = 63.8834395525
+        y = -3.42072307009
+        interface = EDGE-INTER-AS f1/1
+    [[NOTE 20]]
+        text = "f2/1"
+        x = 62.7147203935
+        y = 48.7775165378
+        interface = EDGE-INTER-AS f2/1
+    [[NOTE 21]]
+        text = "f1/0"
+        x = 5.01951409854
+        y = -6.58482829611
+        interface = EDGE-INTER-AS f1/0
+    [[NOTE 22]]
+        text = "f0/0"
+        x = -6.98908710648
+        y = 21.065702194
+        interface = TOKYO-LAN f0/0
+    [[NOTE 23]]
+        text = "4"
+        x = 26.0896048902
+        y = 54.8773001104
+        interface = US-INET 4
+    [[NOTE 24]]
+        text = "5"
+        x = 42.9738106509
+        y = 55.2955742337
+        interface = US-INET 5
+    [[NOTE 25]]
+        text = "2"
+        x = 2.72143939082
+        y = -6.92522550359
+        interface = US-INET 2
+    [[NOTE 26]]
+        text = "3"
+        x = 70.0459166165
+        y = -4.16382020168
+        interface = US-INET 3
+    [[NOTE 27]]
+        text = "1"
+        x = 16.2502055173
+        y = -19.0634483811
+        interface = US-INET 1
+    [[NOTE 28]]
+        text = "f6/0"
+        x = 42.4103951098
+        y = -16.8773001104
+        interface = CE5-0 f6/0
+    [[NOTE 29]]
+        text = "f0/1"
+        x = 66.3243468645
+        y = -0.124373574263
+        interface = CE5-0 f0/1
+    [[NOTE 30]]
+        text = "f0/0"
+        x = 69.7933987549
+        y = 37.6922212597
+        interface = CE5-0 f0/0
+    [[NOTE 31]]
+        text = "f1/0"
+        x = 72.9847600685
+        y = 23.1040662403
+        interface = CE5-0 f1/0
+    [[NOTE 32]]
+        text = "f2/0"
+        x = 1.30631349885
+        y = -2.40307841169
+        interface = CE5-0 f2/0
+    [[NOTE 33]]
+        text = "f2/1"
+        x = 18.6434095751
+        y = -15.3348136646
+        interface = CE5-0 f2/1
+    [[NOTE 34]]
+        text = "f6/0"
+        x = 25.5261893491
+        y = -17.2955742337
+        interface = CE5-1 f6/0
+    [[NOTE 35]]
+        text = "f1/0"
+        x = -6.98476006852
+        y = 20.8959337597
+        interface = CE5-1 f1/0
+    [[NOTE 36]]
+        text = "f0/1"
+        x = 62.5014055247
+        y = -5.01235036178
+        interface = CE5-1 f0/1
+    [[NOTE 37]]
+        text = "f0/0"
+        x = 70.854755989
+        y = 34.9235230883
+        interface = CE5-1 f0/0
+    [[NOTE 38]]
+        text = "f2/0"
+        x = -3.29592186304
+        y = 5.18910900303
+        interface = CE5-1 f2/0
+    [[NOTE 39]]
+        text = "f2/1"
+        x = 1.65604213799
+        y = -2.85068018273
+        interface = CE5-1 f2/1
+    [[NOTE 40]]
+        text = "f1/1"
+        x = 69.7947919441
+        y = 37.6889542606
+        interface = CE5-1 f1/1
+    [[NOTE 41]]
+        text = "f0/0"
+        x = 65.7785606092
+        y = 44.9252255036
+        interface = USA-CLIENT-USER-1 f0/0
+    [[NOTE 42]]
+        text = "f0/1"
+        x = 72.7130159618
+        y = 17.2170758713
+        interface = DMVPN-INET f0/1
+    [[NOTE 43]]
+        text = "f0/0"
+        x = -1.5459166165
+        y = 42.1638202017
+        interface = DMVPN-INET f0/0
+    [[NOTE 44]]
+        text = "f1/0"
+        x = 72.9738299663
+        y = 20.553307972
+        interface = Central-Service f1/0
+    [[NOTE 45]]
+        text = "f0/0"
+        x = 21.6192706621
+        y = -16.3468251585
+        interface = Central-Service f0/0
+    [[NOTE 46]]
+        text = "f0/1"
+        x = 42.739081516
+        y = -16.7962664599
+        interface = Central-Service f0/1
+    [[NOTE 47]]
+        text = "f0/1"
+        x = 53.3555593193
+        y = -12.433286291
+        interface = PE4 f0/1
+    [[NOTE 48]]
+        text = "f1/0"
+        x = -0.1700262181
+        y = 44.3550746071
+        interface = PE4 f1/0
+    [[NOTE 49]]
+        text = "f1/1"
+        x = 10.2999549515
+        y = 54.9349048093
+        interface = PE4 f1/1
+    [[NOTE 50]]
+        text = "f0/0"
+        x = 31.2846671365
+        y = -17.9632034898
+        interface = PE4 f0/0
+    [[NOTE 51]]
+        text = "f0/0"
+        x = 52.2497944827
+        y = 57.0634483811
+        interface = USA-CLIENT-USER-2 f0/0
+    [[NOTE 52]]
+        text = "5"
+        x = -1.29339875489
+        y = 0.307778740284
+        interface = PE1-SW 5
+    [[NOTE 53]]
+        text = "1"
+        x = 59.7985534188
+        y = -15.7738933993
+        interface = PE1-SW 1
+    [[NOTE 54]]
+        text = "15"
+        x = 57.8783180277
+        y = 49.1543493716
+        interface = PE1-SW 15
+    [[NOTE 55]]
+        text = "f0/0"
+        x = -6.98707894373
+        y = 23.0166206511
+        interface = CHINA-NAT-DEVICE f0/0
+    [[NOTE 56]]
+        text = "f0/1"
+        x = 72.9952819033
+        y = 22.6143496332
+        interface = CHINA-NAT-DEVICE f0/1
+    [[NOTE 57]]
+        text = "f1/0"
+        x = 72.9901830668
+        y = 21.113851997
+        interface = UK-CLIENT-LAN f1/0
+    [[NOTE 58]]
+        text = "f2/1"
+        x = 34.1272759143
+        y = -17.9841124575
+        interface = RR1 f2/1
+    [[NOTE 59]]
+        text = "f2/0"
+        x = 60.6909081917
+        y = -6.86543960375
+        interface = RR1 f2/0
+    [[NOTE 60]]
+        text = "f3/0"
+        x = 3.33075822861
+        y = -4.82789765731
+        interface = RR2 f3/0
+    [[NOTE 61]]
+        text = "f3/1"
+        x = 29.5635800266
+        y = -17.852114345
+        interface = RR2 f3/1
+    [[NOTE 62]]
+        text = "f0/1"
+        x = 69.295921863
+        y = 38.810890997
+        interface = US-KS-1 f0/1
+    [[NOTE 63]]
+        text = "f0/0"
+        x = 64.6936865011
+        y = 46.4030784117
+        interface = US-KS-1 f0/0
+    [[NOTE 64]]
+        text = "f0/1"
+        x = 47.3565904249
+        y = 59.3348136646
+        interface = US-KS-2 f0/1
+    [[NOTE 65]]
+        text = "f0/0"
+        x = 64.343957862
+        y = 46.8506801827
+        interface = US-KS-2 f0/0
+    [[NOTE 66]]
+        text = "g2/0"
+        x = 59.2171527156
+        y = -8.21027811003
+        interface = ASBR-2 g2/0
+    [[NOTE 67]]
+        text = "f0/0"
+        x = -4.67377731178
+        y = 8.55803202421
+        interface = ASBR-2 f0/0
+    [[NOTE 68]]
+        text = "f0/1"
+        x = -0.464610459474
+        y = 0.088362754105
+        interface = ASBR-2 f0/1
+    [[NOTE 69]]
+        text = "g1/0"
+        x = 72.9955525347
+        y = 22.5964708275
+        interface = ASBR-2 g1/0
+    [[NOTE 70]]
+        text = "f6/0"
+        x = 0.073390803576
+        y = 44.7120762333
+        interface = CE1 f6/0
+    [[NOTE 71]]
+        text = "f4/0"
+        x = 1.54332152493
+        y = -2.70784044218
+        interface = CE1 f4/0
+    [[NOTE 72]]
+        text = "f1/1"
+        x = 46.783692095
+        y = -15.5500976328
+        interface = CE1 f1/1
+    [[NOTE 73]]
+        text = "f0/0"
+        x = 8.70144658118
+        y = 53.7738933993
+        interface = CE1 f0/0
+    [[NOTE 74]]
+        text = "f0/1"
+        x = 28.2022487416
+        y = 61.7112274157
+        interface = CE1 f0/1
+    [[NOTE 75]]
+        text = "f4/0"
+        x = 2.4073737603
+        y = -3.76996739924
+        interface = CE2 f4/0
+    [[NOTE 76]]
+        text = "f1/1"
+        x = 26.2050009479
+        y = -17.4186248857
+        interface = CE2 f1/1
+    [[NOTE 77]]
+        text = "f0/0"
+        x = 9.30403221842
+        y = 54.2257833248
+        interface = CE2 f0/0
+    [[NOTE 78]]
+        text = "f0/1"
+        x = 27.9685467861
+        y = 61.6822942703
+        interface = CE2 f0/1
+    [[NOTE 79]]
+        text = "f1/1"
+        x = 0.340465338219
+        y = -1.09447543626
+        interface = CE4 f1/1
+    [[NOTE 80]]
+        text = "f0/1"
+        x = 12.6444406807
+        y = 56.433286291
+        interface = CE4 f0/1
+    [[NOTE 81]]
+        text = "s3/0"
+        x = 2.85146267616
+        y = 48.2881284468
+        interface = CE4 s3/0
+    [[NOTE 82]]
+        text = "f6/0"
+        x = 3.66306782342
+        y = 49.1908883721
+        interface = SP2-PE1 f6/0
+    [[NOTE 83]]
+        text = "f1/1"
+        x = -3.7947919441
+        y = 6.31104573942
+        interface = SP2-PE1 f1/1
+    [[NOTE 84]]
+        text = "s3/0"
+        x = 72.7822021725
+        y = 24.4598821829
+        interface = SP2-PE1 s3/0
+    [[NOTE 85]]
+        text = "f0/0"
+        x = 72.9849416937
+        y = 23.0974687943
+        interface = SP2-PE1 f0/0
+    [[NOTE 86]]
+        text = "f0/1"
+        x = 1.3152423858
+        y = -2.41467048578
+        interface = SP2-PE1 f0/1
+    [[NOTE 87]]
+        text = "f1/0"
+        x = 21.9058573
+        y = -16.4307168519
+        interface = SP2-PE1 f1/0
+    [[NOTE 88]]
+        text = "f0/0"
+        x = -2.09932916352
+        y = 41.184292853
+        interface = CHINA-CLIENT-USER1-WITHOUT-NAT f0/0
+    [[NOTE 89]]
+        text = "f0/0"
+        x = 72.9995679979
+        y = 22.1859031445
+        interface = SP2-PE2 f0/0
+    [[NOTE 90]]
+        text = "f1/0"
+        x = 33.3166701922
+        y = -17.9987464802
+        interface = SP2-PE2 f1/0
+    [[NOTE 91]]
+        text = "f0/1"
+        x = 4.33482826645
+        y = 49.8981707194
+        interface = SP2-PE2 f0/1
+    [[NOTE 92]]
+        text = "f2/1"
+        x = -1.98716394563
+        y = 2.61190161358
+        interface = SP2-PE2 f2/1
+    [[NOTE 93]]
+        text = "f0/0"
+        x = -6.99780032734
+        y = 21.5805134395
+        interface = NEET-LAN f0/0
+    [[NOTE 94]]
+        text = "f1/1"
+        x = 65.6788640277
+        y = 45.0671161149
+        interface = SP2-CE2 f1/1
+    [[NOTE 95]]
+        text = "f1/0"
+        x = 72.9978003273
+        y = 22.4194865605
+        interface = SP2-CE2 f1/0
+    [[NOTE 96]]
+        text = "f0/0"
+        x = -6.99956799793
+        y = 21.8140968555
+        interface = SP2-CE2 f0/0
+    [[NOTE 97]]
+        text = "f0/1"
+        x = 33.2853355139
+        y = 61.9989822826
+        interface = SP2-CE2 f0/1
+    [[NOTE 98]]
+        text = "f0/0"
+        x = 72.9952631483
+        y = 22.6155694104
+        interface = UK-CLIENT-USER2 f0/0
+    [[NOTE 99]]
+        text = "s3/0"
+        x = -7.05656937112
+        y = 29.5363532405
+        interface = SP2-CE1 s3/0
+    [[NOTE 100]]
+        text = "f1/1"
+        x = 66.3840180345
+        y = -0.0342310932348
+        interface = SP2-CE1 f1/1
+    [[NOTE 101]]
+        text = "f1/0"
+        x = 72.9890871065
+        y = 22.934297806
+        interface = SP2-CE1 f1/0
+    [[NOTE 102]]
+        text = "f0/1"
+        x = 32.7146644861
+        y = -17.9989822826
+        interface = SP2-CE1 f0/1
+    [[NOTE 103]]
+        text = "f0/0"
+        x = -6.98494169366
+        y = 20.9025312057
+        interface = SP2-CE1 f0/0
+    [[NOTE 104]]
+        text = "f6/1"
+        x = 43.8807293379
+        y = 65.8468251585
+        interface = P1 f6/1
+    [[NOTE 105]]
+        text = "f4/1"
+        x = 70.1737773118
+        y = 40.9419679758
+        interface = P1 f4/1
+    [[NOTE 106]]
+        text = "f3/0"
+        x = 69.5865522142
+        y = 61.0348720716
+        interface = P1 f3/0
+    [[NOTE 107]]
+        text = "f2/1"
+        x = 31.3727240857
+        y = 67.4841124575
+        interface = P1 f2/1
+    [[NOTE 108]]
+        text = "f0/1"
+        x = 65.6700262181
+        y = 5.14492539286
+        interface = P1 f0/1
+    [[NOTE 109]]
+        text = "f2/0"
+        x = 72.4692137935
+        y = 25.9309401777
+        interface = P1 f2/0
+    [[NOTE 110]]
+        text = "f4/0"
+        x = -4.20953151627
+        y = 11.6125742848
+        interface = P1 f4/0
+    [[NOTE 111]]
+        text = "f6/0"
+        x = -6.48116136424
+        y = 36.4704547652
+        interface = P1 f6/0
+    [[NOTE 112]]
+        text = "f0/0"
+        x = 55.3593153465
+        y = -5.32455943174
+        interface = P1 f0/0
+    [[NOTE 113]]
+        text = "f3/1"
+        x = 71.0907765471
+        y = 16.9761240272
+        interface = P1 f3/1
+    [[NOTE 114]]
+        text = "f1/1"
+        x = 30.0867921893
+        y = -12.4271389917
+        interface = P1 f1/1
+    [[NOTE 115]]
+        text = "f1/0"
+        x = 5.61342779931
+        y = -2.11608068764
+        interface = P1 f1/0
+    [[NOTE 116]]
+        text = "f6/0"
+        x = 22.760918484
+        y = 66.2962664599
+        interface = P2 f6/0
+    [[NOTE 117]]
+        text = "f4/0"
+        x = 65.9646104595
+        y = 49.4116372459
+        interface = P2 f4/0
+    [[NOTE 118]]
+        text = "f3/1"
+        x = 35.9364199734
+        y = 67.352114345
+        interface = P2 f3/1
+    [[NOTE 119]]
+        text = "f2/1"
+        x = -7.46921379354
+        y = 29.0690598223
+        interface = P2 f2/1
+    [[NOTE 120]]
+        text = "f2/0"
+        x = 4.80909180828
+        y = 56.3654396037
+        interface = P2 f2/0
+    [[NOTE 121]]
+        text = "f0/1"
+        x = 55.2000450485
+        y = -5.43490480929
+        interface = P2 f0/1
+    [[NOTE 122]]
+        text = "f4/1"
+        x = -6.24625390588
+        y = 17.5638131931
+        interface = P2 f4/1
+    [[NOTE 123]]
+        text = "f6/1"
+        x = -6.99831144194
+        y = 33.8153300179
+        interface = P2 f6/1
+    [[NOTE 124]]
+        text = "f0/0"
+        x = 26.7331376164
+        y = -12.0821083098
+        interface = P2 f0/0
+    [[NOTE 125]]
+        text = "f3/0"
+        x = 68.9263813907
+        y = 10.9736955499
+        interface = P2 f3/0
+    [[NOTE 126]]
+        text = "f1/1"
+        x = 5.09404219886
+        y = -1.63611980003
+        interface = P2 f1/1
+    [[NOTE 127]]
+        text = "f1/0"
+        x = -2.49866104548
+        y = 8.13266345044
+        interface = P2 f1/0
+    [[NOTE 128]]
+        text = "g2/0"
+        x = 2.11656044749
+        y = 47.4207230701
+        interface = JAPAN-ASBR-1 g2/0
+    [[NOTE 129]]
+        text = "f0/0"
+        x = 59.6704682884
+        y = 51.8108389898
+        interface = JAPAN-ASBR-1 f0/0
+    [[NOTE 130]]
+        text = "g1/0"
+        x = -6.99921507968
+        y = 21.7494146663
+        interface = JAPAN-ASBR-1 g1/0
+    [[NOTE 131]]
+        text = "g2/0"
+        x = 3.28527960647
+        y = -4.77751653785
+        interface = JAPAN-ASBR-2 g2/0
+    [[NOTE 132]]
+        text = "g1/0"
+        x = -6.99555253465
+        y = 21.4035291725
+        interface = JAPAN-ASBR-2 g1/0
+    [[NOTE 133]]
+        text = "f0/0"
+        x = 57.601609866
+        y = -9.53982866159
+        interface = JAPAN-ASBR-2 f0/0
+    [[NOTE 134]]
+        text = "f4/1"
+        x = 71.7462539059
+        y = 31.9361868069
+        interface = RA-GW-1 f4/1
+    [[NOTE 135]]
+        text = "f4/0"
+        x = 69.7095315163
+        y = 37.8874257152
+        interface = RA-GW-1 f4/0
+    [[NOTE 136]]
+        text = "f0/1"
+        x = 3.77850780111
+        y = -5.31491156255
+        interface = RA-GW-1 f0/1
+    [[NOTE 137]]
+        text = "f6/1"
+        x = 72.4983114419
+        y = 15.6846699821
+        interface = RA-GW-2 f6/1
+    [[NOTE 138]]
+        text = "f6/0"
+        x = 71.9811613642
+        y = 13.0295452348
+        interface = RA-GW-2 f6/0
+    [[NOTE 139]]
+        text = "f1/0"
+        x = 32.6833298078
+        y = 61.9987464802
+        interface = SINGAPORE f1/0
+    [[NOTE 140]]
+        text = "f0/1"
+        x = -5.92061842766
+        y = 12.7704029769
+        interface = SINGAPORE f0/1
+    [[NOTE 141]]
+        text = "s3/1"
+        x = -2.52871356461
+        y = 40.3769016008
+        interface = SINGAPORE s3/1
+    [[NOTE 142]]
+        text = "f1/0"
+        x = -6.99018306681
+        y = 22.886148003
+        interface = UK-CLIENT-USER f1/0
+    [[NOTE 143]]
+        text = "f0/1"
+        x = 63.4098536556
+        y = 47.9853959109
+        interface = UK-CLIENT-USER f0/1
+    [[NOTE 144]]
+        text = "f0/0"
+        x = 34.1500469818
+        y = -17.9834639812
+        interface = UK-CLIENT-USER f0/0
+    [[NOTE 145]]
+        text = "1"
+        x = -4.21301596176
+        y = 20.7829241287
+        interface = CH-INET 1
+    [[NOTE 146]]
+        text = "2"
+        x = 75.4870789437
+        y = 14.9833793489
+        interface = CH-INET 2
+    [[NOTE 147]]
+        text = "5"
+        x = 70.5993291635
+        y = -3.18429285303
+        interface = CH-INET 5
+    [[NOTE 148]]
+        text = "3"
+        x = 41.166273063
+        y = 55.5966330586
+        interface = CH-INET 3
+    [[NOTE 149]]
+        text = "4"
+        x = 52.5514451698
+        y = 52.1835351731
+        interface = CH-INET 4
+    [[NOTE 150]]
+        text = "1"
+        x = 68.4266091964
+        y = -6.71207623327
+        interface = INET-SW 1
+    [[NOTE 151]]
+        text = "14"
+        x = 64.7214921989
+        y = 43.3149115626
+        interface = INET-SW 14
+    [[NOTE 152]]
+        text = "31"
+        x = 34.3499530182
+        y = 55.9834639812
+        interface = INET-SW 31
+    [[NOTE 153]]
+        text = "f1/1"
+        x = 8.39839013403
+        y = 53.5398286616
+        interface = JAPAN-P f1/1
+    [[NOTE 154]]
+        text = "f1/0"
+        x = 6.3295317116
+        y = -7.81083898983
+        interface = JAPAN-P f1/0
+    [[NOTE 155]]
+        text = "f0/1"
+        x = 61.6651717336
+        y = -5.89817071935
+        interface = JAPAN-P f0/1
+    [[NOTE 156]]
+        text = "f0/0"
+        x = 64.6847576142
+        y = 46.4146704858
+        interface = JAPAN-P f0/0
+    [[NOTE 157]]
+        text = "s3/1"
+        x = 68.5287135646
+        y = 3.62309839924
+        interface = PE3 s3/1
+    [[NOTE 158]]
+        text = "s3/0"
+        x = 63.1485373238
+        y = -4.28812844675
+        interface = PE3 s3/0
+    [[NOTE 159]]
+        text = "f1/1"
+        x = 38.7668623836
+        y = 61.5821083098
+        interface = PE3 f1/1
+    [[NOTE 160]]
+        text = "f1/0"
+        x = 10.1406846535
+        y = 54.8245594317
+        interface = PE3 f1/0
+    [[NOTE 161]]
+        text = "f0/0"
+        x = 32.8132337095
+        y = -17.999563977
+        interface = PE3 f0/0
+    [[NOTE 162]]
+        text = "g2/0"
+        x = 60.9804859015
+        y = 50.5848282961
+        interface = ABSR-1 g2/0
+    [[NOTE 163]]
+        text = "g1/0"
+        x = 72.9992150797
+        y = 22.2505853337
+        interface = ABSR-1 g1/0
+    [[NOTE 164]]
+        text = "f0/1"
+        x = -3.42638139074
+        y = 38.5263044501
+        interface = ABSR-1 f0/1
+    [[NOTE 165]]
+        text = "f0/0"
+        x = -5.59077654712
+        y = 32.5238759728
+        interface = ABSR-1 f0/0
+    [[NOTE 166]]
+        text = "f1/1"
+        x = 60.4059578011
+        y = 51.1361198
+        interface = PE2 f1/1
+    [[NOTE 167]]
+        text = "f1/0"
+        x = 35.4132078107
+        y = 61.9271389917
+        interface = PE2 f1/0
+    [[NOTE 168]]
+        text = "f0/1"
+        x = 38.0314532139
+        y = -17.6822942703
+        interface = PE2 f0/1
+    [[NOTE 169]]
+        text = "f0/0"
+        x = 13.5501659057
+        y = -12.9528819084
+        interface = PE2 f0/0
+    [[NOTE 170]]
+        text = "g2/0"
+        x = 72.9222956214
+        y = 24.4920498225
+        interface = DATA-CENTER-CORE-SW g2/0
+    [[NOTE 171]]
+        text = "g1/0"
+        x = -6.99592591451
+        y = 22.5708854882
+        interface = DATA-CENTER-CORE-SW g1/0
+    [[NOTE 172]]
+        text = "f0/1"
+        x = -6.99528190335
+        y = 21.3856503668
+        interface = CHINA-CLIENT-USER2-NAT f0/1
+    [[NOTE 173]]
+        text = "f1/1"
+        x = 67.9986610455
+        y = 41.3673365496
+        interface = PE1 f1/1
+    [[NOTE 174]]
+        text = "f1/0"
+        x = 59.8865722007
+        y = 51.6160806876
+        interface = PE1 f1/0
+    [[NOTE 175]]
+        text = "f0/1"
+        x = 37.7977512584
+        y = -17.7112274157
+        interface = PE1 f0/1
+    [[NOTE 176]]
+        text = "f0/0"
+        x = 10.6216819723
+        y = -11.1543493716
+        interface = PE1 f0/0
+    [[NOTE 177]]
+        text = "f2/0"
+        x = 70.3536901231
+        y = 7.69259512745
+        interface = PE1 f2/0
+    [[NOTE 178]]
+        text = "f6/0"
+        x = 27.333726937
+        y = -17.5966330586
+        interface = CE3-0 f6/0
+    [[NOTE 179]]
+        text = "f0/1"
+        x = 15.1558847019
+        y = -13.7992674398
+        interface = CE3-0 f0/1
+    [[NOTE 180]]
+        text = "f0/0"
+        x = 33.1867662905
+        y = 61.999563977
+        interface = CE3-0 f0/0
+    [[NOTE 181]]
+        text = "f1/0"
+        x = 72.9967130942
+        y = 21.487221627
+        interface = CE3-0 f1/0
+    [[NOTE 182]]
+        text = "f6/0"
+        x = 15.9485548302
+        y = -14.1835351731
+        interface = CE3-1 f6/0
+    [[NOTE 183]]
+        text = "f2/1"
+        x = 67.9871639456
+        y = 41.3880983864
+        interface = CE3-1 f2/1
+    [[NOTE 184]]
+        text = "f1/0"
+        x = -6.99671309421
+        y = 22.512778373
+        interface = CE3-1 f1/0
+    [[NOTE 185]]
+        text = "f0/1"
+        x = 5.33006550428
+        y = -6.88554526061
+        interface = CE3-1 f0/1
+    [[NOTE 186]]
+        text = "f0/0"
+        x = 34.7153328635
+        y = 61.9632034898
+        interface = CE3-1 f0/0
+    [[NOTE 187]]
+        text = "6"
+        x = 2.17565313549
+        y = 38.1243735743
+        interface = CE-SW 6
+    [[NOTE 188]]
+        text = "7"
+        x = 5.99859447531
+        y = 43.0123503618
+        interface = CE-SW 7
+    [[NOTE 189]]
+        text = "1"
+        x = 21.716307905
+        y = 53.5500976328
+        interface = CE-SW 1
+    [[NOTE 190]]
+        text = "2"
+        x = 42.2949990521
+        y = 55.4186248857
+        interface = CE-SW 2
+    [[NOTE 191]]
+        text = "5"
+        x = 68.1595346618
+        y = 39.0944754363
+        interface = CE-SW 5
+    [[NOTE 192]]
+        text = "16"
+        x = 74.4206184277
+        y = 25.2295970231
+        interface = CE-SW 16
+    [[NOTE 193]]
+        text = "15"
+        x = 75.4959259145
+        y = 15.4291145118
+        interface = CE-SW 15
+    [[NOTE 194]]
+        text = "3"
+        x = 53.3441152981
+        y = 51.7992674398
+        interface = CE-SW 3
+    [[NOTE 195]]
+        text = "4"
+        x = 63.1699344957
+        y = 44.8855452606
+        interface = CE-SW 4
+    [[NOTE 196]]
+        text = "17"
+        x = 73.5115857579
+        y = 28.4546918134
+        interface = CE-SW 17
+    [[NOTE 197]]
+        text = "5"
+        x = -2.35475598898
+        y = 3.07647691165
+        interface = PE2-SW 5
+    [[NOTE 198]]
+        text = "1"
+        x = 59.1959677816
+        y = -16.2257833248
+        interface = PE2-SW 1
+    [[NOTE 199]]
+        text = "15"
+        x = 54.9498340943
+        y = 50.9528819084
+        interface = PE2-SW 15
+    [[NOTE 200]]
+        text = "f2/0"
+        x = -4.3536901231
+        y = 36.3074048726
+        interface = Italy f2/0
+    [[NOTE 201]]
+        text = "f1/0"
+        x = 44.0941427
+        y = 60.4307168519
+        interface = Italy f1/0
+    [[NOTE 202]]
+        text = "f0/0"
+        x = -5.01158575793
+        y = 9.54530818656
+        interface = Italy f0/0
+    [[NOTE 203]]
+        text = "3"
+        x = -4.49526314829
+        y = 15.3844305896
+        interface = PPPOE-CAMPUS-SW 3
+    [[NOTE 204]]
+        text = "1"
+        x = 5.09014634442
+        y = -9.98539591091
+        interface = PPPOE-CAMPUS-SW 1
+    [[NOTE 205]]
+        text = "nio_gen_eth:\device\npf_{ba1d971f-3453-4c6a-983d-5eeac3aa66c7}"
+        x = -8.25072529329
+        y = 54.9952546996
+        interface = TEST-PC2- nio_gen_eth:\device\npf_{ba1d971f-3453-4c6a-983d-5eeac3aa66c7}
+    [[Cloud TEST-PC2-]]
+        x = 103.342712477
+        y = -452.012193311
+        z = 1.0
+        connections = SW6:2:nio_gen_eth:\device\npf_{ba1d971f-3453-4c6a-983d-5eeac3aa66c7}
+    [[NOTE 206]]
+        text = "nio_gen_eth:\device\npf_{a9b18fca-4be8-4ec5-a6b2-19619a935786}"
+        x = -8.35753709531
+        y = 15.4794166187
+        interface = TEST-PC1 nio_gen_eth:\device\npf_{a9b18fca-4be8-4ec5-a6b2-19619a935786}
+    [[Cloud TEST-PC1]]
+        x = 98.7361107587
+        y = -337.941125499
+        z = 1.0
+        connections = SW6:1:nio_gen_eth:\device\npf_{a9b18fca-4be8-4ec5-a6b2-19619a935786}
+    [[Cloud DM-INET]]
+        x = -831.861615182
+        y = -367.340187158
+        hx = 50.4142135624
+        hy = 17.4264068712
+        z = 1.0
+    [[NOTE 207]]
+        text = "nio_gen_eth:\device\npf_{ba1d971f-3453-4c6a-983d-5eeac3aa66c7}"
+        x = 22.3119879515
+        y = -5.36745320102
+        interface = TEST-PC nio_gen_eth:\device\npf_{ba1d971f-3453-4c6a-983d-5eeac3aa66c7}
+    [[NOTE 208]]
+        text = "nio_gen_eth:\device\npf_{a9b18fca-4be8-4ec5-a6b2-19619a935786}"
+        x = 21.0779684396
+        y = 73.5599044132
+        interface = TEST-PC nio_gen_eth:\device\npf_{a9b18fca-4be8-4ec5-a6b2-19619a935786}
+    [[Cloud TEST-PC]]
+        x = 681.346896557
+        y = 382.1930009
+        z = 1.0
+        connections = SP2-CE2:f1/1:nio_gen_eth:\device\npf_{ba1d971f-3453-4c6a-983d-5eeac3aa66c7} SP2-CE1:f1/1:nio_gen_eth:\device\npf_{a9b18fca-4be8-4ec5-a6b2-19619a935786}
+    [[NOTE 209]]
+        text = "nio_gen_eth:\device\npf_{6125fe9f-1385-463e-938a-44fbf81d9c6b}"
+        x = 123.505398265
+        y = -5.78633255822
+        interface = INET nio_gen_eth:\device\npf_{6125fe9f-1385-463e-938a-44fbf81d9c6b}
+    [[Cloud INET]]
+        x = 176.707032443
+        y = 603.043109857
+        z = 1.0
+        connections = SP2-PE1:f6/0:nio_gen_eth:\device\npf_{6125fe9f-1385-463e-938a-44fbf81d9c6b}
+    [[NOTE 210]]
+        text = "nio_gen_eth:\device\npf_{ba1d971f-3453-4c6a-983d-5eeac3aa66c7}"
+        x = 125.38893936
+        y = 73.6549510989
+        interface = win7-pc2 nio_gen_eth:\device\npf_{ba1d971f-3453-4c6a-983d-5eeac3aa66c7}
+    [[Cloud win7-pc2]]
+        x = -748.423015002
+        y = -245.717820793
+        z = 1.0
+        connections = CE2:f4/0:nio_gen_eth:\device\npf_{ba1d971f-3453-4c6a-983d-5eeac3aa66c7}
+    [[NOTE 211]]
+        text = "nio_gen_eth:\device\npf_{ba1d971f-3453-4c6a-983d-5eeac3aa66c7}"
+        x = 126.685017713
+        y = 72.0617606633
+        interface = win7-pc1 nio_gen_eth:\device\npf_{ba1d971f-3453-4c6a-983d-5eeac3aa66c7}
+    [[Cloud win7-pc1]]
+        x = -860.145886429
+        y = -186.320851174
+        z = 1.0
+        connections = CE1:f4/0:nio_gen_eth:\device\npf_{ba1d971f-3453-4c6a-983d-5eeac3aa66c7}
+    [[NOTE 212]]
+        text = "nio_gen_eth:\device\npf_{ba1d971f-3453-4c6a-983d-5eeac3aa66c7}"
+        x = -0.447659932639
+        y = 37.8933840559
+        interface = C8 nio_gen_eth:\device\npf_{ba1d971f-3453-4c6a-983d-5eeac3aa66c7}
+    [[Cloud C8]]
+        x = -233.5
+        y = 663.0
+        z = 1.0
+        connections = Central-Service:f1/0:nio_gen_eth:\device\npf_{ba1d971f-3453-4c6a-983d-5eeac3aa66c7}

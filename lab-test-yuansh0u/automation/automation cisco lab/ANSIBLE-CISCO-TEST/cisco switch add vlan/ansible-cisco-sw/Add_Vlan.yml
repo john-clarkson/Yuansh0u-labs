@@ -1,0 +1,38 @@
+---
+- hosts: ios_devices-switch
+  gather_facts: no
+  connection: local
+
+  tasks:
+  - name: Include Login Credentials
+    include_vars: secrets.yml
+    
+  - name: include vlan files  
+    include_vars: vlan.yml
+
+
+  - name: Define Provider
+    set_fact:
+      provider:
+        host: "{{ ansible_host }}"
+        username: "{{ creds['username'] }}"
+        password: "{{ creds['password'] }}"
+
+  - name: RUN 'Add_vlan'
+    ios_config:
+      provider: "{{ provider }}"
+      lines:
+      - vlan {{ vlan }}
+      - do wr
+      - exit
+      
+  - name: RUN 'show vlan brief'
+    ios_command:
+      provider: "{{ provider }}"
+      commands:
+        - show vlan brief
+    register: vlan
+
+  - debug: var=vlan.stdout_lines
+
+

@@ -1,0 +1,10 @@
+IWAN FVRF ISSUES
+
+global-address-family ipv4
+ route-replicate from vrf IWAN-PUBLIC unicast static
+
+vrf definition IWAN-GUEST
+ !
+ address-family ipv4
+  route-replicate from vrf IWAN-INET unicast static
+ exit-address-family

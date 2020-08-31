@@ -1,0 +1,171 @@
+crypto ikev2 keyring IKEV2-KEYRING
+ peer ANY
+  address 0.0.0.0 0.0.0.0
+  pre-shared-key c1sco123
+ !
+crypto ikev2 profile default
+ match fvrf any
+ match identity remote address 0.0.0.0 
+ authentication remote pre-share
+ authentication local pre-share
+ keyring local IKEV2-KEYRING
+crypto ipsec security-association replay window-size 1024
+
+###HUB TUNNEL IPV4 OVER IPV4
+
+interface Tunnel100
+ description DMVPN-HUB-IKEV2
+ ip address 100.64.2.100 255.255.255.0
+ no ip redirects
+ ip mtu 1400
+ ip nhrp network-id 101
+ ip nhrp redirect
+ ip tcp adjust-mss 1360
+ ip ospf network point-to-multipoint
+ ip ospf 1 area 0
+ tunnel source GigabitEthernet2.123
+ tunnel mode gre multipoint
+ tunnel key 101
+ tunnel protection ipsec profile default shared
+
+ ###SPOKE TUNNEL IPV4 OVER IPV4
+
+
+interface Tunnel100
+ description DMVPN-SPOKE
+ ip address 100.64.2.1 255.255.255.0
+ no ip redirects
+ ip mtu 1400
+ ip nhrp network-id 101
+ ip nhrp nhs 100.64.2.100 nbma 123.123.123.1 multicast
+ ip tcp adjust-mss 1360
+ ip ospf network point-to-multipoint
+ ip ospf 1 area 0
+ tunnel source GigabitEthernet2.123
+ tunnel mode gre multipoint
+ tunnel key 101
+ tunnel protection ipsec profile default shared
+
+###
+SPOKE#show dmvpn 
+Legend: Attrb --> S - Static, D - Dynamic, I - Incomplete
+        N - NATed, L - Local, X - No Socket
+        T1 - Route Installed, T2 - Nexthop-override
+        C - CTS Capable, I2 - Temporary
+        # Ent --> Number of NHRP entries with same NBMA peer
+        NHS Status: E --> Expecting Replies, R --> Responding, W --> Waiting
+        UpDn Time --> Up or Down Time for a Tunnel
+==========================================================================
+
+Interface: Tunnel100, IPv4 NHRP Details 
+Type:Spoke, NHRP Peers:1, 
+
+ # Ent  Peer NBMA Addr Peer Tunnel Add State  UpDn Tm Attrb
+ ----- --------------- --------------- ----- -------- -----
+     1 123.123.123.1      100.64.2.100    UP 00:00:03     S
+
+SPOKE#show ip nhrp    
+100.64.2.100/32 via 100.64.2.100
+   Tunnel100 created 00:00:55, never expire 
+   Type: static, Flags: 
+   NBMA address: 123.123.123.1 
+
+
+
+HUB#show dmvpn
+Legend: Attrb --> S - Static, D - Dynamic, I - Incomplete
+        N - NATed, L - Local, X - No Socket
+        T1 - Route Installed, T2 - Nexthop-override
+        C - CTS Capable, I2 - Temporary
+        # Ent --> Number of NHRP entries with same NBMA peer
+        NHS Status: E --> Expecting Replies, R --> Responding, W --> Waiting
+        UpDn Time --> Up or Down Time for a Tunnel
+==========================================================================
+
+Interface: Tunnel100, IPv4 NHRP Details 
+Type:Hub, NHRP Peers:1, 
+
+ # Ent  Peer NBMA Addr Peer Tunnel Add State  UpDn Tm Attrb
+ ----- --------------- --------------- ----- -------- -----
+     1 123.123.123.2        100.64.2.1    UP 00:12:37     D
+
+HUB#show ip ospf neighbor 
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+222.222.222.2     0   FULL/  -        00:01:49    100.64.2.1      Tunnel100
+
+HUB#show cry ikev2 sa
+ IPv4 Crypto IKEv2  SA 
+
+Tunnel-id Local                 Remote                fvrf/ivrf            Status 
+2         123.123.123.1/500     123.123.123.2/500     none/none            READY  
+      Encr: AES-CBC, keysize: 256, PRF: SHA512, Hash: SHA512, DH Grp:5, Auth sign: PSK, Auth verify: PSK
+      Life/Active Time: 86400/1443 sec
+
+ IPv6 Crypto IKEv2  SA 
+
+HUB#
+
+### IPV6 OVER IPV4 TUNNEL -HUB
+ interface Tunnel100
+ description DMVPN-HUB-IKEV2
+ ipv6 address FC00:100:64:2::100/64
+ ipv6 nhrp network-id 101
+ ipv6 ospf 1 area 0
+ ipv6 ospf network point-to-multipoint
+ ipv6 ospf mtu-ignore
+ tunnel source GigabitEthernet2.123
+ tunnel mode gre multipoint
+ tunnel key 101
+ tunnel protection ipsec profile default shared
+end
+
+interface Tunnel100
+ description DMVPN-SPOKE
+ ipv6 address FC00:100:64:2::1/64
+ ipv6 nhrp map FC00:100:64:2::100/128 123.123.123.1
+ ipv6 nhrp map multicast 123.123.123.1
+ ipv6 nhrp network-id 101
+ ipv6 nhrp nhs FC00:100:64:2::100
+ ipv6 ospf 1 area 0
+ ipv6 ospf network point-to-multipoint
+ ipv6 ospf mtu-ignore
+ tunnel source GigabitEthernet2.123
+ tunnel mode gre multipoint
+ tunnel key 101
+ tunnel protection ipsec profile default shared
+
+SPOKE#show ipv ospf neighbor 
+
+            OSPFv3 Router with ID (100.64.1.4) (Process ID 1)
+
+Neighbor ID     Pri   State           Dead Time   Interface ID    Interface
+100.64.1.1        0   FULL/  -        00:00:35    24              Tunnel123
+100.64.1.1        0   FULL/  -        00:01:51    25              Tunnel100
+
+###show dmvpn
+ XE-R1#show dmvpn
+Legend: Attrb --> S - Static, D - Dynamic, I - Incomplete
+        N - NATed, L - Local, X - No Socket
+        T1 - Route Installed, T2 - Nexthop-override
+        C - CTS Capable, I2 - Temporary
+        # Ent --> Number of NHRP entries with same NBMA peer
+        NHS Status: E --> Expecting Replies, R --> Responding, W --> Waiting
+        UpDn Time --> Up or Down Time for a Tunnel
+==========================================================================
+
+Interface: Tunnel100, IPv4 NHRP Details 
+Type:Hub, NHRP Peers:1, 
+
+ # Ent  Peer NBMA Addr Peer Tunnel Add State  UpDn Tm Attrb
+ ----- --------------- --------------- ----- -------- -----
+     1 123.123.123.2        100.64.2.1    UP 00:36:35     D
+
+Interface: Tunnel100, IPv6 NHRP Details 
+Type:Hub, Total NBMA Peers (v4/v6): 1
+    1.Peer NBMA Address: 123.123.123.2
+        Tunnel IPv6 Address: FC00:100:64:2::1
+        IPv6 Target Network: FC00:100:64:2::1/128
+        # Ent: 1, Status: UP, UpDn Time: 00:03:51, Cache Attrib: D
+
+XE-R1#
