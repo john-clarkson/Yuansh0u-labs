@@ -26,21 +26,19 @@ UBUNTU_CODENAME=focal
 ~
 $uname -a
 Linux hitler-k8s 5.4.0-42-generic #46-Ubuntu SMP Fri Jul 10 00:24:02 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
-~
-$
 ```
 
 
-## Before you started, you should know this
-- Ubuntu 20.04 desktop version has snap package manager, which is by default, you did't have kubectl command line(kind is only care it's own core elements, cuz for kind perspective, I don't know your control-machine is.)to make sure you can talk to kind cluster. here is the example you should check it out.
+## Before you started, you should know this (Don't skip)
+- Ubuntu 20.04 desktop version has snap package manager, which is by default, you did't have kubectl command line(kind is only care it's own core elements, cuz for kind perspective: I don't know where your control-machine is) to make sure you can talk to kind cluster. here is the example you should check it out.
 
 
 ```sh
-##installation
+##kubectl installation
 $sudo snap install kubectl
 snap "kubectl" is already installed, see 'snap help refresh'
 ~
-##check it
+##check it out, here is my own app list as your reference if you like.
 $sudo snap list
 Name               Version             Rev   Tracking         Publisher   Notes
 chromium           85.0.4183.83        1284  latest/stable    canonical✓  -
@@ -52,7 +50,6 @@ gtk-common-themes  0.1-36-gc75f853     1506  latest/stable/…  canonical✓  -
 kubectl            1.18.8              1612  latest/stable    canonical✓  classic
 snap-store         3.36.0-80-g208fd61  467   latest/stable/…  canonical✓  -
 snapd              2.45.3.1            8790  latest/stable    canonical✓  snapd
-~
 ```
 ## Sample output 
 - I did't setup kind cluster, so kubectl is confusing...where should I go??? but don't worry, we will fix it later, keep reading!)
