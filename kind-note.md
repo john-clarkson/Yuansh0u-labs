@@ -175,7 +175,6 @@ $source <(kind completion bash)
 ```
 ## Creating/delete kind cluster  
 ```sh
-$docker image ls
 ## without --image=kindest/node:v1.19.0, by default is v1.18.2
 ## you can check version on dockerhub
 ## ref: https://hub.docker.com/r/kindest/node/tags 
