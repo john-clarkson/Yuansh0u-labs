@@ -17,7 +17,17 @@ kind was primarily designed for testing Kubernetes itself, but may be used for l
 |   feature   	| rich 	|   poor   	|  medium  	|
 | hard-to-use 	|  ez  	|   damn!  	|  medium  	|
 ```
-
+## Kind topology
+```
+                     +-------------+   
+  kind node1+--------+             |
+                     |             |   +--------+
+  kind node2+--------+ kind-bridge +---+iptables+---eth0
+                     |             |   +--------+
+  kind node3+--------+             +
+                     +-------------+
++<--------172.18.0.0/16------------><------SNAT-------->
+```
 
 ## Env setup
 - Docker: v19.03.8
