@@ -140,10 +140,10 @@ go version go1.14.4 linux/amd64
 - Download CNI binary link
 - https://github.com/containernetworking/plugins/releases
 ```sh
-cd ~/Downloads/cni-plugins-linux-amd64-v0.8.6
+$cd ~/Downloads/cni-plugins-linux-amd64-v0.8.6
 $sudo chown -R $USER:$USER $PWD
 $sudo chmod -R 777 $PWD
-ls -al 
+$ls -al 
 ```
 
 ## Kind installation
@@ -167,10 +167,10 @@ go: downloading github.com/spf13/pflag v1.0.5
 go: downloading gopkg.in/yaml.v2 v2.2.8
 go: downloading github.com/inconshreveable/mousetrap v1.0.0
 ~
-curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.8.1/kind-linux-amd64
-chmod +x ./kind
-sudo mv ./kind /usr/local/bin
-source <(kind completion bash)
+$curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.8.1/kind-linux-amd64
+$chmod +x ./kind
+$sudo mv ./kind /usr/local/bin
+$source <(kind completion bash)
 ```
 ## Creating/delete kind cluster  
 ```sh
@@ -424,8 +424,8 @@ root@kind-worker:/#
 # Appendix
 ## Portainer setup WebUI setup for docker (Open source version)  
 ```sh
-$sudo  docker volume create portainer_data
-$sudo  docker run -d -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+$sudo docker volume create portainer_data
+$sudo docker run -d -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
 #portainer login: http://localhost:9000
 #username:admin
 #password:admin@123
@@ -444,7 +444,7 @@ $sudo docker run -d --restart=unless-stopped -p 80:80 -p 443:443 -v /opt/rancher
 admin@123
 ##rancher server is host machine: in this case:172.18.0.1
 ##nav web info copy rancher setup CMD, copy to your control machine for boot it.
-$ curl --insecure -sfL https://172.18.0.1/v3/import/2bdjkptgsppgxrqkb4wd7682bxjgkv5qpf88m47f6bhrhzqdvw96qr.yaml | kubectl apply -f -
+$curl --insecure -sfL https://172.18.0.1/v3/import/2bdjkptgsppgxrqkb4wd7682bxjgkv5qpf88m47f6bhrhzqdvw96qr.yaml | kubectl apply -f -
 clusterrole.rbac.authorization.k8s.io/proxy-clusterrole-kubeapiserver created
 clusterrolebinding.rbac.authorization.k8s.io/proxy-role-binding-kubernetes-master created
 namespace/cattle-system created
