@@ -62,6 +62,7 @@ The connection to the server localhost:8080 was refused - did you specify the ri
 $
 ```
 ## After you done that, you should enable completion func to make life ezier. 
+### how to use it? just double TAB
 ```sh
 ##copy this to ~/.bashrc, save it, then 
 ## $source ~/.bashrc
@@ -73,13 +74,34 @@ export KUBE_EDITOR="code --wait"
 ```
 ## Docker installation
 ```sh
-$ sudo apt update
-$ sudo apt install docker.io
+##update apt repo
+$sudo apt update
+##search docker.io package, in this case: version:19.03.8
+$sudo apt search docker.io
+Sorting... Done
+Full Text Search... Done
+docker-doc/focal-updates,focal-updates 19.03.8-0ubuntu1.20.04 all
+  Linux container runtime -- documentation
+
+docker.io/focal-updates,now 19.03.8-0ubuntu1.20.04 amd64 [installed]
+  Linux container runtime
+##install docker package
+$sudo apt install docker.io
+```
+## Docker without sudo 
+### (Don't skip!!! if you don't do this, when you exec kind binary, it will give you a permission error. basiclly say: hey. I can't access to docker daemon...so keep in mind)
+```sh
 ##docker permission fix. without sudo docker
-$ sudo groupadd docker
-$ sudo usermod -aG docker $USER
-$ newgrp docker 
-$ sudo chmod 777 /var/run/docker.sock
+$sudo groupadd docker
+$sudo usermod -aG docker $USER
+$newgrp docker 
+$sudo chmod 777 /var/run/docker.sock
+$
+## sample output
+$docker ps -a
+CONTAINER ID        IMAGE                 COMMAND                  CREATED             STATUS                      PORTS                    NAMES
+ff72498fce1f        alpine:latest         "/bin/sh"                28 hours ago        Exited (137) 23 hours ago                            root-enable-alpine
+3ee74a4ea834        alpine:latest         "/bin/sh"                28 hours ago        Exited (137) 23 hours ago                            rootless-alpine
 ```
 ## Download Golang pack (cuz Kind is based on Golang)
 ### https://golang.org/dl/
@@ -156,7 +178,9 @@ $kind create cluster --config kind-example-config.yaml
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 networking:
+# if you wanna play your onw CNI, set to false
   disableDefaultCNI: true
+#  
   podSubnet: "10.244.0.0/16"
   serviceSubnet: "10.96.0.0/12"
 # 1 control plane node and 2 worker
@@ -179,6 +203,33 @@ nodes:
     containerPath: /opt/cni/bin/
     readOnly: false
 ```
+## Kind useful command with example
+```sh
+###create a single node, name=kind
+###--config=<your-kind-config-file> --name=<cluster-name>
+$kind create cluster
+###delete cluster
+$kind delete cluster
+###get cluster list
+$kind get cluster
+###kind will load locally docker-image, this setting will make your dev more faster,this example shows I already downloading cilium and calico CNI images, kind loaded, then when I deploy those CNI yaml. kind don't need to pull the image from internet.
+$kind load docker-image cilium/cilium:latest;
+$kind load docker-image calico/cni:v3.14.1;
+##show docker image
+$docker image ls
+REPOSITORY                                   TAG                 IMAGE ID            CREATED             SIZE
+cilium/cilium                                latest              c3b635a73418        6 weeks ago         418MB
+busybox                                      latest              c7c37e472d31        2 months ago        1.22MB
+alpine                                       latest              a24bb4013296        3 months ago        5.57MB
+calico/cni                                   v3.14.1             35a7136bc71a        3 months ago        225MB
+calico/kube-controllers                      v3.14.1             ac08a3af350b        3 months ago        52.8MB
+calico/node                                  v3.11.2             81f501755bb9        7 months ago        255MB
+calico/kube-controllers                      v3.11.2             9e897df2f2af        7 months ago        52.5MB
+osrg/gobgp                                   latest              4974819d6ccb        9 months ago        1.11GB
+
+```
+
+
 ### Optional setting: kind-node enable ssh
 ```sh
 ##reset root password under root
@@ -342,19 +393,6 @@ $helm install xxxx
 curl -s http://10.103.13.216:8080/env/api
 ```
 
-## Weavescope on docker(single machine, not on k8s, kind don't load,  weave, bug?? maybe, microk8s is working fine)
-```sh
-$sudo curl -L git.io/scope -o /usr/local/bin/scope
-$sudo chmod a+x /usr/local/bin/scope
-$scope launch
-Weave Scope is listening at the following URL(s):
-  * http://172.18.0.1:4040/
-  * http://192.168.120.136:4040/
-  * http://100.64.1.1:4040/
-$ 
-```
-
-
 ## kuard demo app playgroud
 ### with kubectl apply -f <yourfile.yaml>
 ```yaml
@@ -384,7 +422,7 @@ spec:
         resources: {}
 status: {}
 ```
-### kubectl cli way~~~
+### kubectl CLI way
 ```sh
 ##generate a kuard deployment yaml template 
 kubectl create deployment --image=gcr.io/kuar-demo/kuard-amd64:1 kuard --dry-run -o yaml
