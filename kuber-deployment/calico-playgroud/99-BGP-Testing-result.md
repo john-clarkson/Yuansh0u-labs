@@ -1,4 +1,4 @@
-# BGP-testing-result <calico---frrouting>
+# BGP-testing-result (calico v3.14---frrouting v7 alpine based)
 ## Topology
 ```text
 Network subnet range: 172.18.0.0/16
