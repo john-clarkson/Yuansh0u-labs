@@ -17,20 +17,6 @@ kind was primarily designed for testing Kubernetes itself, but may be used for l
 |   feature   	| rich 	|   poor   	|  medium  	|
 | hard-to-use 	|  ez  	|   damn!  	|  medium  	|
 ```
-## Kind topology
-```
-+<----------------YOUR UBUNTU VM HOST------------------>+
-+                                                       +
-+                    +-------------+                    +
-+ +kind node1+-------+             +                    +
-+                    +             +   +--------+       +
-+ +kind node2+-------+ kind-bridge +---+iptables+------eth0------<Vnet8>
-+                    +  layer2-SW  +   +--------+       +
-+ +kind node3+-------+             +                    +
-+                    +-------------+                    +
-+                                                       +
-+<--------172.18.0.0/16------------><-------SNAT------->+
-```
 
 ## Env setup
 - Docker: v19.03.8
@@ -235,6 +221,37 @@ nodes:
     containerPath: /opt/cni/bin/
     readOnly: false
 ```
+## Kind topology
+```
++<----------------YOUR UBUNTU VM HOST------------------>+
++                                                       +
++                    +-------------+                    +
++ +kind node1+-------+             +                    +
++                    + kind-bridge +   +--------+       +
++ +kind node2+-------+  layer2-SW  +---+iptables+------eth0------<Vnet8>-----<INET>
++                    +  172.18.0.1 +   +--------+       +
++ +kind node3+-------+             +                    +
++                    +-------------+                    +
++                                                       +
++<--------172.18.0.0/16------------><-------SNAT------->+
+```
+## Kind bridge ip address check (Auto generate)
+```sh
+$ip -c a show br-22f70cc38a10 
+5: br-22f70cc38a10: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default 
+    link/ether 02:42:9d:10:14:03 brd ff:ff:ff:ff:ff:ff
+    inet 172.18.0.1/16 brd 172.18.255.255 scope global br-22f70cc38a10
+       valid_lft forever preferred_lft forever
+    inet6 fc00:f853:ccd:e793::1/64 scope global 
+       valid_lft forever preferred_lft forever
+    inet6 fe80::42:9dff:fe10:1403/64 scope link 
+       valid_lft forever preferred_lft forever
+    inet6 fe80::1/64 scope link 
+       valid_lft forever preferred_lft forever
+~
+```
+
+
 ## Kind useful command with example
 ```sh
 ###create a single node, name=kind
