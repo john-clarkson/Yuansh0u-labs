@@ -341,39 +341,38 @@ status: {}
 - --target-port=pod port
 
 ```sh
-##generate a kuard deployment yaml template 
-kubectl create deployment --image=gcr.io/kuar-demo/kuard-amd64:1 kuard --dry-run -o yaml
-
-##service template...right...you got the idea (add new)
-kubectl expose deployment kuardelb --type=LoadBlancer --port 8080 --target-port 8080 --external-ip 1.2.3.4 --dry-run -o yaml 
-
-##Kubernetes modify service load-balancer with external-ip (live)
-$kubectl patch service kuard -p '{"spec": {"type": "LoadBalancer", "externalIPs":["1.2.3.4"]}}'
+##deploy kuard deployment 
+$kubectl create deployment --image=gcr.io/kuar-demo/kuard-amd64:1 kuard
 
 ##kubernetes add service with external-ip option
 $kubectl expose deployment kuard --name=kuardelb --port 8080 --type=LoadBalancer --external-ip=1.2.3.4
 
-##ExternalIPtesting, host(ubuntu20.04 as client) add static route to worker1=172.18.0.2
-$ sudo ip route add 1.2.3.4/32 via 172.18.0.2 dev br-0a1a1395012d
+##Kubernetes modify service load-balancer with external-ip (live)
+$kubectl patch service kuard -p '{"spec": {"type": "LoadBalancer", "externalIPs":["1.2.3.4"]}}'
+
+##ExternalIPtesting, host(ubuntu20.04 as client) add static route---->kind-nodes
+$sudo ip route add 1.2.3.4/32 via 172.18.0.2 dev br-0a1a1395012d
 [sudo] password for hitler: 
 $ ip route show
 default via 192.168.120.2 dev ens33 proto dhcp metric 100 
 1.2.3.4 via 172.18.0.2 dev br-0a1a1395012d
 
 ## curl KUARD service with tcp port 8080
-$ curl -s http://1.2.3.4:8080/env/api
+$curl -s http://1.2.3.4:8080/env/api
 {"commandLine":["/kuard"],"env":{"HOME":"/","HOSTNAME":"kuard-74684b58b8-w57zs","KUBERNETES_PORT":"tcp://10.96.0.1:443","KUBERNETES_PORT_443_TCP":"tcp://10.96.0.1:443","KUBERNETES_PORT_443_TCP_ADDR":"10.96.0.1","KUBERNETES_PORT_443_TCP_PORT":"443","KUBERNETES_PORT_443_TCP_PROTO":"tcp","KUBERNETES_SERVICE_HOST":"10.96.0.1","KUBERNETES_SERVICE_PORT":"443","KUBERNETES_SERVICE_PORT_HTTPS":"443","PATH":"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"}}
 $
 
-##linux static-route-ECMP
-sudo ip route add 1.2.3.4/32 nexthop via 172.18.0.4 dev br-0a1a1395012d nexthop via 172.18.0.3 dev br-0a1a1395012d
-$ ip route show
+##add static-route-ECMP---> next-hop kind-bridge---> kind nodes
+$sudo ip route add 1.2.3.4/32 nexthop via 172.18.0.4 dev br-0a1a1395012d nexthop via 172.18.0.3 dev br-0a1a1395012d
+
+##show route
+$ip route show
 default via 192.168.120.2 dev ens33 proto dhcp metric 100 
 1.2.3.4 
 	nexthop via 172.18.0.2 dev br-0a1a1395012d weight 1 
 	nexthop via 172.18.0.3 dev br-0a1a1395012d weight 1 
 
-## curl loop testing
+##curl loop testing
 $ while true ; do curl -s http://1.2.3.4:8080/env/api | jq '.env.HOSTNAME'; done
 "kuard-74684b58b8-2d2nl"
 "kuard-74684b58b8-2d2nl"
