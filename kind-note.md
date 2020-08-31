@@ -1,4 +1,7 @@
 # KIND(kubernetes in docker) Playgroud k8s v1.18.2
+## KIND introduction
+- kind is a tool for running local Kubernetes clusters using Docker container "nodes".
+kind was primarily designed for testing Kubernetes itself, but may be used for local development or just for fun.
 ## Env setup
 - Docker installation v19.03.8
 - HostOS: Ubuntu 20.04.1 Desktop TLS!!!! (cuz It's ez to use...)
