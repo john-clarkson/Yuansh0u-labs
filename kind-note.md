@@ -141,8 +141,8 @@ go version go1.14.4 linux/amd64
 - https://github.com/containernetworking/plugins/releases
 ```sh
 cd ~/Downloads/cni-plugins-linux-amd64-v0.8.6
-sudo chown -R $USER:$USER $PWD
-sudo chmod -R 777 $PWD
+$sudo chown -R $USER:$USER $PWD
+$sudo chmod -R 777 $PWD
 ls -al 
 ```
 
