@@ -72,9 +72,11 @@ source <(helm completion bash)
 export KUBE_EDITOR="code --wait"
 ```
 ## Docker installation
+
 ```sh
 ##update apt repo
 $sudo apt update
+
 ##search docker.io package, in this case: version:19.03.8
 $sudo apt search docker.io
 Sorting... Done
@@ -84,9 +86,11 @@ docker-doc/focal-updates,focal-updates 19.03.8-0ubuntu1.20.04 all
 
 docker.io/focal-updates,now 19.03.8-0ubuntu1.20.04 amd64 [installed]
   Linux container runtime
+
 ##install docker package
 $sudo apt install docker.io
 ```
+
 ## Docker without sudo 
 - (Don't skip!!! if you don't do this, when you exec kind binary, it will give you a permission error. basically says: hey. I can't access to docker daemon...so keep in mind)
 ```sh
@@ -156,7 +160,8 @@ source <(kind completion bash)
 ```sh
 $docker image ls 
 $kind create cluster --image=kindest/node:v1.19.0
-###login control-plane node
+
+###login to control-plane node
 docker exec -it kind-control-plane /bin/bash
 ```
 
