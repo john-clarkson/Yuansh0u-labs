@@ -54,7 +54,8 @@ snap-store         3.36.0-80-g208fd61  467   latest/stable/…  canonical✓  -
 snapd              2.45.3.1            8790  latest/stable    canonical✓  snapd
 ~
 ```
-## Sample output (I did't setup kind cluster, so kubectl is confusing...where should I go??? but don't worry, we will fix it later, keep reading!)
+## Sample output 
+- I did't setup kind cluster, so kubectl is confusing...where should I go??? but don't worry, we will fix it later, keep reading!)
 ```sh
 $kubectl get nodes
 The connection to the server localhost:8080 was refused - did you specify the right host or port?
@@ -62,7 +63,7 @@ The connection to the server localhost:8080 was refused - did you specify the ri
 $
 ```
 ## After you done that, you should enable completion func to make life ezier. 
-### how to use it? just double TAB
+- how to use it? just double TAB
 ```sh
 ##copy this to ~/.bashrc, save it, then 
 ## $source ~/.bashrc
@@ -89,7 +90,7 @@ docker.io/focal-updates,now 19.03.8-0ubuntu1.20.04 amd64 [installed]
 $sudo apt install docker.io
 ```
 ## Docker without sudo 
-### (Don't skip!!! if you don't do this, when you exec kind binary, it will give you a permission error. basiclly say: hey. I can't access to docker daemon...so keep in mind)
+- (Don't skip!!! if you don't do this, when you exec kind binary, it will give you a permission error. basically says: hey. I can't access to docker daemon...so keep in mind)
 ```sh
 ##docker permission fix. without sudo docker
 $sudo groupadd docker
@@ -104,7 +105,7 @@ ff72498fce1f        alpine:latest         "/bin/sh"                28 hours ago 
 3ee74a4ea834        alpine:latest         "/bin/sh"                28 hours ago        Exited (137) 23 hours ago                            rootless-alpine
 ```
 ## Download Golang pack (cuz Kind is based on Golang)
-### https://golang.org/dl/
+- https://golang.org/dl/
 ```sh
 cd ~/Downloads
 tar -C ~/ -xzf go1.14.6.linux-amd64.tar.gz
@@ -117,9 +118,9 @@ go version go1.14.4 linux/amd64
 ```
 
 ## Standard CNI pack privelege setting for kind-config-file loading.
-### Usage: Mapping hostpath to containers
-### Download CNI binary link
-https://github.com/containernetworking/plugins/releases
+- Usage: Mapping hostpath to containers
+- Download CNI binary link
+- https://github.com/containernetworking/plugins/releases
 ```sh
 cd ~/Downloads/cni-plugins-linux-amd64-v0.8.6
 sudo chown -R $USER:$USER $PWD
@@ -230,7 +231,7 @@ osrg/gobgp                                   latest              4974819d6ccb   
 ```
 
 
-### Optional setting: kind-node enable ssh
+## Optional setting: kind-node enable ssh
 ```sh
 ##reset root password under root
 root@kind-control-plane:~# passwd root
@@ -262,7 +263,7 @@ root@kind-control-plane:/#
 ##install ping-kind-node
 apt-get install iputils-ping
 ```
-### Rancher WebUI setup
+## Rancher WebUI setup
 
 ```sh
 ##install rancher UI for k8s
@@ -342,7 +343,7 @@ status:
 $kubectl scale deployment kuard --replicas=10
 ```
 ## Helm 3 setup ref link:
-### https://helm.sh/docs/intro/install/
+-  https://helm.sh/docs/intro/install/
 ```sh
 curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
 sudo apt-get install apt-transport-https --yes
@@ -352,7 +353,7 @@ sudo apt-get install helm
 ```
 
 ## Helm 2 setup, ref link:
-### https://helm.sh/docs/intro/install/#from-the-binary-releases
+- https://helm.sh/docs/intro/install/#from-the-binary-releases
 
 ```sh
 ##install helm version2 and tiller on k8s v1.18
@@ -394,7 +395,7 @@ curl -s http://10.103.13.216:8080/env/api
 ```
 
 ## kuard demo app playgroud
-### with kubectl apply -f <yourfile.yaml>
+- with kubectl apply -f <yourfile.yaml>
 ```yaml
 ##kuard sample yaml
 apiVersion: apps/v1
