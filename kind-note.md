@@ -26,7 +26,49 @@ $
 
 ```
 
+
+## Before you started, you should know this
+### ubuntu 20.04 desktop version has snap package manager, which is by default, you did't have kubectl command line(kind is only care it's own core elements, cuz for kind perspective, I don't know your control-machine is.)to make sure you can talk to kind cluster.here is the example you should do.
+
+
 ```sh
+##installation
+$sudo snap install kubectl
+snap "kubectl" is already installed, see 'snap help refresh'
+~
+##check it
+$sudo snap list
+Name               Version             Rev   Tracking         Publisher   Notes
+chromium           85.0.4183.83        1284  latest/stable    canonical✓  -
+code               a0479759            42    latest/stable    vscode✓     classic
+core               16-2.45.3.1         9804  latest/stable    canonical✓  core
+core18             20200724            1885  latest/stable    canonical✓  base
+gnome-3-34-1804    0+git.3009fc7       36    latest/stable/…  canonical✓  -
+gtk-common-themes  0.1-36-gc75f853     1506  latest/stable/…  canonical✓  -
+kubectl            1.18.8              1612  latest/stable    canonical✓  classic
+snap-store         3.36.0-80-g208fd61  467   latest/stable/…  canonical✓  -
+snapd              2.45.3.1            8790  latest/stable    canonical✓  snapd
+~
+```
+## Sample outputs (I did't setup kind cluster, so kubectl is confusing...)
+```sh
+$kubectl get nodes
+The connection to the server localhost:8080 was refused - did you specify the right host or port?
+~
+$
+```
+## After you done that, you should enable completion func to make life ezier. 
+```sh
+##copy this to ~/.bashrc, save it, then source ~/.bashrc
+source <(kind completion bash)
+source <(kubectl completion bash)
+source <(kubeadm completion bash)
+source <(helm completion bash)
+export KUBE_EDITOR="code --wait"
+```
+## Docker installation
+```sh
+$ sudo apt update
 $ sudo apt install docker.io
 ##docker permission fix. without sudo docker
 $ sudo groupadd docker
