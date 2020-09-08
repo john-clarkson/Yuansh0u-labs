@@ -82,6 +82,14 @@ $ls
  Downloads           gobuster-test.txt             python3-nornir-playgroud
  frr-debian          kuber-deployment              README.md
 ~
+```
+### vscode with git
+```sh
+#!bin/bash
 
+git commit -a --allow-empty-message -m ''
+
+git push -f origin master
+```
 
    
