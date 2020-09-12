@@ -1,5 +1,5 @@
 # Git-note
-
+###author: yuanshou
 ### create a new repository on the command line
 ```sh
 echo "# blank" >> README.md
