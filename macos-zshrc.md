@@ -174,7 +174,10 @@ export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/us
 # POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=('status' 'os_icon' 'todo' 'context' 'dir' 'vcs')
 # POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=('nvm' 'rvm' 'load' 'ram_joined' 'battery' 'time')
 # 
-
+[[  ]] && source <(kubectl completion zsh)
+[[  ]] && source <(kind completion zsh)
+[[  ]] && source <(helm completion zsh)
+[[  ]] && source <(octant completion zsh)
 ```
 ## Watch this
 ![](https://i.imgur.com/Ub0ruaw.png)
