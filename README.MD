@@ -12,11 +12,4 @@
 - Docker
 - Kubernetes
 ### Hope you all love it, Have fun!
-## By the way, I was looking for a job... 
-## Yuanshou
-## email: 751070874@qq.com
-## Pre-sale is prefer...or instructor
-## company??? whatever,,,cloud provider or network vendor??hahaha
-## where am I? BEIJING.
-## if you can help me, plz lv a comment, you'r saving a life.
-# Big thank you~
+
